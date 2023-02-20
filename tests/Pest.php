@@ -1,7 +1,8 @@
 <?php
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,6 +16,7 @@ use Tests\TestCase;
 */
 
 uses(TestCase::class, RefreshDatabase::class)->in('Feature');
+uses(TestCase::class, RefreshDatabase::class)->in('Unit');
 
 /*
 |--------------------------------------------------------------------------
@@ -42,7 +44,7 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function something()
+function adminUser()
 {
-    // ..
+    return User::factory()->create(['id' => 450765]);
 }
