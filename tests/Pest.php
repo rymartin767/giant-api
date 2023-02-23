@@ -2,6 +2,7 @@
 
 use Tests\TestCase;
 use App\Models\User;
+use Laravel\Sanctum\Sanctum;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /*
@@ -47,4 +48,12 @@ expect()->extend('toBeOne', function () {
 function adminUser()
 {
     return User::factory()->create(['id' => 450765]);
+}
+
+function sanctumToken()
+{
+    return Sanctum::actingAs(
+        User::factory()->create(),
+        ['*']
+    );
 }

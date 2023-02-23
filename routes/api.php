@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Events\Index;
 
@@ -15,8 +14,19 @@ use App\Http\Controllers\Events\Index;
 |
 */
 
-// ! EVENTS
+// TODO EVENTS
 
 Route::middleware('auth:sanctum')->group(function() {
-    // Route::get('events', Index::class)->name('events.index');
+    Route::get('events', Index::class)->name('events.index');
+});
+
+// ! ROUTE NOT FOUND
+Route::fallback(function(){
+    return response()->json([
+        'error' => [
+            'message' => 'Route Not Found',
+            'type' => 'RouteException',
+            'code' => 404
+        ]
+    ], 404);
 });
