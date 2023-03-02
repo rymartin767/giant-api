@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Events\Index;
+use App\Http\Controllers\Airlines\Show;
+use App\Http\Controllers\Airlines\Index as AirlinesIndex;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,10 +16,12 @@ use App\Http\Controllers\Events\Index;
 |
 */
 
-// TODO EVENTS
+// TODO AIRLINES
 
 Route::middleware('auth:sanctum')->group(function() {
     Route::get('events', Index::class)->name('events.index');
+    Route::get('airlines', AirlinesIndex::class)->name('airlines.index');
+    Route::get('airline', Show::class)->name('airline.show');
 });
 
 // ! ROUTE NOT FOUND
@@ -25,7 +29,7 @@ Route::fallback(function(){
     return response()->json([
         'error' => [
             'message' => 'Route Not Found',
-            'type' => 'RouteException',
+            'type' => 'Symfony\Component\Routing\Exception\RouteNotFoundException',
             'code' => 404
         ]
     ], 404);

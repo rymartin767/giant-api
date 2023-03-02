@@ -8,10 +8,10 @@
             @foreach ($events as $event)
                 <div class="col-span-2 sm:col-span-1 p-3 bg-white rounded-md shadow-md">
                     <img src="{{ Storage::disk('s3-public')->url($event->image_url) }}" alt="image">
-                    <div class="text-center mt-2">{{ $event['title'] }}</div>
-                    <div class="text-xs text-center mb-1">{{ \Carbon\Carbon::parse($event['date'])->format('m/d/Y') }}</div>
-                    <div class="text-xs text-center mb-1">{{ $event['location'] ?? 'Remote/None' }}</div>
-                    <button wire:click="deleteEvent({{$event['id']}})" type="button" class="w-full text-xs bg-red-500 text-white font-semibold p-2 rounded-md shadow">DELETE</button>
+                    <div class="text-center mt-2">{{ $event->title }}</div>
+                    <div class="text-xs text-center mb-1">{{ \Carbon\Carbon::parse($event->date)->format('m/d/Y') }}</div>
+                    <div class="text-xs text-center mb-1">{{ $event->location ?? 'Remote/None' }}</div>
+                    <button wire:click="deleteEvent({{$event->id}})" type="button" class="w-full text-xs bg-red-500 text-white font-semibold p-2 rounded-md shadow">DELETE</button>
                 </div>
             @endforeach
         </div>

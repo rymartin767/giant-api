@@ -47,7 +47,7 @@ expect()->extend('toBeOne', function () {
 
 function adminUser()
 {
-    return User::factory()->create(['id' => 450765]);
+    return User::factory()->create(['id' => env('ADMIN_KEY')]);
 }
 
 function sanctumToken()

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Livewire\Airlines;
 use App\Http\Livewire\Events;
 use Illuminate\Support\Facades\Route;
 
@@ -41,4 +42,5 @@ Route::middleware([
 
 Route::middleware('admin')->group(function() {
     Route::get('events', Events::class)->name('events');
+    Route::get('airlines', Airlines::class)->name('airlines');
 });

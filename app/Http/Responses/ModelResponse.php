@@ -2,25 +2,23 @@
 
 namespace App\Http\Responses;
 
-use Exception;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Support\Responsable;
 
-final readonly class ErrorResponse implements Responsable
+final readonly class ModelResponse implements Responsable
 {
     public function __construct(
-        private readonly Int $status,
-        public Exception $exception
+        private readonly Model $model,
+        private readonly Int $status = 200,
     ) {}
     
     public function toResponse($request): JsonResponse
     {
         return new JsonResponse(
             data: [
-                'error' => [
-                    'message' => $this->exception->getMessage(),
-                    'type' => $this->exception::class,
-                    'code' => $this->status
+                'data' => [
+                    $this->model
                 ]
             ],
             status: $this->status

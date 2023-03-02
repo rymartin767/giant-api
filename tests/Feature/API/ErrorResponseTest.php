@@ -16,19 +16,19 @@ test('api error response for bad or missing parameter', function() {
     $this->actingAs(sanctumToken())->get("/v2/airline?icao=")
         ->assertExactJson([
             'error' => [
-                'message' => 'Bad or Missing Parameter',
-                'type' => 'Symfony\Component\Routing\Exception\RouteNotFoundException',
-                'code' => 400
+                'message' => 'Please check your request parameters.',
+                'type' => 'Symfony\Component\HttpFoundation\Exception\BadRequestException',
+                'code' => 401
             ]
     ])
-    ->assertStatus(400);
+    ->assertStatus(401);
 });
 
 test('api error response for model not found exception', function() {
-    $this->actingAs(sanctumToken())->get("/v2/airline?icao=ABCD")
+    $this->actingAs(sanctumToken())->get("/v2/airline?icao=ABC")
         ->assertExactJson([
             'error' => [
-                'message' => 'Airline Model Not Found',
+                'message' => 'Airline with ICAO code ABC not found.',
                 'type' => 'Illuminate\Database\Eloquent\ModelNotFoundException',
                 'code' => 404
             ]
