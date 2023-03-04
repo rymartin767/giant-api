@@ -6,7 +6,7 @@ use App\Models\Airline;
 use App\Http\Responses\EmptyResponse;
 use App\Http\Responses\CollectionResponse;
 
-class Index
+class IndexController
 {
     public function __invoke()
     {

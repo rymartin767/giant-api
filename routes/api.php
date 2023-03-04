@@ -1,9 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Events\Index;
-use App\Http\Controllers\Airlines\Show;
-use App\Http\Controllers\Airlines\Index as AirlinesIndex;
+use App\Http\Controllers\Airlines\ShowController;
+use App\Http\Controllers\Flashcards\IndexController;
+use App\Http\Controllers\Events\IndexController as EventsIndexController;
+use App\Http\Controllers\Airlines\IndexController as AirlinesIndexController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,9 +20,10 @@ use App\Http\Controllers\Airlines\Index as AirlinesIndex;
 // TODO AIRLINES
 
 Route::middleware('auth:sanctum')->group(function() {
-    Route::get('events', Index::class)->name('events.index');
-    Route::get('airlines', AirlinesIndex::class)->name('airlines.index');
-    Route::get('airline', Show::class)->name('airline.show');
+    Route::get('events', EventsIndexController::class)->name('events.index');
+    Route::get('airlines', AirlinesIndexController::class)->name('airlines.index');
+    Route::get('airline', ShowController::class)->name('airline.show');
+    Route::get('flashcards', IndexController::class)->name('airline.show');
 });
 
 // ! ROUTE NOT FOUND

@@ -9,7 +9,7 @@ use App\Http\Responses\ModelResponse;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 
-class Show
+class ShowController
 {
     public function __invoke(Request $request)
     {
