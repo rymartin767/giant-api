@@ -13,7 +13,7 @@ test('api error response for route not found', function() {
 });
 
 test('api error response for bad or missing parameter', function() {
-    $this->actingAs(sanctumToken())->get("/v2/airline?icao=")
+    $this->actingAs(sanctumToken())->get("/v2/airlines?icao=")
         ->assertExactJson([
             'error' => [
                 'message' => 'Please check your request parameters.',
@@ -25,7 +25,7 @@ test('api error response for bad or missing parameter', function() {
 });
 
 test('api error response for model not found exception', function() {
-    $this->actingAs(sanctumToken())->get("/v2/airline?icao=ABC")
+    $this->actingAs(sanctumToken())->get("/v2/airlines?icao=ABC")
         ->assertExactJson([
             'error' => [
                 'message' => 'Airline with ICAO code ABC not found.',
