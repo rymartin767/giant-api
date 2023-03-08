@@ -1,3 +1,45 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Rich Editor */
+
+.rich-editor p {
+    @apply py-2;
+} 
+
+p > b, strong {
+    @apply text-blue-500;
+} 
+
+ul, ol {
+    @apply p-2;
+} 
+
+ul > li {
+    @apply list-disc list-inside mb-2;
+} 
+
+ol > li {
+    @apply list-decimal list-inside mb-2;
+} 
+
+ul > li > ul {
+    @apply px-6 space-y-2;
+} 
+
+ul > li > ol {
+    @apply px-6 space-y-2;
+} 
+
+ol > li > ol {
+    @apply px-6 space-y-2;
+}
+
+.flashcard-question {
+    @apply text-3xl font-semibold;
+}
+
+.flashcard-answer {
+    @apply text-xl font-semibold;
+}

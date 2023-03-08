@@ -10,11 +10,18 @@
                     <div class="w-full bg-purple-400">{{ $category }}</div>
                     <div class="flex flex-col space-y-3 bg-orange-400 p-3">
                         @foreach ($cards as $card)
-                            <div class="flex justify-between bg-blue-400 py-2">
-                                <div>{{ $card->question }}</div>
+                            <div class="flex flex-row bg-blue-400 py-2">
+                                <a href="{{ $card->path() }}" class="flex-1">
+                                    <div>{!! $card->question !!}</div>
+                                </a>
                                 <button wire:click="deleteFlashcard({{ $card->id }})">DELETE</button>
                             </div>
                         @endforeach
+                        <div class="flex flex-row space-x-6 text-xs italic">
+                            <div>Has Question Image: {{ $card->question_image_url ? 'True' : 'False' }}</div>
+                            <div>Has Answer Image: {{ $card->answer_image_url ? 'True' : 'False' }}</div>
+                            <div>Correct Count: 0</div>
+                        </div>
                     </div>
                 </div>
             @endforeach

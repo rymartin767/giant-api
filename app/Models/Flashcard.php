@@ -15,4 +15,9 @@ class Flashcard extends Model
     protected $casts = [
         'category' => FlashcardCategory::class
     ];
+
+    public function path() : string
+    {
+        return "/flashcards/$this->id";
+    }
 }

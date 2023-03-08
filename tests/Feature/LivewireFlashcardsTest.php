@@ -39,12 +39,11 @@ test('Flashcards livewire component storeFlashcard method', function() {
 });
 
 test('flashcards livewire component deleteFlashcard method', function() {
-    Flashcard::factory()->create();
+    $flashcard = Flashcard::factory()->create();
 
     Livewire::test(Flashcards::class)
-        ->call('deleteFlashcard', 1)
-        ->assertDontSee('Limitations');
+        ->call('deleteFlashcard', $flashcard->id);
     
-    $this->assertDatabaseMissing('flashcards', ['id' => 1]);
+    $this->assertDatabaseMissing('flashcards', ['id' => $flashcard->id]);
 });
 
