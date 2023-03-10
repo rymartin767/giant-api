@@ -5,12 +5,12 @@ use App\Models\Flashcard;
 use function Pest\Laravel\get;
 
 test('response for unauthenticated request', function() {
-    get('v2/flashcards')
+    get('v1/flashcards')
         ->assertStatus(302);
 });
 
 test('response for authenticated request with missing category parameter', function() {
-    $this->actingAs(sanctumToken())->get('v2/flashcards')
+    $this->actingAs(sanctumToken())->get('v1/flashcards')
         ->assertExactJson(['error' => [
             'message' => 'Please check your request parameters.',
             'type' => 'Symfony\Component\HttpFoundation\Exception\BadRequestException',
@@ -20,7 +20,7 @@ test('response for authenticated request with missing category parameter', funct
 });
 
 test('response for authenticated request with empty data', function() {
-    $this->actingAs(sanctumToken())->get('v2/flashcards?category=0')
+    $this->actingAs(sanctumToken())->get('v1/flashcards?category=0')
         ->assertExactJson(['data' => []])
         ->assertOk();
 });
@@ -34,7 +34,7 @@ test('response for authenticated request that returns all data', function() {
         'answer_image_url' => 'answer-image-url.webp',
     ]);
 
-    $this->actingAs(sanctumToken())->get('v2/flashcards?category=0')
+    $this->actingAs(sanctumToken())->get('v1/flashcards?category=0')
         ->assertExactJson(['data' => [
             [
                 'category' => 1,
@@ -56,7 +56,7 @@ test('response for authenticated request that returns filtered data', function()
         'answer_image_url' => 'answer-image-url.webp',
     ]);
 
-    $this->actingAs(sanctumToken())->get('v2/flashcards?category=1')
+    $this->actingAs(sanctumToken())->get('v1/flashcards?category=1')
         ->assertExactJson(['data' => [
             [
                 'category' => 1,
@@ -78,7 +78,7 @@ test('response for authenticated request that includes category parameter with n
         'answer_image_url' => 'answer-image-url.webp',
     ]);
 
-    $this->actingAs(sanctumToken())->get('v2/flashcards?category=2')
+    $this->actingAs(sanctumToken())->get('v1/flashcards?category=2')
         ->assertExactJson(['data' => []])
         ->assertOk();
 });

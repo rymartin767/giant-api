@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
-use App\Enums\AirlineSector;
 use App\Enums\AirlineUnion;
+use App\Enums\AirlineSector;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Airline extends Model
@@ -70,5 +71,10 @@ class Airline extends Model
     public function scopeAtlas(Builder $query) : void
     {
         $query->where('icao', 'GTI');
+    }
+
+    public function scales() : HasMany
+    {
+        return $this->hasMany(Scale::class);
     }
 }

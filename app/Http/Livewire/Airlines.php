@@ -21,7 +21,7 @@ class Airlines extends Component
     public function render()
     {
         return view('livewire.airlines', [
-            'airlines' => Airline::all()
+            'airlines' => Airline::with('scales')->get()
         ]);
     }
 
@@ -40,8 +40,6 @@ class Airlines extends Component
         ]);
 
         Airline::create($validatedData);
-        
-        $this->dispatchBrowserEvent('flash-message');
 
         $this->reset();
     }

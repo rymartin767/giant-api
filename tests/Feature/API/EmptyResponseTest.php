@@ -1,7 +1,7 @@
 <?php
 
 test('api empty response', function() {
-    $this->actingAs(sanctumToken())->get("/v2/events")
+    $this->actingAs(sanctumToken())->get("/v1/events")
         ->assertOk()
         ->assertExactJson([
             'data' => []

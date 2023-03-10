@@ -4,7 +4,6 @@ use App\Http\Livewire\Events;
 use App\Http\Livewire\Airlines;
 use App\Http\Livewire\Flashcards;
 use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes

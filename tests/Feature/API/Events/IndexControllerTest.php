@@ -4,12 +4,12 @@ use App\Models\Event;
 use function Pest\Laravel\get;
 
 test('response for unauthenticated request', function() {
-    get('v2/events')
+    get('v1/events')
         ->assertStatus(302);
 });
 
 test('response for authenticated request with empty data', function() {
-    $this->actingAs(sanctumToken())->get('v2/events')
+    $this->actingAs(sanctumToken())->get('v1/events')
         ->assertExactJson(['data' => []])
         ->assertOk();
 });
@@ -17,7 +17,7 @@ test('response for authenticated request with empty data', function() {
 test('response for authenticated request with data', function() {
     $data = Event::factory()->create();
 
-    $this->actingAs(sanctumToken())->get('v2/events')
+    $this->actingAs(sanctumToken())->get('v1/events')
         ->assertExactJson(['data' => [
             [
                 'id' => $data->id,

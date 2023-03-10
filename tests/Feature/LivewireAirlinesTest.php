@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Scale;
 use Livewire\Livewire;
 use App\Models\Airline;
 use function Pest\Laravel\get;
@@ -21,7 +22,8 @@ test('airlines livewire component shows airlines in database', function() {
 
     Livewire::test(Airlines::class)
         ->assertSee($airline->name)
-        ->assertSee($airline->icao);
+        ->assertSee($airline->icao)
+        ->assertSee('No Pay Rates Found for ' . $airline->icao);
 });
 
 test('airlines livewire component storeAirline method', function() {
@@ -37,5 +39,14 @@ test('airlines livewire component storeAirline method', function() {
         ->call('storeAirline');
 
     $this->assertDatabaseHas('airlines', ['id' => 1, 'name' => 'Atlas Air', 'slug' => 'atlas-air-gti']);
+});
+
+test('airlines livewire component indicates if the airline has pay scales', function() {
+    $scale = Scale::factory()->create();
+
+    Livewire::test(Airlines::class)
+        ->assertSee($scale->airline->name)
+        ->assertSee($scale->airline->icao)
+        ->assertSee('1 Pay Scale Found for ' . $scale->airline->icao);
 });
 

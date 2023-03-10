@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Airline;
+use App\Models\Scale;
 
 it('has a dedicated path', function () {
     $airline = Airline::factory()->create();
@@ -43,4 +44,12 @@ it('has a scope for Atlas', function () {
     Airline::factory()->create(['name' => 'atlas air', 'icao' => 'gti']);
     $airline = Airline::atlas()->first();
     expect($airline->icao)->toBe('GTI');
+});
+
+it('has a (pay) scales relationship', function() {
+    $airline = Airline::factory()
+            ->has(Scale::factory())
+            ->create();
+
+    expect($airline->scales->first())->toBeInstanceOf(Scale::class);
 });

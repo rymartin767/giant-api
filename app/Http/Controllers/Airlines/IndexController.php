@@ -22,12 +22,14 @@ class IndexController
     {
         if ($request->missing('icao') || !$request->filled('icao')) {
 
-            if ($request->collect()->isNotEmpty()) {
+            if ($request->collect()->isNotEmpty() && $request->missing('scales')) {
                 return new ErrorResponse(401, new BadRequestException('Please check your request parameters.'));
             }
 
             $airlines = $this->query->handle(
-                query: Airline::query()
+                query: Airline::query(),
+                icao: null,
+                scales: $request->has('scales')
             )->get();
 
             if ($airlines->isEmpty())
