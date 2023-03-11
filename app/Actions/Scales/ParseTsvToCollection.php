@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Storage;
 
 final class ParseTsvToCollection
 {
-    public function __construct(public string $pathToTsv) {}
+    public function __construct(private string $pathToTsv) {}
 
     public function handle() : Collection
     {

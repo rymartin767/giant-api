@@ -4,6 +4,12 @@ namespace App\Http\Livewire;
 
 use App\Models\Airline;
 use Livewire\Component;
+use App\Prototypes\ImportedScale;
+use App\Actions\Scales\CreateScale;
+use App\Actions\Scales\MakeScaleRequest;
+use Illuminate\Support\Facades\Pipeline;
+use App\Actions\Scales\ParseTsvToCollection;
+use App\Actions\Scales\ValidateScaleRequest;
 
 class Airlines extends Component
 {
@@ -42,5 +48,35 @@ class Airlines extends Component
         Airline::create($validatedData);
 
         $this->reset();
+    }
+
+    public function importAirlineScales(int $id)
+    {
+        // $airline = Airline::find($id);
+        // $pathToFile = "{$airline->icao}.tsv";
+        // $data = new ParseTsvToCollection($pathToFile);
+        // $rows = $data->handle();
+        // foreach($rows as $row) {
+        //     $importedScale = new ImportedScale($airline->id, $row);
+            
+        //     $scale = Pipeline::send($importedScale)
+        //         ->through([
+        //             GenerateProfilePhoto::class,
+        //             ActivateSubscription::class,
+        //             SendWelcomeEmail::class,
+        //         ])
+        //         ->then(fn (User $user) => $user);
+
+            //     $createRequest = new MakeScaleRequest($row);
+            //     $newRequest = $createRequest->handle();
+
+            //     $validator = new ValidateScaleRequest($newRequest);
+            //     $request = $validator->handle();
+
+            //     $validatedData = $request->validated();
+                
+            //     $scale = new CreateScale($validatedData);
+            //     $scale = $scale->handle();
+        // }
     }
 }

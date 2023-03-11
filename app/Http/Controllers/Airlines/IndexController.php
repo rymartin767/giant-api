@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Airlines;
 
 use App\Models\Airline;
-use App\Query\FetchAirlines;
+use App\Queries\FetchAirlines;
 use Illuminate\Http\Request;
 use App\Http\Responses\EmptyResponse;
 use App\Http\Responses\ErrorResponse;

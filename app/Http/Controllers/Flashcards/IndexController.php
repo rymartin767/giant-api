@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Flashcards;
 
 use App\Models\Flashcard;
 use Illuminate\Http\Request;
-use App\Query\FetchFlashcards;
+use App\Queries\FetchFlashcards;
 use App\Http\Responses\EmptyResponse;
 use App\Http\Responses\ErrorResponse;
 use App\Http\Responses\CollectionResponse;

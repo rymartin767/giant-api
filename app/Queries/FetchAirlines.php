@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Query;
+namespace App\Queries;
 
 use Illuminate\Database\Eloquent\Builder;
 

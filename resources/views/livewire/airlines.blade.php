@@ -11,9 +11,10 @@
                     <div class="text-xs text-center mb-1">{{ $airline->icao }}</div>
                     <div class="text-xs text-center mb-1">
                         @if ($airline->scales->isNotEmpty())
-                            {{ $airline->scales->count() . ' Pay Scale Found for ' . $airline->icao}}
+                            <div>{{ $airline->scales->count() . ' Pay Scale Found for ' . $airline->icao}}</div>
                         @else
-                            {{ 'No Pay Rates Found for '  . $airline->icao }}
+                            <div>{{ 'No Pay Rates Found for '  . $airline->icao }}</div>
+                            <x-button wire:click="importAirlineScales('{{$airline->id}}')" type="button">IMPORT SCALES</x-button>
                         @endif
                     </div>
                 </div>

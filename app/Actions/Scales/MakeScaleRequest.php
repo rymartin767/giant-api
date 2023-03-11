@@ -7,13 +7,15 @@ use Illuminate\Support\Collection;
 
 final class MakeScaleRequest
 {
-    public function __invoke(Collection $collection) : Request
+    public function __construct(public Collection $collection) {}
+
+    public function handle() : Request
     {
         $request = new Request([
-            'year' => $collection[0],
-            'fleet' => $collection[1],
-            'ca_rate' => $collection[2],
-            'fo_rate' => $collection[3],
+            'year' => $this->collection[0],
+            'fleet' => $this->collection[1],
+            'ca_rate' => $this->collection[2],
+            'fo_rate' => $this->collection[3],
         ]);
 
         return $request;
