@@ -41,12 +41,26 @@ test('airlines livewire component storeAirline method', function() {
     $this->assertDatabaseHas('airlines', ['id' => 1, 'name' => 'Atlas Air', 'slug' => 'atlas-air-gti']);
 });
 
-test('airlines livewire component indicates if the airline has pay scales', function() {
+test('airlines livewire component indicates if the airline has pay scales saved', function() {
     $scale = Scale::factory()->create();
 
     Livewire::test(Airlines::class)
         ->assertSee($scale->airline->name)
         ->assertSee($scale->airline->icao)
         ->assertSee('1 Pay Scale Found for ' . $scale->airline->icao);
+});
+
+test('airlines livewire component displays a message if the airline has no tsv data on aws s3', function() {
+    Airline::factory()->create();
+
+    Livewire::test(Airlines::class)
+        ->assertSee('No AWS Scales Found!');
+});
+
+test('airlines livewire component displays a button if the airline does have tsv data on aws s3', function() {
+    Airline::factory()->create(['icao' => 'GTI']);
+
+    Livewire::test(Airlines::class)
+        ->assertSee('Truncate + Reload');
 });
 

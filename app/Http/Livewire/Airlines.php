@@ -4,10 +4,8 @@ namespace App\Http\Livewire;
 
 use App\Models\Airline;
 use Livewire\Component;
-use App\Prototypes\ImportedScale;
 use App\Actions\Scales\CreateScale;
 use App\Actions\Scales\MakeScaleRequest;
-use Illuminate\Support\Facades\Pipeline;
 use App\Actions\Scales\ParseTsvToCollection;
 use App\Actions\Scales\ValidateScaleRequest;
 
@@ -52,31 +50,24 @@ class Airlines extends Component
 
     public function importAirlineScales(int $id)
     {
-        // $airline = Airline::find($id);
-        // $pathToFile = "{$airline->icao}.tsv";
-        // $data = new ParseTsvToCollection($pathToFile);
-        // $rows = $data->handle();
-        // foreach($rows as $row) {
-        //     $importedScale = new ImportedScale($airline->id, $row);
-            
-        //     $scale = Pipeline::send($importedScale)
-        //         ->through([
-        //             GenerateProfilePhoto::class,
-        //             ActivateSubscription::class,
-        //             SendWelcomeEmail::class,
-        //         ])
-        //         ->then(fn (User $user) => $user);
+        $airline = Airline::find($id);
+        $pathToFile = "{$airline->icao}.tsv";
 
-            //     $createRequest = new MakeScaleRequest($row);
-            //     $newRequest = $createRequest->handle();
+        $data = new ParseTsvToCollection($pathToFile);
+        $rows = $data->handle();
 
-            //     $validator = new ValidateScaleRequest($newRequest);
-            //     $request = $validator->handle();
+        foreach($rows as $row) {
+            $row->put('airline_id', $airline->id);
+            $createRequest = new MakeScaleRequest($row);
+            $newRequest = $createRequest->handle();
 
-            //     $validatedData = $request->validated();
-                
-            //     $scale = new CreateScale($validatedData);
-            //     $scale = $scale->handle();
-        // }
+            $validator = new ValidateScaleRequest($newRequest);
+            $request = $validator->handle();
+
+            $validatedData = $request->validated();
+
+            $create = new CreateScale($airline, $validatedData);
+            $create->handle();
+        }
     }
 }

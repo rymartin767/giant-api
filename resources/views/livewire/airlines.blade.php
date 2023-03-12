@@ -14,7 +14,13 @@
                             <div>{{ $airline->scales->count() . ' Pay Scale Found for ' . $airline->icao}}</div>
                         @else
                             <div>{{ 'No Pay Rates Found for '  . $airline->icao }}</div>
-                            <x-button wire:click="importAirlineScales('{{$airline->id}}')" type="button">IMPORT SCALES</x-button>
+                        @endif
+                    </div>
+                    <div class="flex border-t border-gray-600 py-2 justify-center">
+                        @if ($airline->hasAwsScales())
+                            <x-button type="button" aria-disabled="true" disabled>Truncate + Reload</x-button>
+                        @else
+                            <x-button type="button" aria-disabled="true" disabled class=" bg-red-500">No AWS Scales Found!</x-button>
                         @endif
                     </div>
                 </div>

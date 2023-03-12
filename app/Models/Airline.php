@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\AirlineUnion;
 use App\Enums\AirlineSector;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -76,5 +77,10 @@ class Airline extends Model
     public function scales() : HasMany
     {
         return $this->hasMany(Scale::class);
+    }
+
+    public function hasAwsScales() : bool
+    {
+        return Storage::disk('s3')->exists("pay-scales/{$this->icao}.tsv");
     }
 }

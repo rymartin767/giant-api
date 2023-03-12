@@ -39,7 +39,9 @@
             <input wire:model.lazy="web_url" type="text" class="w-full" placeholder="Website Url">
         </div>
         <div class="col-span-4 sm:col-span-1 pt-1">
-            <button type="submit" class="w-full text-xs bg-blue-500 text-white font-semibold p-2 rounded-md shadow">Submit</button>
+            <x-button type="submit" class="w-full">
+                <div class="w-full">submit</div>
+            </x-button>
         </div>
     </div>
 </form>

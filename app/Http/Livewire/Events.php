@@ -2,8 +2,10 @@
 
 namespace App\Http\Livewire;
 
+use App\Http\Requests\EventRequest;
 use App\Models\Event;
 use Livewire\Component;
+use Illuminate\View\View;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -22,7 +24,12 @@ class Events extends Component
     public $photoUpload;
     public $existingImageUrl;
 
-    public function render()
+    protected function rules(): array
+    {
+        return (new EventRequest())->rules();
+    }
+
+    public function render() : View
     {
         return view('livewire.events', [
             'events' => Event::all(),
@@ -34,13 +41,7 @@ class Events extends Component
     {
         $this->validate(['photoUpload' => ['present', 'image', 'nullable']]);
 
-        $attributes = $this->validate([
-            'title' => ['required', 'string', 'min:3', 'max:50'],
-            'date' => ['required', 'date'],
-            'time' => ['present', 'date_format:H:i', 'nullable'],
-            'location' => ['present', 'string', 'min:5', 'max:50', 'nullable'],
-            'web_url' => ['present', 'string', 'min:8', 'max:100', 'starts_with:https://', 'nullable']
-        ]);
+        $attributes = $this->validate();
 
         $attributes['user_id'] = Auth::id();
         $attributes['image_url'] = $this->existingImageUrl ?? $this->storeUploadedImage();

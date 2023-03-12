@@ -53,3 +53,8 @@ it('has a (pay) scales relationship', function() {
 
     expect($airline->scales->first())->toBeInstanceOf(Scale::class);
 });
+
+test('airline model hasAwsFile method', function() {
+    $airline = Airline::factory()->create(['icao' => 'GTI']);
+    expect($airline->hasAwsScales())->toBe(true);
+});

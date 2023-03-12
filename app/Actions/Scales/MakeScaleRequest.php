@@ -12,10 +12,11 @@ final class MakeScaleRequest
     public function handle() : Request
     {
         $request = new Request([
-            'year' => $this->collection[0],
+            'airline_id' => intval($this->collection['airline_id']),
+            'year' => intval($this->collection[0]),
             'fleet' => $this->collection[1],
-            'ca_rate' => $this->collection[2],
-            'fo_rate' => $this->collection[3],
+            'ca_rate' => intval($this->collection[2]),
+            'fo_rate' => intval($this->collection[3]),
         ]);
 
         return $request;
