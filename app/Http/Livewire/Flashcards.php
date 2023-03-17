@@ -2,8 +2,10 @@
 
 namespace App\Http\Livewire;
 
+use App\Http\Requests\FlashcardRequest;
 use Livewire\Component;
 use App\Models\Flashcard;
+use Illuminate\View\View;
 use Livewire\WithFileUploads;
 
 class Flashcards extends Component
@@ -20,7 +22,12 @@ class Flashcards extends Component
     public $questionImageUpload = null;
     public $answerImageUpload = null;
 
-    public function render()
+    protected function rules() : array
+    {
+        return (new FlashcardRequest())->rules();
+    }
+
+    public function render() : View
     {
         return view('livewire.flashcards', [
             'flashcards' => Flashcard::all()
@@ -29,35 +36,25 @@ class Flashcards extends Component
 
     public function storeFlashcard() : void
     {
-        $this->validate(['questionImageUpload' => ['present', 'image', 'nullable']]);
-        // $this->validate(['answerImageUpload' => ['present', 'image', 'nullable']]);
-
-        $validatedAttributes = $this->validate([
-            'category' => ['required', 'integer'],
-            'question' => ['required', 'string'],
-            'answer' => ['required', 'string'],
-        ]);
-
         if ($this->questionImageUpload !== null) {
+            $this->validate([
+                'questionImageUpload' => ['required', 'image', 'mimes:jpg,png,webp'],
+            ]);
             $this->question_image_url = $this->storeUploadedImage('question');
-            $this->validate(['question_image_url' => ['required', 'string']]);
-            $validatedAttributes['question_image_url'] = $this->question_image_url;
-        } else {
-            $validatedAttributes['question_image_url'] = null;
         }
         
         if ($this->answerImageUpload !== null) {
+            $this->validate([
+                'answerImageUpload' => ['required', 'image', 'mimes:jpg,png,webp']
+            ]);
             $this->answer_image_url = $this->storeUploadedImage('answer');
-            $this->validate(['answer_image_url' => ['required', 'string']]);
-            $validatedAttributes['answer_image_url'] = $this->answer_image_url;
-        } else {
-            $validatedAttributes['answer_image_url'] = null;
         }
 
+        $validatedAttributes = $this->validate();
         Flashcard::create($validatedAttributes);
     }
 
-    public function storeUploadedImage(string $type) : String
+    public function storeUploadedImage(string $type) : string
     {
         if ($type == 'question') {
             $url = $this->questionImageUpload->store('images/flashcards/development', 's3');

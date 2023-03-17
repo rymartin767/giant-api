@@ -5,9 +5,11 @@ namespace App\Http\Livewire;
 use App\Models\Airline;
 use Livewire\Component;
 use App\Actions\Scales\CreateScale;
+use App\Http\Requests\AirlineRequest;
 use App\Actions\Scales\MakeScaleRequest;
 use App\Actions\Scales\ParseTsvToCollection;
 use App\Actions\Scales\ValidateScaleRequest;
+use Illuminate\View\View;
 
 class Airlines extends Component
 {
@@ -22,33 +24,28 @@ class Airlines extends Component
     public $web_url;
     public $slug;
 
-    public function render()
+    protected function rules() : array
+    {
+        return (new AirlineRequest())->rules();
+    }
+
+    public function render() : View
     {
         return view('livewire.airlines', [
             'airlines' => Airline::with('scales')->get()
         ]);
     }
 
-    public function storeAirline()
+    public function storeAirline() : void
     {
-        $validatedData = $this->validate([
-            'sector' => ['required', 'integer'],
-            'name' => ['required', 'string', 'min:8', 'max:35'],
-            'icao' => ['required', 'string', 'size:3'],
-            'iata' => ['required', 'string', 'size:2'],
-            'union' => ['required', 'integer'],
-            'pilot_count' => ['required', 'integer', 'max:17000'],
-            'is_hiring' => ['required', 'boolean'],
-            'web_url' => ['required', 'string', 'starts_with:https://'],
-            'slug' => []
-        ]);
+        $validatedData = $this->validate();
 
         Airline::create($validatedData);
 
         $this->reset();
     }
 
-    public function importAirlineScales(int $id)
+    public function importAirlineScales(int $id) : void
     {
         $airline = Airline::find($id);
         $pathToFile = "{$airline->icao}.tsv";

@@ -2,6 +2,7 @@
 
 use App\Http\Livewire\Events;
 use App\Http\Livewire\Airlines;
+use App\Http\Livewire\Articles;
 use App\Http\Livewire\Flashcards;
 use Illuminate\Support\Facades\Route;
 /*
@@ -41,7 +42,8 @@ Route::middleware([
 */
 
 Route::middleware('admin')->group(function() {
-    Route::get('events', Events::class)->name('events');
     Route::get('airlines', Airlines::class)->name('airlines');
+    Route::get('articles', Articles::class)->name('articles');
+    Route::get('events', Events::class)->name('events');
     Route::get('flashcards', Flashcards::class)->name('flashcards');
 });
