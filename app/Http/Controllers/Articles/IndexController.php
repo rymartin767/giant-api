@@ -8,6 +8,7 @@ use App\Queries\FetchArticles;
 use App\Http\Responses\EmptyResponse;
 use App\Http\Responses\ErrorResponse;
 use App\Http\Responses\ModelResponse;
+use App\Http\Resources\ArticleCollection;
 use App\Http\Responses\CollectionResponse;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
@@ -48,6 +49,8 @@ class IndexController
             return new EmptyResponse();
         }
 
-        return new CollectionResponse($articles);
+        return new CollectionResponse(
+            data: new ArticleCollection($articles),
+        );
     }
 }

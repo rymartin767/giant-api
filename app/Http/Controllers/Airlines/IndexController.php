@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Airlines;
 
+use App\Http\Resources\AirlineCollection;
 use App\Models\Airline;
 use App\Queries\FetchAirlines;
 use Illuminate\Http\Request;
@@ -37,7 +38,9 @@ class IndexController
                 return new EmptyResponse();
             }
 
-            return new CollectionResponse($airlines);
+            return new CollectionResponse(
+                data: new AirlineCollection($airlines)
+            );
         }
 
         try {

@@ -9,9 +9,9 @@ final class FetchFlashcards
     public function handle(Builder $query, int $category) : Builder
     {
         if ($category == 0) {
-            return $query;
+            return $query->select(['category', 'question', 'answer', 'question_image_url', 'answer_image_url']);
         }
         
-        return $query->where('category', $category);
+        return $query->select(['category', 'question', 'answer', 'question_image_url', 'answer_image_url'])->where('category', $category);
     }
 }

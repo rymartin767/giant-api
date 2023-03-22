@@ -8,6 +8,7 @@ use App\Queries\FetchFlashcards;
 use App\Http\Responses\EmptyResponse;
 use App\Http\Responses\ErrorResponse;
 use App\Http\Responses\CollectionResponse;
+use App\Http\Resources\FlashcardCollection;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 
 final class IndexController
@@ -26,13 +27,15 @@ final class IndexController
         $filteredData = $this->query->handle(
             query: Flashcard::query(),
             category: request('category')
-        )->get(['category', 'question', 'answer', 'question_image_url', 'answer_image_url']);
+        )->get();
 
         if ($filteredData->isEmpty())
         {
             return new EmptyResponse();
         }
 
-        return new CollectionResponse($filteredData);
+        return new CollectionResponse(
+            data: new FlashcardCollection($filteredData)
+        );
     }
 }

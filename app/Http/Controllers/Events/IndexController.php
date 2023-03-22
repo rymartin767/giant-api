@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Events;
 
 use App\Models\Event;
-use App\Http\Responses\EmptyResponse;
-use App\Http\Responses\CollectionResponse;
 use App\Queries\FetchEvents;
+use App\Http\Responses\EmptyResponse;
+use App\Http\Resources\EventCollection;
+use App\Http\Responses\CollectionResponse;
 
 class IndexController
 {
@@ -24,6 +25,8 @@ class IndexController
             return new EmptyResponse();
         }
 
-        return new CollectionResponse($events);
+        return new CollectionResponse(
+            data: new EventCollection($events),
+        );
     }
 }

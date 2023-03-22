@@ -19,21 +19,13 @@ class ArticleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            // 'category' => [new Enum(ArticleCategory::class)],
-            // 'date' => ['required', 'date'],
-            // 'title' => ['required', 'string', 'min:12', 'max:100'],
-            // 'author' => ['required', 'string', 'min:5', 'max:50'],
-            // 'story' => ['required', 'string', 'min:50', 'max:10000'],
-            // 'web_url' => ['present', 'url', 'nullable'],
-            // 'slug' => ['required', 'string', 'min:20', 'max:110']
-
             'category' => [new Enum(ArticleCategory::class)],
-            'date' => [],
-            'title' => [],
-            'author' => [],
-            'story' => [],
-            'web_url' => [],
-            'slug' => []
+            'date' => ['required', 'date'],
+            'title' => ['required', 'string', 'min:12', 'max:100'],
+            'author' => ['required', 'string', 'min:5', 'max:50'],
+            'story' => ['required', 'string', 'min:50', 'max:10000'],
+            'web_url' => ['present', 'url', 'nullable'],
+            'slug' => ['present', 'string', 'min:20', 'max:110', 'nullable']
         ];
     }
 }
