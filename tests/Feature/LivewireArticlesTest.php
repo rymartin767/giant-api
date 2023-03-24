@@ -16,14 +16,12 @@ test('articles livewire component is present on articles page', function() {
         ->assertSeeLivewire('articles');
 });
 
-// test('articles livewire component shows articles in database', function() {
-//     $article = Article::factory()->create();
+test('articles livewire component shows articles in database', function() {
+    $article = Article::factory()->create();
 
-//     Livewire::test(articles::class)
-//         ->assertSee($article->name)
-//         ->assertSee($article->icao)
-//         ->assertSee('No Pay Rates Found for ' . $article->icao);
-// });
+    Livewire::test(articles::class)
+        ->assertSee($article->title);
+});
 
 test('articles livewire component storeArticle method', function() {
     $article = Article::factory()->raw();

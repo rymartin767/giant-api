@@ -24,7 +24,9 @@ class Articles extends Component
 
     public function render()
     {
-        return view('livewire.articles');
+        return view('livewire.articles', [
+            'articles' => Article::all()
+        ]);
     }
 
     public function storeArticle()

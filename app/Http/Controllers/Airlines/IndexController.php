@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Airlines;
 
-use App\Http\Resources\AirlineCollection;
 use App\Models\Airline;
-use App\Queries\FetchAirlines;
 use Illuminate\Http\Request;
+use App\Queries\FetchAirlines;
 use App\Http\Responses\EmptyResponse;
 use App\Http\Responses\ErrorResponse;
 use App\Http\Responses\ModelResponse;
+use App\Http\Resources\AirlineCollection;
 use App\Http\Responses\CollectionResponse;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;

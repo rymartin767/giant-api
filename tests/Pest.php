@@ -45,12 +45,12 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function adminUser()
+function adminUser() : User
 {
     return User::factory()->create(['id' => env('ADMIN_KEY')]);
 }
 
-function sanctumToken()
+function sanctumToken() : User
 {
     return Sanctum::actingAs(
         User::factory()->create(),

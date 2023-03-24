@@ -2,11 +2,11 @@
 
 namespace App\Http\Livewire;
 
-use App\Http\Requests\FlashcardRequest;
 use Livewire\Component;
 use App\Models\Flashcard;
 use Illuminate\View\View;
 use Livewire\WithFileUploads;
+use App\Http\Requests\FlashcardRequest;
 
 class Flashcards extends Component
 {

@@ -1,7 +1,6 @@
 <?php
 
 use App\Models\Scale;
-
 use App\Models\Airline;
 use function Pest\Laravel\get;
 
