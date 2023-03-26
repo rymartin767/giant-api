@@ -37,7 +37,7 @@ class Events extends Component
         ]);
     }
 
-    public function storeEvent()
+    public function storeEvent() : void
     {
         $this->validate(['photoUpload' => ['present', 'image', 'nullable']]);
 
@@ -50,7 +50,7 @@ class Events extends Component
         $this->reset();
     }
 
-    public function deleteEvent($id)
+    public function deleteEvent($id) : void
     {
         Event::destroy($id);
         $this->dispatchBrowserEvent('flash-message', []);
