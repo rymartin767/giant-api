@@ -4,8 +4,11 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\User;
+use App\Models\Event;
 use App\Models\Scale;
 use App\Models\Airline;
+use App\Models\Article;
+use App\Models\Flashcard;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -24,5 +27,12 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Airline::factory()->has(Scale::factory())->create();
+        Airline::factory()->create(['sector' => 1, 'name' => 'Atlas Air', 'icao' => 'GTI', 'iata' => '5Y']);
+
+        Article::factory()->create();
+
+        Event::factory()->create();
+
+        Flashcard::factory()->create();
     }
 }

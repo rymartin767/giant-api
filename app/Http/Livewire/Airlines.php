@@ -4,12 +4,12 @@ namespace App\Http\Livewire;
 
 use App\Models\Airline;
 use Livewire\Component;
+use Illuminate\View\View;
 use App\Actions\Scales\CreateScale;
 use App\Http\Requests\AirlineRequest;
 use App\Actions\Scales\MakeScaleRequest;
 use App\Actions\Scales\ParseTsvToCollection;
 use App\Actions\Scales\ValidateScaleRequest;
-use Illuminate\View\View;
 
 class Airlines extends Component
 {
@@ -24,6 +24,8 @@ class Airlines extends Component
     public $web_url;
     public $slug;
 
+    public $selectedAirline;
+
     protected function rules() : array
     {
         return (new AirlineRequest())->rules();
@@ -32,7 +34,7 @@ class Airlines extends Component
     public function render() : View
     {
         return view('livewire.airlines', [
-            'airlines' => Airline::with('scales')->get()
+            'airlines' => Airline::withCount('scales')->get()
         ]);
     }
 
@@ -45,10 +47,9 @@ class Airlines extends Component
         $this->reset();
     }
 
-    public function importAirlineScales(int $id) : void
+    public function importAirlineScales(Airline $airline) : void
     {
-        $airline = Airline::find($id);
-        $pathToFile = "{$airline->icao}.tsv";
+        $pathToFile = "pay-scales/{$airline->icao}.tsv";
 
         $data = new ParseTsvToCollection($pathToFile);
         $rows = $data->handle();
@@ -66,5 +67,16 @@ class Airlines extends Component
             $create = new CreateScale($airline, $validatedData);
             $create->handle();
         }
+    }
+
+    public function showScales(Airline $airline) : void
+    {
+        $this->selectedAirline = $airline->load('scales');
+    }
+
+    public function truncateScales(Airline $airline) : void
+    {
+        $airline->scales()->delete();
+        $this->selectedAirline = null;
     }
 }

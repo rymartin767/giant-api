@@ -15,7 +15,7 @@ final class ParseTsvToCollection
         try {
             $collection = collect();
 
-            $file = Storage::disk('public')->get($this->pathToTsv);
+            $file = Storage::disk('s3')->get($this->pathToTsv);
             
             $rows = explode("\r\n", $file);
             unset($rows[0]);

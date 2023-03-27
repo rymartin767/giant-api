@@ -1,19 +1,28 @@
 <div>
     <x-section class="max-w-5xl" title="Create Articles">
-        form here
+        @include('forms.create-article')
     </x-section>
 
     <x-section class="max-w-5xl" title="Recent Articles">
-        <div class="grid grid-cols-4 gap-3">
-            @forelse ($articles as $article)
-                <div class="col-span-2 sm:col-span-1 p-3 bg-white rounded-md shadow-md">
-                    {{ $article->title }}
-                </div>
-            @empty  
-                <div>
-                    Article Library is empty.
-                </div>
-            @endforelse
+        <div class="max-w-5xl">
+            <x-table class="w-full" title="Article Index">
+                <x-slot:head>
+                    <x-table.th>Date</x-table>
+                    <x-table.th>Title</x-table>
+                    <x-table.th>Author</x-table>
+                    <x-table.th>Category</x-table>
+                </x-slot:head>
+                <x-slot:body>
+                    @forelse ($articles as $article)
+                        <x-table.td>{{ $article->date }}</x-table>
+                        <x-table.td>{{ str($article->title)->limit(50) }}</x-table>
+                        <x-table.td>{{ $article->author }}</x-table>
+                        <x-table.td>{{ $article->category->getFullName() }}</x-table>
+                    @empty
+                        empty
+                    @endforelse
+                </x-slot:body>
+            </x-table>
         </div>
     </x-section>
 </div>

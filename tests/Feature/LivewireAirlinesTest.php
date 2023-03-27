@@ -22,8 +22,8 @@ test('airlines livewire component shows airlines in database', function() {
 
     Livewire::test(Airlines::class)
         ->assertSee($airline->name)
-        ->assertSee($airline->icao)
-        ->assertSee('No Pay Rates Found for ' . $airline->icao);
+        ->assertSee($airline->icao . ' · ' . $airline->iata)
+        ->assertSee($airline->sector);
 });
 
 test('airlines livewire component storeAirline method', function() {
@@ -41,26 +41,59 @@ test('airlines livewire component storeAirline method', function() {
     $this->assertDatabaseHas('airlines', ['id' => 1, 'name' => 'Atlas Air', 'slug' => 'atlas-air-gti']);
 });
 
-test('airlines livewire component indicates if the airline has pay scales saved', function() {
-    $scale = Scale::factory()->create();
+it('displays count of saved pay scales for each airline', function() {
+    Scale::factory(5)->create();
 
     Livewire::test(Airlines::class)
-        ->assertSee($scale->airline->name)
-        ->assertSee($scale->airline->icao)
-        ->assertSee('1 Pay Scale Found for ' . $scale->airline->icao);
+        ->assertSee('5');
 });
 
-test('airlines livewire component displays a message if the airline has no tsv data on aws s3', function() {
+it('displays a red SVG if there are no scales found on AWS S3', function() {
     Airline::factory()->create();
 
     Livewire::test(Airlines::class)
-        ->assertSee('No AWS Scales Found!');
+        ->assertSeeHtml('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" class="h-8 w-8 fill-current text-red-500">');
 });
 
-test('airlines livewire component displays a button if the airline does have tsv data on aws s3', function() {
+it('displays a green SVG if there are scales found on AWS S3', function() {
     Airline::factory()->create(['icao' => 'GTI']);
 
     Livewire::test(Airlines::class)
-        ->assertSee('Truncate + Reload');
+        ->assertSeeHtml('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" class="h-8 w-8 fill-current text-green-500">');
+});
+
+it('displays a VIEW button if the airline has pay scales saved', function() {
+    Scale::factory()->create();
+
+    Livewire::test(Airlines::class)
+        ->assertSee('View');
+});
+
+it('does not display a VIEW button if the airline has pay scales saved', function() {
+    Airline::factory()->create();
+
+    Livewire::test(Airlines::class)
+        ->assertDontSee('View');
+});
+
+it('displays the airlines pay scales when you click the view button', function() {
+    $airline = Airline::factory()->create();
+
+    Livewire::test(Airlines::class)
+        ->call('showScales', ['airline' => $airline->id])
+        ->assertSee('SAVED PAY SCALES')
+        ->assertSee('TRUNCATE SCALES');
+});
+
+test('truncate airline scales method', function() {
+    $airline = Airline::factory()->has(Scale::factory())->create();
+
+    $this->assertDatabaseHas('scales', ['id' => 1, 'airline_id' => $airline->id]);
+
+    Livewire::test(Airlines::class)
+        ->call('truncateScales', ['airline' => $airline->id])
+        ->assertSet('selectedAirline', null);
+
+    $this->assertDatabaseMissing('scales', ['id' => 1]);
 });
 
