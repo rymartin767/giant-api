@@ -22,6 +22,8 @@ class Flashcards extends Component
     public $questionImageUpload = null;
     public $answerImageUpload = null;
 
+    public $showByCategory;
+
     protected function rules() : array
     {
         return (new FlashcardRequest())->rules();
@@ -29,8 +31,14 @@ class Flashcards extends Component
 
     public function render() : View
     {
+        if ($this->showByCategory) {
+            $flashcards = Flashcard::query()->where('category', $this->showByCategory)->get();
+        } else {
+            $flashcards = Flashcard::query()->get();
+        }
+
         return view('livewire.flashcards', [
-            'flashcards' => Flashcard::all()
+            'flashcards' => $flashcards
         ]);
     }
 

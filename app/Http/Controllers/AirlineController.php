@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Airlines;
+namespace App\Http\Controllers;
 
 use App\Models\Airline;
 use Illuminate\Http\Request;
@@ -13,7 +13,7 @@ use App\Http\Responses\CollectionResponse;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 
-class IndexController
+final class AirlineController
 {
     public function __construct(
         private readonly FetchAirlines $query

@@ -4,7 +4,7 @@ namespace App\Queries;
 
 use Illuminate\Database\Eloquent\Builder;
 
-final class FetchFlashcards
+class FetchFlashcards
 {
     public function handle(Builder $query, int $category) : Builder
     {

@@ -16,6 +16,7 @@ class Pilot extends Model
     protected $casts = [
         'doh' => 'immutable_date:m/d/Y',
         'retire' => 'immutable_date:m/d/Y',
+        'active' => 'boolean',
         'month' => 'immutable_date:M Y'
     ];
 

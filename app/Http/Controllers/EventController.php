@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Events;
+namespace App\Http\Controllers;
 
 use App\Models\Event;
 use App\Queries\FetchEvents;
@@ -8,7 +8,7 @@ use App\Http\Responses\EmptyResponse;
 use App\Http\Resources\EventCollection;
 use App\Http\Responses\CollectionResponse;
 
-class IndexController
+final class EventController
 {
     public function __construct(
         private readonly FetchEvents $query

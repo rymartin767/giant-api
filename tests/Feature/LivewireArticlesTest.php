@@ -20,7 +20,7 @@ test('articles livewire component shows articles in database', function() {
     $article = Article::factory()->create();
 
     Livewire::test(articles::class)
-        ->assertSee($article->title);
+        ->assertSee($article->author);
 });
 
 test('articles livewire component storeArticle method', function() {

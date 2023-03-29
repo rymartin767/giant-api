@@ -1,16 +1,18 @@
 <?php
 
+use App\Http\Controllers\AirlineController;
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\FlashcardController;
+use App\Http\Controllers\PilotController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Events\IndexController as EventsIndexController;
-use App\Http\Controllers\Pilots\IndexController as PilotsIndexController;
-use App\Http\Controllers\Airlines\IndexController as AirlinesIndexController;
-use App\Http\Controllers\Articles\IndexController as ArticlesIndexController;
-use App\Http\Controllers\Flashcards\IndexController as FlashcardsIndexController;
 
 Route::middleware('auth:sanctum')->group(function() {
-    Route::get('airlines', AirlinesIndexController::class)->name('airlines.index');
-    Route::get('articles', ArticlesIndexController::class)->name('articles.index');
-    Route::get('events', EventsIndexController::class)->name('events.index');
-    Route::get('flashcards', FlashcardsIndexController::class)->name('airlines.index');
-    Route::get('pilots', PilotsIndexController::class)->name('pilots.index');
+    Route::get('airlines', AirlineController::class)->name('api.airlines');
+    Route::get('articles', ArticleController::class)->name('api.articles');
+    Route::get('events', EventController::class)->name('api.events');
+    Route::get('flashcards', FlashcardController::class)->name('api.airlines');
+    Route::get('pilots', PilotController::class)->name('api.pilots');
+    Route::get('employee', EmployeeController::class)->name('api.employee');
 });

@@ -18,16 +18,18 @@ test('response for authenticated request with data', function() {
     $data = Event::factory()->create();
 
     $this->actingAs(sanctumToken())->get('v1/events')
-        ->assertExactJson(['data' => [
-            [
-                'id' => $data->id,
-                'title' => $data->title,
-                'date' => $data->date->format('m/d/Y'), // Model Attribute Casting
-                'time' => $data->time->format('H:i'), // Model Attribute Casting
-                'location' => $data->location,
-                'image_url' => $data->image_url,
-                'web_url' => $data->web_url
+        ->assertExactJson([
+            'data' => [
+                [
+                    'id' => $data->id,
+                    'title' => $data->title,
+                    'date' => $data->date->format('m/d/Y'), // Model Attribute Casting
+                    'time' => $data->time->format('H:i'), // Model Attribute Casting
+                    'location' => $data->location,
+                    'image_url' => $data->image_url,
+                    'web_url' => $data->web_url
+                ]
             ]
-        ]])
+        ])
         ->assertOk();
 });

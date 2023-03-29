@@ -40,7 +40,7 @@ it('can return an collection response', function() {
                 'fleet' => $pilotOne->fleet, 
                 'domicile' => $pilotOne->domicile, 
                 'retire' => Carbon::parse($pilotOne->retire)->format('m/d/Y'),
-                'active' => $pilotOne->active ? 1 : 0, 
+                'active' => $pilotOne->active, 
                 'month' => Carbon::parse($pilotOne->month)->format('M Y'),
             ],
             [
@@ -51,7 +51,7 @@ it('can return an collection response', function() {
                 'fleet' => $pilotTwo->fleet, 
                 'domicile' => $pilotTwo->domicile, 
                 'retire' => Carbon::parse($pilotTwo->retire)->format('m/d/Y'),
-                'active' => $pilotTwo->active ? 1 : 0, 
+                'active' => $pilotTwo->active, 
                 'month' => Carbon::parse($pilotTwo->month)->format('M Y'),
             ],
         ]])
@@ -71,7 +71,7 @@ it('can return an model response', function() {
                 'fleet' => $pilot->fleet, 
                 'domicile' => $pilot->domicile, 
                 'retire' => Carbon::parse($pilot->retire)->format('m/d/Y'),
-                'active' => $pilot->active ? 1 : 0, 
+                'active' => $pilot->active, 
                 'month' => Carbon::parse($pilot->month)->format('M Y'),
             ]
         ]])

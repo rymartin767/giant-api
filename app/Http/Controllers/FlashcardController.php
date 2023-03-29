@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Flashcards;
+namespace App\Http\Controllers;
 
 use App\Models\Flashcard;
 use Illuminate\Http\Request;
@@ -11,7 +11,7 @@ use App\Http\Responses\CollectionResponse;
 use App\Http\Resources\FlashcardCollection;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 
-final class IndexController
+final class FlashcardController
 {
     public function __construct(
         private readonly FetchFlashcards $query
