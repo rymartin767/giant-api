@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Livewire\Awards;
 use App\Http\Livewire\Events;
 use App\Http\Livewire\Pilots;
 use App\Http\Livewire\Airlines;
@@ -45,6 +46,7 @@ Route::middleware([
 Route::middleware('admin')->group(function() {
     Route::get('airlines', Airlines::class)->name('airlines');
     Route::get('articles', Articles::class)->name('articles');
+    Route::get('awards', Awards::class)->name('awards');
     Route::get('events', Events::class)->name('events');
     Route::get('flashcards', Flashcards::class)->name('flashcards');
     Route::get('pilots', Pilots::class)->name('pilots');

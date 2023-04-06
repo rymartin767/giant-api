@@ -1,32 +1,32 @@
-<form wire:submit.prevent="storeArticle">
-    <div class="grid grid-cols-4 gap-4">
-        <div class="col-span-4 sm:col-span-1 bg-pink-300">
-            <select wire:model="category">
+<form wire:submit.prevent="storeArticle" class="base-form">
+    <div class="grid grid-cols-3 gap-3">
+        <div class="col-span-3 sm:col-span-1">
+            <select wire:model="category" class="w-full">
                 <option value="">Choose Category...</option>
                 @foreach (\App\Enums\ArticleCategory::cases() as $category)
                     <option value="{{ $category->value }}">{{ $category->getFullName() }}</option>
                 @endforeach
             </select>
         </div>
-        <div class="col-span-4 bg-pink-300">
-            <input wire:model="title" type="text">
+        <div class="col-span-3 sm:col-span-1">
+            <input wire:model="title" type="text" class="w-full" placeholder="Article Title">
         </div>
-        <div class="col-span-4 bg-pink-300">
-            <input wire:model="author" type="text">
+        <div class="col-span-3 sm:col-span-1">
+            <input wire:model="author" type="text" class="w-full" placeholder="Article Author">
         </div>
-        <div class="col-span-4 bg-pink-300">
+        <div class="col-span-3">
             <div wire:ignore>
                 <textarea wire:model="story" name="story" id="story" class="rich-editor"></textarea>
             </div>
         </div>
-        <div class="col-span-4 bg-pink-300">
-            <input wire:model="web_url" type="text">
+        <div class="col-span-3 sm:col-span-2">
+            <input wire:model="web_url" type="text" class="w-full" placeholder="Web URL">
         </div>
-        <div class="col-span-4 sm:col-span-1 bg-pink-300">
+        <div class="col-span-3 sm:col-span-1 bg-white flex items-center py-2">
             <input type="file" wire:model="answerImageUpload">
         </div>
-        <div class="col-span-4 sm:col-span-1 pt-1">
-            <button type="submit" class="w-full text-xs bg-blue-500 text-white font-semibold p-2 rounded-md shadow">Submit</button>
+        <div class="col-span-4 sm:col-span-1">
+            <x-button type="submit" class="">Submit</x-button>
         </div>
     </div>
     

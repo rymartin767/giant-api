@@ -43,3 +43,21 @@ ol > li > ol {
 .flashcard-answer {
     @apply text-xl font-semibold;
 }
+
+/* Forms */
+
+.base-form {
+    @apply bg-white p-3 shadow-md;
+}
+
+select {
+    @apply w-full bg-gray-100 rounded border-none text-gray-400;
+}
+
+input[type=text] {
+    @apply w-full bg-gray-100 rounded border-none placeholder-gray-400;
+}
+
+input[type=number] {
+    @apply w-full bg-gray-100 rounded border-none placeholder-gray-400;
+}

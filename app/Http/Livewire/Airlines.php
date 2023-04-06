@@ -7,8 +7,8 @@ use Livewire\Component;
 use Illuminate\View\View;
 use App\Actions\Scales\CreateScale;
 use App\Http\Requests\AirlineRequest;
+use App\Actions\Parsers\TsvToCollection;
 use App\Actions\Scales\MakeScaleRequest;
-use App\Actions\Scales\ParseTsvToCollection;
 use App\Actions\Scales\ValidateScaleRequest;
 
 class Airlines extends Component
@@ -51,10 +51,11 @@ class Airlines extends Component
     {
         $pathToFile = "pay-scales/{$airline->icao}.tsv";
 
-        $data = new ParseTsvToCollection($pathToFile);
+        $data = new TsvToCollection($pathToFile);
         $rows = $data->handle();
 
         foreach($rows as $row) {
+            $row = collect($row);
             $row->put('airline_id', $airline->id);
             $createRequest = new MakeScaleRequest($row);
             $newRequest = $createRequest->handle();

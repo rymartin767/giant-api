@@ -16,7 +16,7 @@ class Pilots extends Component
     public $selectedYear = '2023';
     public $selectedAwsFilePath;
 
-    public $status;
+    public $status = 'This is the status after the pilots are stored!';
 
     public function render() : View
     {

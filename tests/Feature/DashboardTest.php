@@ -12,6 +12,7 @@ test('it has titles to each model resource', function() {
     $this->actingAs(adminUser())->get('/dashboard')
         ->assertSee('Airlines')
         ->assertSee('Articles')
+        ->assertSee('Awards')
         ->assertSee('Events')
         ->assertSee('Flashcards')
         ->assertSee('Pilots');

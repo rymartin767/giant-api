@@ -14,7 +14,7 @@
                 </x-slot:head>
                 <x-slot:body>
                     @forelse ($articles as $article)
-                        <x-table.td>{{ $article->date }}</x-table>
+                        <x-table.td>{{ Carbon\Carbon::parse($article->date)->format('m/d/Y') }}</x-table>
                         <x-table.td>{{ str($article->title)->limit(50) }}</x-table>
                         <x-table.td>{{ $article->author }}</x-table>
                         <x-table.td>{{ $article->category->getFullName() }}</x-table>
