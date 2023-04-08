@@ -15,7 +15,7 @@
             <select wire:model="selectedAwsFilePath">
                 <option value="">Select One...</option>
                 @foreach($files as $file)
-                    <option value="{{ $file }}">{{ str($file)->replace('_', ' ')->substr(-12, 8) }}</option>
+                    <option value="{{ $file }}">{{ $file }}</option>
                 @endforeach
             </select>
         </div>

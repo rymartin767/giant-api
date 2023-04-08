@@ -13,8 +13,8 @@ class PilotFactory extends Factory
     public function definition(): array
     {
         return [
-            'seniority_number' => $this->faker->numberBetween(1,10),
-            'employee_number' => $this->faker->numberBetween(224,234),
+            'seniority_number' => $this->faker->numberBetween(1,1000),
+            'employee_number' => intval(450 . $this->faker->numberBetween(760, 999)),
             'doh' => $this->faker->dateTimeBetween('-20 years', 'now'),
             'seat' => 'CA',
             'fleet' => '747',

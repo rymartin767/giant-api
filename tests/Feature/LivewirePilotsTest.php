@@ -22,7 +22,7 @@ it('displays a select list of aws s3 files as options', function () {
 
 test('storePilot method', function () {
     Livewire::test(Pilots::class)
-        ->set('selectedAwsFilePath', 'seniority-lists/2023/testing-03-10-2023.tsv')
+        ->set('selectedAwsFilePath', 'seniority-lists/2023/test-03-10-2023.tsv')
         ->call('storePilots');
         
     $this->assertDatabaseHas('pilots', ['id' => 1, 'employee_number' => '224']);

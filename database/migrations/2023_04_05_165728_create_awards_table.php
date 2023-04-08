@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('award_domicile');
             $table->string('award_fleet');
             $table->string('award_seat');
+            $table->boolean('is_new_hire');
             $table->boolean('is_upgrade');
             $table->date('month');
             $table->timestamps();

@@ -20,6 +20,7 @@ class AwardFactory extends Factory
             'award_domicile' => $pilot->domicile,
             'award_fleet' => $pilot->fleet,
             'award_seat' => $pilot->seat,
+            'is_new_hire' => false,
             'is_upgrade' => false,
             'month' => $pilot->month
         ];

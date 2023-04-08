@@ -21,8 +21,9 @@
                         <x-table.th>AWARD DOMICILE</x-table>
                         <x-table.th>AWARD FLEET</x-table>
                         <x-table.th>AWARD SEAT</x-table>
+                        <x-table.th>NEW HIRE</x-table>
                         <x-table.th>UPGRADE</x-table>
-                        <x-table.th>MARCH</x-table>
+                        <x-table.th>MONTH</x-table>
                     </x-slot:head>
                     <x-slot:body>
                         @forelse ($awards as $award)
@@ -35,6 +36,7 @@
                                 <x-table.td>{{ $award->award_domicile }}</x-table>
                                 <x-table.td>{{ $award->award_fleet }}</x-table>
                                 <x-table.td>{{ $award->award_seat }}</x-table>
+                                <x-table.td>{{ $award->is_new_hire ? 'YES' : 'NO' }}</x-table>
                                 <x-table.td>{{ $award->is_upgrade ? 'YES' : 'NO' }}</x-table>
                                 <x-table.td>{{ Carbon\Carbon::parse($award->month)->format('M Y') }}</x-table>
                             </tr>

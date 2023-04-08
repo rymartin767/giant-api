@@ -8,13 +8,15 @@ use Livewire\Component;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Storage;
 use App\Actions\Parsers\TsvToCollection;
+use App\Actions\Awards\CreateAwardRequest;
+use App\Actions\Awards\ValidateAwardRequest;
 
 class Awards extends Component
 {
     public $selectedYear;
     public $selectedAwsFilePath;
 
-    public $status = 'This is the status after the awards are stored!';
+    public $status;
 
     public function render() : View
     {
@@ -24,31 +26,32 @@ class Awards extends Component
         ]);
     }
 
-    // public function storeAwards() : void
-    // {
-    //     $file = $this->selectedAwsFilePath;
-    //     $month = Carbon::parse(str($file)->replace('-', '/')->substr(-14, 10));
+    public function storeAwards() : void
+    {
+        $file = $this->selectedAwsFilePath;
+        $month = Carbon::parse(str($file)->replace('_', ' ')->substr(-12, 8));
 
-    //     $tsv = new TsvToCollection($file);
-    //     $rows = $tsv->handle();
+        $tsv = new TsvToCollection($file);
+        $rows = $tsv->handle();
 
-    //     $validatedPilots = collect();
+        $validatedAwards = collect();
 
-    //     foreach ($rows as $pilot) {
-    //         $cpr = new CreatePilotRequest($pilot, $month);
-    //         $request = $cpr->handle();
-    //         $vpr = new ValidatePilotRequest($request);
-    //         $validator = $vpr->handle();
-    //         if ($validator->fails()) {
-    //             $this->status = $validator->errors()->first();
-    //         } else {
-    //             $validated = $request->all();
-    //             $validatedPilots->push($validated);
-    //         }
-    //     }
+        foreach ($rows as $award) {
+            $car = new CreateAwardRequest($award, $month);
+            $request = $car->handle();
+            $var = new ValidateAwardRequest($request);
+            $validator = $var->handle();
+            if ($validator->fails()) {
+                $this->status = $validator->errors()->first();
+            } else {
+                $validated = $request->all();
+                $validatedAwards->push($validated);
+            }
+        }
 
-    //     $validatedPilots->each(fn($attributes) => Pilot::create($attributes));
-    // }
+        $validatedAwards->each(fn($attributes) => Award::create($attributes));
+        $this->status = $validatedAwards->count() . ' Awards have been validated & saved!';
+    }
 
     public function truncateAwards() : void{
         Award::truncate();

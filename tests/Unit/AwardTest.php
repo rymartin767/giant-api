@@ -2,13 +2,10 @@
 
 use App\Models\Award;
 
-test('award attribute casting for is_upgrade', function () {
+test('award attribute casting', function () {
     $award = Award::factory()->create();
+    $this->assertSame('boolean', $award->getCasts()['is_new_hire']);
     $this->assertSame('boolean', $award->getCasts()['is_upgrade']);
-});
-
-test('award attribute casting for month', function () {
-    $award = Award::factory()->create();
     $this->assertSame('immutable_date:M Y', $award->getCasts()['month']);
 });
 

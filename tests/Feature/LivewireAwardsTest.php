@@ -18,16 +18,17 @@ test('awards livewire component is present on awards page', function() {
 
 it('displays a select list of aws s3 files as options', function () {
     Livewire::test(Awards::class)
-        ->assertSeeHtml('<option value="vacancy-awards/2023/MAR_2023.tsv">MAR 2023</option>');
+        ->assertSeeHtml('<option value="vacancy-awards/2023/TEST_MAR_2023.tsv">vacancy-awards/2023/TEST_MAR_2023.tsv</option>');
 });
 
-// test('storeAward method', function () {
-//     Livewire::test(Awards::class)
-//         ->set('selectedAwsFilePath', 'awards/2023/testing-03-10-2023.tsv')
-//         ->call('storeawards');
+test('storeAward method', function () {
+    Livewire::test(Awards::class)
+        ->set('selectedYear', '2023')
+        ->set('selectedAwsFilePath', 'vacancy-awards/2023/TEST_MAR_2023.tsv')
+        ->call('storeAwards');
         
-//     $this->assertDatabaseHas('awards', ['id' => 1, 'employee_number' => '224']);
-// });
+    $this->assertDatabaseHas('awards', ['id' => 1, 'employee_number' => '224']);
+});
 
 test('truncateAward method', function() {
     Award::factory()->create();

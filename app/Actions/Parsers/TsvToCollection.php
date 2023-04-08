@@ -18,7 +18,8 @@ class TsvToCollection
             $file = Storage::disk('s3')->get($this->pathToFile);
             
             $rows = explode("\r\n", $file);
-            
+            unset($rows[0]);
+
             foreach($rows as $row) { 
                 $data = explode("\t", $row);
                 $data = array_filter($data);

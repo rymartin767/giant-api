@@ -16,7 +16,7 @@ class ArticleFactory extends Factory
             'date' => $this->faker->date('Y-m-d', 'now'),
             'title' => $this->faker->sentence(12, true),
             'author' => $this->faker->name(),
-            'story' => $this->faker->paragraph(2, true),
+            'story' => $this->faker->paragraph(1, true),
             'web_url' => $this->faker->url(),
             'slug' => null
         ];
