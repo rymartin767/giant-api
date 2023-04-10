@@ -15,7 +15,7 @@ class Articles extends Component
     public $author;
     public $story;
     public $web_url;
-    public $slug;
+    public $slug = null;
 
     protected function rules(): array
     {

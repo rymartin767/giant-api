@@ -25,7 +25,7 @@ class ArticleRequest extends FormRequest
             'author' => ['required', 'string', 'min:5', 'max:50'],
             'story' => ['required', 'string', 'min:50', 'max:10000'],
             'web_url' => ['present', 'url', 'nullable'],
-            'slug' => ['present', 'string', 'min:20', 'max:110', 'nullable']
+            'slug' => ['present', 'nullable']
         ];
     }
 }

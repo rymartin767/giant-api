@@ -1,12 +1,7 @@
 <form wire:submit.prevent="storeArticle" class="base-form">
     <div class="grid grid-cols-3 gap-3">
         <div class="col-span-3 sm:col-span-1">
-            <select wire:model="category" class="w-full">
-                <option value="">Choose Category...</option>
-                @foreach (\App\Enums\ArticleCategory::cases() as $category)
-                    <option value="{{ $category->value }}">{{ $category->getFullName() }}</option>
-                @endforeach
-            </select>
+            <input type="date" wire:model="date" class="w-full">
         </div>
         <div class="col-span-3 sm:col-span-1">
             <input wire:model="title" type="text" class="w-full" placeholder="Article Title">
@@ -19,7 +14,15 @@
                 <textarea wire:model="story" name="story" id="story" class="rich-editor"></textarea>
             </div>
         </div>
-        <div class="col-span-3 sm:col-span-2">
+        <div class="col-span-3 sm:col-span-1">
+            <select wire:model="category" class="w-full">
+                <option value="">Choose Category...</option>
+                @foreach (\App\Enums\ArticleCategory::cases() as $category)
+                    <option value="{{ $category->value }}">{{ $category->getFullName() }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="col-span-3 sm:col-span-1">
             <input wire:model="web_url" type="text" class="w-full" placeholder="Web URL">
         </div>
         <div class="col-span-3 sm:col-span-1 bg-white flex items-center py-2">
