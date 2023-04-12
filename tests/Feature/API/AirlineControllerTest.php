@@ -97,19 +97,21 @@ it('can return a model response', function() {
     $data = Airline::factory()->create(['icao' => 'gti']);
 
     $this->actingAs(sanctumToken())->get('v1/airlines?icao=GTI')
-        ->assertExactJson(['data' => [
-            [
-                'id' => $data->id,
-                'sector' => $data->sector,
-                'name' => $data->name,
-                'icao' => $data->icao,
-                'iata' => $data->iata,
-                'union' => $data->union,
-                'pilot_count' => $data->pilot_count,
-                'is_hiring' => $data->is_hiring,
-                'web_url' => $data->web_url,
+        ->assertExactJson([
+            'data' => [
+                [
+                    'id' => $data->id,
+                    'sector' => $data->sector,
+                    'name' => $data->name,
+                    'icao' => $data->icao,
+                    'iata' => $data->iata,
+                    'union' => $data->union,
+                    'pilot_count' => $data->pilot_count,
+                    'is_hiring' => $data->is_hiring,
+                    'web_url' => $data->web_url,
+                ]
             ]
-        ]])
+        ])
         ->assertOk();
 });
 

@@ -80,4 +80,8 @@
             </div>
         </x-section>
     @endisset
+
+    <x-section class="max-w-5xl" title="API Endpoints">
+        <pre><x-torchlight-code language='php' contents='views/torchlight/airlines.blade.php'/></pre>
+    </x-section>
 </div>
