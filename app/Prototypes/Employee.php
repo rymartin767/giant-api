@@ -5,7 +5,7 @@ namespace App\Prototypes;
 use App\Models\Pilot;
 use App\Models\Scale;
 
-final class Employee
+final readonly class Employee
 {
     public function __construct(
         private readonly Pilot $pilot,
@@ -28,12 +28,7 @@ final class Employee
                         'active' => $this->pilot->active,
                         'month' => $this->pilot->month
                     ],
-                    'award' => [
-                        'award_seat' => 'XX',
-                        'award_fleet' => 'XX',
-                        'award_domicile' => 'XXX',
-                        'month' => 'XXX'
-                    ],
+                    'award' => $this->pilot->award->only('employee_number','award_domicile','award_seat','award_fleet'),
                     'scales' => $this->scales
                 ]
             ]

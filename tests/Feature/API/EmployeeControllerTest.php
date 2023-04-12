@@ -1,7 +1,8 @@
 <?php
 
-use App\Models\Pilot;
+use App\Models\Award;
 
+use App\Models\Pilot;
 use App\Models\Scale;
 use App\Models\Airline;
 use function Pest\Laravel\get;
@@ -13,7 +14,7 @@ test('response for unauthenticated request', function() {
 
 it('can return a model response', function() {
     $airline = Airline::factory()->has(Scale::factory())->create(['icao' => 'GTI']);
-    $pilot = Pilot::factory()->create(['fleet' => '737']);
+    $pilot = Pilot::factory()->has(Award::factory())->create(['fleet' => '737']);
 
     $this->actingAs(sanctumToken())->get('v1/employee?number=' . $pilot->employee_number)
         ->assertExactJson([
@@ -30,12 +31,7 @@ it('can return a model response', function() {
                         'active' => $pilot->active,
                         'month' => $pilot->month
                     ],
-                    'award' => [
-                        'award_seat' => 'XX',
-                        'award_fleet' => 'XX',
-                        'award_domicile' => 'XXX',
-                        'month' => 'XXX'
-                    ],
+                    'award' => $pilot->award->only('employee_number','award_domicile','award_seat','award_fleet'),
                     'scales' => [
                         [
                             'year' => $airline->scales->first()->year,

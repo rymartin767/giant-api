@@ -13,6 +13,10 @@ class Pilot extends Model
         'seniority_number', 'employee_number', 'doh', 'seat', 'fleet', 'domicile', 'retire', 'active', 'month'
     ];
 
+    protected $hidden = [
+        'id', 'created_at', 'updated_at'
+    ];
+
     protected $casts = [
         'doh' => 'immutable_date:m/d/Y',
         'retire' => 'immutable_date:m/d/Y',
@@ -23,5 +27,10 @@ class Pilot extends Model
     public function scopeCurrentSeniorityList($query)
     {
         return $query->where('month', Pilot::pluck('month')->unique()->sort()->last());
+    }
+
+    public function award()
+    {
+        return $this->hasOne(Award::class, 'employee_number', 'employee_number');
     }
 }

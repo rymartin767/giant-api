@@ -1,8 +1,9 @@
 <?php
 
-use App\Models\Pilot;
 use Carbon\Carbon;
+use App\Models\Award;
 
+use App\Models\Pilot;
 use function Pest\Laravel\get;
 
 test('response for unauthenticated request', function() {
@@ -31,50 +32,60 @@ it('can return an collection response', function() {
     $pilotTwo = Pilot::factory()->create(['seniority_number' => 2, 'employee_number' => 450766]);
 
     $this->actingAs(sanctumToken())->get('v1/pilots')
-        ->assertExactJson(['data' => [
-            [
-                'seniority_number' => $pilotOne->seniority_number, 
-                'employee_number' => $pilotOne->employee_number, 
-                'doh' => Carbon::parse($pilotOne->doh)->format('m/d/Y'), 
-                'seat' => $pilotOne->seat, 
-                'fleet' => $pilotOne->fleet, 
-                'domicile' => $pilotOne->domicile, 
-                'retire' => Carbon::parse($pilotOne->retire)->format('m/d/Y'),
-                'active' => $pilotOne->active, 
-                'month' => Carbon::parse($pilotOne->month)->format('M Y'),
-            ],
-            [
-                'seniority_number' => $pilotTwo->seniority_number, 
-                'employee_number' => $pilotTwo->employee_number, 
-                'doh' => Carbon::parse($pilotTwo->doh)->format('m/d/Y'), 
-                'seat' => $pilotTwo->seat, 
-                'fleet' => $pilotTwo->fleet, 
-                'domicile' => $pilotTwo->domicile, 
-                'retire' => Carbon::parse($pilotTwo->retire)->format('m/d/Y'),
-                'active' => $pilotTwo->active, 
-                'month' => Carbon::parse($pilotTwo->month)->format('M Y'),
-            ],
-        ]])
+        ->assertExactJson([
+            'data' => [
+                [
+                    'seniority_number' => $pilotOne->seniority_number, 
+                    'employee_number' => $pilotOne->employee_number, 
+                    'doh' => Carbon::parse($pilotOne->doh)->format('m/d/Y'), 
+                    'seat' => $pilotOne->seat, 
+                    'fleet' => $pilotOne->fleet, 
+                    'domicile' => $pilotOne->domicile, 
+                    'retire' => Carbon::parse($pilotOne->retire)->format('m/d/Y'),
+                    'active' => $pilotOne->active, 
+                    'month' => Carbon::parse($pilotOne->month)->format('M Y'),
+                ],
+                [
+                    'seniority_number' => $pilotTwo->seniority_number, 
+                    'employee_number' => $pilotTwo->employee_number, 
+                    'doh' => Carbon::parse($pilotTwo->doh)->format('m/d/Y'), 
+                    'seat' => $pilotTwo->seat, 
+                    'fleet' => $pilotTwo->fleet, 
+                    'domicile' => $pilotTwo->domicile, 
+                    'retire' => Carbon::parse($pilotTwo->retire)->format('m/d/Y'),
+                    'active' => $pilotTwo->active, 
+                    'month' => Carbon::parse($pilotTwo->month)->format('M Y'),
+                ],
+            ]
+        ])
         ->assertOk();
 });
 
-it('can return an model response', function() {
-    $pilot = Pilot::factory()->create(['employee_number' => 224]);
+it('can return an model response with latest award', function() {
+    $pilot = Pilot::factory()->has(Award::factory())->create(['employee_number' => 224]);
 
     $this->actingAs(sanctumToken())->get('v1/pilots?employee_number=224')
-        ->assertExactJson(['data' => [
-            [
-                'seniority_number' => $pilot->seniority_number, 
-                'employee_number' => $pilot->employee_number, 
-                'doh' => Carbon::parse($pilot->doh)->format('m/d/Y'), 
-                'seat' => $pilot->seat, 
-                'fleet' => $pilot->fleet, 
-                'domicile' => $pilot->domicile, 
-                'retire' => Carbon::parse($pilot->retire)->format('m/d/Y'),
-                'active' => $pilot->active, 
-                'month' => Carbon::parse($pilot->month)->format('M Y'),
+        ->assertExactJson([
+            'data' => [
+                [
+                    'seniority_number' => $pilot->seniority_number, 
+                    'employee_number' => $pilot->employee_number, 
+                    'doh' => Carbon::parse($pilot->doh)->format('m/d/Y'), 
+                    'seat' => $pilot->seat, 
+                    'fleet' => $pilot->fleet, 
+                    'domicile' => $pilot->domicile, 
+                    'retire' => Carbon::parse($pilot->retire)->format('m/d/Y'),
+                    'active' => $pilot->active, 
+                    'month' => Carbon::parse($pilot->month)->format('M Y'),
+                    'award' => [
+                        'employee_number' => $pilot->employee_number,
+                        'award_seat' => $pilot->seat,
+                        'award_fleet' => $pilot->fleet,
+                        'award_domicile' => $pilot->domicile
+                    ]
+                ]
             ]
-        ]])
+        ])
         ->assertOk();
 });
 

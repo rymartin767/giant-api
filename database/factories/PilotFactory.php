@@ -14,12 +14,12 @@ class PilotFactory extends Factory
     {
         return [
             'seniority_number' => $this->faker->numberBetween(1,1000),
-            'employee_number' => intval(450 . $this->faker->numberBetween(760, 999)),
+            'employee_number' => intval(450 . $this->faker->numberBetween(160, 999)),
             'doh' => $this->faker->dateTimeBetween('-20 years', 'now'),
             'seat' => 'CA',
             'fleet' => '747',
             'domicile' => 'ORD',
-            'retire' => $this->faker->dateTimeBetween('+6 months', '+25 years'),
+            'retire' => $this->faker->dateTimeBetween('+2 years', '+25 years'),
             'active' => true,
             'month' => Carbon::parse('03/10/2023')
         ];

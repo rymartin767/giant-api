@@ -4,16 +4,17 @@ namespace App\Queries;
 
 use Illuminate\Database\Eloquent\Builder;
 
-final class FetchPilots
+final readonly class FetchPilots
 {
     public function handle(Builder $query, string $employeeNumber = null) : Builder
     {
         // Return the most recent seniority list of pilots
         if ($employeeNumber == null) {
-            return $query->select(['seniority_number', 'employee_number', 'doh', 'seat', 'fleet', 'domicile', 'retire', 'active', 'month']);
+            return $query;
         }
 
-        return $query->select(['seniority_number', 'employee_number', 'doh', 'seat', 'fleet', 'domicile', 'retire', 'active', 'month'])
-            ->where('employee_number', $employeeNumber);
+        return $query
+            ->where('employee_number', $employeeNumber)
+            ->with('award:employee_number,award_domicile,award_seat,award_fleet');
     }
 }

@@ -22,7 +22,7 @@ class ArticleRequest extends FormRequest
             'category' => [new Enum(ArticleCategory::class)],
             'date' => ['required', 'date'],
             'title' => ['required', 'string', 'min:12', 'max:100'],
-            'author' => ['required', 'string', 'min:5', 'max:50'],
+            'author' => ['required', 'string', 'min:5', 'max:100'],
             'story' => ['required', 'string', 'min:50', 'max:10000'],
             'web_url' => ['present', 'url', 'nullable'],
             'slug' => ['present', 'nullable']

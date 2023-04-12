@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Award;
 use App\Models\Pilot;
 
 test('pilot attribute casting for doh, retire and month', function () {
@@ -25,4 +26,9 @@ test('pilot month casting format for json', function () {
     $pilot = Pilot::factory()->create(['month' => now()]);
     $json = json_decode($pilot);
     $this->assertSame(now()->format('M Y'), $json->month);
+});
+
+it('has one award', function() {
+    $pilot = Pilot::factory()->has(Award::factory())->create();
+    expect($pilot->award)->toBeInstanceOf(Award::class);
 });

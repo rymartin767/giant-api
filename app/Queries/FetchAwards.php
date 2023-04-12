@@ -6,13 +6,21 @@ use Illuminate\Database\Eloquent\Builder;
 
 final class FetchAwards
 {
-    public function handle(Builder $query, string $employeeNumber = null) : Builder
+    public function handle(Builder $query, string $employeeNumber = null, string $code = null) : Builder
     {
-        if ($employeeNumber == null) {
-            return $query->select(['base_seniority', 'employee_number', 'domicile', 'fleet', 'seat', 'award_domicile', 'award_fleet', 'award_seat', 'is_upgrade', 'month']);
+        // Return All Awards
+        if ($employeeNumber == null && $code == null) {
+            return $query;
         }
 
-        return $query->select(['base_seniority', 'employee_number', 'domicile', 'fleet', 'seat', 'award_domicile', 'award_fleet', 'award_seat', 'is_upgrade', 'month'])
+        // Return Awards for Domicile
+        if ($employeeNumber == null && $code != null) {
+            return $query
+                ->where('award_domicile', $code);
+        }
+
+        // Return Award for Employee
+        return $query
             ->where('employee_number', $employeeNumber);
     }
 }

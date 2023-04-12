@@ -13,7 +13,7 @@ use App\Http\Responses\CollectionResponse;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 
-final class PilotController
+final readonly class PilotController
 {
     public function __construct(
         private readonly FetchPilots $query

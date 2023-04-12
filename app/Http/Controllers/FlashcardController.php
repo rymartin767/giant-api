@@ -24,18 +24,18 @@ final class FlashcardController
             return new ErrorResponse(401, $exception);
         }
 
-        $filteredData = $this->query->handle(
+        $flashcards = $this->query->handle(
             query: Flashcard::query(),
             category: request('category')
         )->get();
 
-        if ($filteredData->isEmpty())
+        if ($flashcards->isEmpty())
         {
             return new EmptyResponse();
         }
 
         return new CollectionResponse(
-            data: new FlashcardCollection($filteredData)
+            data: new FlashcardCollection($flashcards)
         );
     }
 }
