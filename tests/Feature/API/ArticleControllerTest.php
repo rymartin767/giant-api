@@ -16,30 +16,30 @@ it('can return an empty response', function() {
 });
 
 it('can return a collection response', function() {
-    $data = Article::factory()->create();
-    $dataTwo = Article::factory()->create();
+    $newestArticle = Article::factory()->create(['date' => now()]);
+    $oldestArticle = Article::factory()->create(['date' => now()->subWeek()]);
 
     $this->actingAs(sanctumToken())->get('v1/articles')
         ->assertExactJson(['data' => [
             [
-                'id' => $data->id,
-                'category' => $data->category,
-                'date' => Carbon::parse($data->date)->format('m/d/Y'),
-                'title' => $data->title,
-                'author' => $data->author,
-                'story' => $data->story,
-                'web_url' => $data->web_url,
-                'slug' => $data->slug,
+                'id' => $newestArticle->id,
+                'category' => $newestArticle->category,
+                'date' => Carbon::parse($newestArticle->date)->format('m/d/Y'),
+                'title' => $newestArticle->title,
+                'author' => $newestArticle->author,
+                'story' => $newestArticle->story,
+                'web_url' => $newestArticle->web_url,
+                'slug' => $newestArticle->slug,
             ],
             [
-                'id' => $dataTwo->id,
-                'category' => $dataTwo->category,
-                'date' => Carbon::parse($dataTwo->date)->format('m/d/Y'),
-                'title' => $dataTwo->title,
-                'author' => $dataTwo->author,
-                'story' => $dataTwo->story,
-                'web_url' => $dataTwo->web_url,
-                'slug' => $dataTwo->slug,
+                'id' => $oldestArticle->id,
+                'category' => $oldestArticle->category,
+                'date' => Carbon::parse($oldestArticle->date)->format('m/d/Y'),
+                'title' => $oldestArticle->title,
+                'author' => $oldestArticle->author,
+                'story' => $oldestArticle->story,
+                'web_url' => $oldestArticle->web_url,
+                'slug' => $oldestArticle->slug,
             ],
         ]])
         ->assertOk();

@@ -82,6 +82,14 @@
     @endisset
 
     <x-section class="max-w-5xl" title="API Endpoints">
-        <pre><x-torchlight-code language='php' contents='views/torchlight/airlines.blade.php'/></pre>
+        <x-api-snippet
+            description="Collection Response of all Airlines"
+            endpoint="v1/airlines?scales=true"
+            params="@bool(scales) : optional"
+        >
+            <x-slot:torchlight>
+                <pre><x-torchlight-code language='php' contents='views/torchlight/airlines/collection-response.blade.php'/></pre>
+            </x-slot:torchlight>
+        </x-api-snippet>
     </x-section>
 </div>

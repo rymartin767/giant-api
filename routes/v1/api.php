@@ -8,6 +8,7 @@ use App\Http\Controllers\AirlineController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\FlashcardController;
+use App\Http\Controllers\Pilot\StaffingController;
 use App\Http\Controllers\Award\DomicilesController;
 use App\Http\Controllers\Pilot\RetirementsListController;
 
@@ -22,8 +23,10 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::get('pilots', PilotController::class)->name('api.pilots');
 
     // EXTENDED FROM BASE MODELS
-    Route::get('pilots/retirements-list', RetirementsListController::class)->name('api.pilots.retirements-list');
     Route::get('awards/domiciles', DomicilesController::class)->name('api.awards.domiciles');
+
+    Route::get('pilots/retirements-list', RetirementsListController::class)->name('api.pilots.retirements-list');
+    Route::get('pilots/staffing', StaffingController::class)->name('api.pilots.staffing');
 
     // CHARTS
 });

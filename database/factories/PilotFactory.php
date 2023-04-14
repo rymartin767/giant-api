@@ -5,23 +5,24 @@ namespace Database\Factories;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Pilot>
- */
 class PilotFactory extends Factory
 {
     public function definition(): array
     {
+        $month = Carbon::parse('03/10/2023');
+        $doh = $this->faker->date('m/d/Y', '-2 years');
+        $retire = $this->faker->date('m/d/Y', '20 years');
+
         return [
             'seniority_number' => $this->faker->numberBetween(1,1000),
             'employee_number' => intval(450 . $this->faker->numberBetween(160, 999)),
-            'doh' => $this->faker->dateTimeBetween('-20 years', 'now'),
+            'doh' => Carbon::parse($doh), // mimic the CreatePilotRequest
             'seat' => 'CA',
             'fleet' => '747',
             'domicile' => 'ORD',
-            'retire' => $this->faker->dateTimeBetween('+2 years', '+25 years'),
+            'retire' => Carbon::parse($retire), // mimic the CreatePilotRequest
             'active' => true,
-            'month' => Carbon::parse('03/10/2023')
+            'month' => $month // mimic the CreatePilotRequest
         ];
     }
 }

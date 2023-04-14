@@ -42,7 +42,7 @@ final class ArticleController
 
         $articles = $this->query->handle(
             query: Article::query(),
-        )->orderByDesc('date')->get();
+        )->latest('date')->get();
 
         if ($articles->isEmpty())
         {
