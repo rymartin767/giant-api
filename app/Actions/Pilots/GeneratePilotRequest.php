@@ -5,7 +5,7 @@ namespace App\Actions\Pilots;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-final class CreatePilotRequest
+final class GeneratePilotRequest
 {
     public function __construct(protected array $pilot, public string $month) {}
 

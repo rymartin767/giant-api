@@ -4,11 +4,10 @@ namespace App\Actions\Pilots;
 
 use Exception;
 use App\Models\Pilot;
-use Illuminate\Support\Collection;
 
 final readonly class GenerateStaffingReport
 {
-    public function handle() : Collection
+    public function handle() : array
     {
         try {
             $months = Pilot::pluck('month')->unique()->sortDesc()->take(2);
@@ -23,21 +22,21 @@ final readonly class GenerateStaffingReport
             $ages = collect();
             $current_list->each(fn($pilot) => $ages->push(65 - (now()->diffInYears($pilot->retire) + 1)));
 
-            $report = collect([
-                "List Date" => $months->first()->format('m/d/Y'),
-                "Total" => $current_list->count(),
-                "Active" => $current_list->where('active', true)->count(),
-                "Inactive" => $current_list->where('active', false)->count(),
-                "Net Gain/Loss" => $current_list->count() - $previous_list_count,
-                "YTD Gain/Loss" => $current_list->count() - $ytd_starting_count,
-                "Average Age" => round($ages->average())
-            ]);
+            $report = [
+                "list_date" => $months->first()->format('m/d/Y'),
+                "total_pilot_count" => $current_list->count(),
+                "active_pilot_count" => $current_list->where('active', true)->count(),
+                "inactive_pilot_count" => $current_list->where('active', false)->count(),
+                "net_gain_loss" => $current_list->count() - $previous_list_count,
+                "ytd_gain_loss" => $current_list->count() - $ytd_starting_count,
+                "average_age" => round($ages->average())
+            ];
 
             return $report;
         } catch (Exception $exception) {
-            return collect([
+            return [
                 'errors' => $exception
-            ]);
+            ];
         }
     }
 }

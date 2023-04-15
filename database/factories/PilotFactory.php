@@ -15,7 +15,7 @@ class PilotFactory extends Factory
 
         return [
             'seniority_number' => $this->faker->numberBetween(1,1000),
-            'employee_number' => intval(450 . $this->faker->numberBetween(160, 999)),
+            'employee_number' => intval($this->faker->numberBetween(450, 458) . $this->faker->numberBetween(001, 999)),
             'doh' => Carbon::parse($doh), // mimic the CreatePilotRequest
             'seat' => 'CA',
             'fleet' => '747',

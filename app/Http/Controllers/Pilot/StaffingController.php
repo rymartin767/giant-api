@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Pilot;
 
-use Carbon\Carbon;
 use App\Models\Pilot;
 use Illuminate\Http\Request;
 use App\Http\Responses\EmptyResponse;
@@ -25,7 +24,7 @@ final readonly class StaffingController
 
         $report = $this->report->handle();
 
-        if ($report->has('errors')) {
+        if (array_key_exists('errors', $report)) {
             return new ErrorResponse(401, $report['errors']);
         }
 

@@ -40,13 +40,13 @@ it('can return a collection response', function () {
     $this->actingAs(sanctumToken())->get('v1/pilots/staffing')
         ->assertExactJson([
             'data' => [
-                "List Date" =>  "03/15/2023",
-                "Total" =>  5,
-                "Active" =>  5,
-                "Inactive" =>  0,
-                "Net Gain/Loss" =>  -5,
-                "YTD Gain/Loss" =>  -10,
-                "Average Age" =>  43
+                "list_date" =>  "03/15/2023",
+                "total_pilot_count" =>  5,
+                "active_pilot_count" =>  5,
+                "inactive_pilot_count" =>  0,
+                "net_gain_loss" =>  -5,
+                "ytd_gain_loss" =>  -10,
+                "average_age" =>  43
             ]
         ]);
 });
