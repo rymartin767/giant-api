@@ -16,6 +16,10 @@ class Flashcard extends Model
         'category' => FlashcardCategory::class
     ];
 
+    protected $hidden = [
+        'id', 'created_at', 'updated_at'
+    ];
+
     public function path() : string
     {
         return "/flashcards/$this->id";

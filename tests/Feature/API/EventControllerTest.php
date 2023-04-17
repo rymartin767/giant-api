@@ -3,18 +3,24 @@
 use App\Models\Event;
 use function Pest\Laravel\get;
 
+// Unauth Response
 test('response for unauthenticated request', function() {
     get('v1/events')
         ->assertStatus(302);
 });
 
-test('response for authenticated request with empty data', function() {
+// No Models Exist = Empty Response
+it('returns an empty response for no model data', function() {
     $this->actingAs(sanctumToken())->get('v1/events')
         ->assertExactJson(['data' => []])
         ->assertOk();
 });
 
-test('response for authenticated request with data', function() {
+// Error Response: Empty Parameter
+// Error Response: Bad Parameter
+
+// Collection: Handling Collection Response        
+it('returns a collection response of events', function() {
     $data = Event::factory()->create();
 
     $this->actingAs(sanctumToken())->get('v1/events')
@@ -33,3 +39,8 @@ test('response for authenticated request with data', function() {
         ])
         ->assertOk();
 });
+
+// Empty Response if collection is empty
+
+// Model Handling: ModelNotFound Error Response
+// Model Handling: Model Response

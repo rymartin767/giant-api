@@ -33,6 +33,9 @@
                     <x-nav-link href="{{ route('pilots') }}" :active="request()->routeIs('pilots')">
                         {{ __('Pilots') }}
                     </x-nav-link>
+                    <x-nav-link href="{{ route('staffing') }}" :active="request()->routeIs('staffing')">
+                        {{ __('Staffing') }}
+                    </x-nav-link>
                 </div>
             </div>
 

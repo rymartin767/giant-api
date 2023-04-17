@@ -4,17 +4,48 @@ use App\Models\Scale;
 use App\Models\Airline;
 use function Pest\Laravel\get;
 
+// Unauthenticated Response for missing Sanctum Token
 test('response for unauthenticated request', function() {
     get('v1/airlines')
         ->assertStatus(302);
 });
 
+// No Models Exist = Empty Response
 it('can return an empty response', function() {
     $this->actingAs(sanctumToken())->get('v1/airlines')
         ->assertExactJson(['data' => []])
         ->assertOk();
 });
 
+// Optional Parameter is missing or empty
+test('error response for icao parameter not being filled', function() {
+    Airline::factory()->create(['icao' => 'GTI']);
+
+    $this->actingAs(sanctumToken())->get('v1/airlines?icao=')
+        ->assertExactJson(['error' => [
+            'message' => 'Please check your request parameters.',
+            'type' => 'Symfony\Component\HttpFoundation\Exception\BadRequestException',
+            'code' => 401
+        ]])
+        ->assertStatus(401);
+});
+
+// Bad Parameter name
+test('error response for bad parameter name', function() {
+    Airline::factory()->create(['icao' => 'GTI']);
+
+    $this->actingAs(sanctumToken())->get('v1/airlines?icoa=GTI')
+        ->assertExactJson(['error' => [
+            'message' => 'Please check your request parameters.',
+            'type' => 'Symfony\Component\HttpFoundation\Exception\BadRequestException',
+            'code' => 401
+        ]])
+        ->assertStatus(401);
+});
+
+// Collection Handling: Empty Response if collection is empty
+
+// Collection Handling: Collection Response without params
 it('can return a collection response without pay scales', function() {
     $data = Airline::factory()->create();
     $dataTwo = Airline::factory()->create();
@@ -49,6 +80,7 @@ it('can return a collection response without pay scales', function() {
         ->assertOk();
 });
 
+// Collection Handling: Collection Response with params
 it('can return a collection response with pay scales', function() {
     $airlineOne = Airline::factory()->create();
     $airlineTwo = Airline::factory()
@@ -93,6 +125,7 @@ it('can return a collection response with pay scales', function() {
         ->assertOk();
 });
 
+// Model Handling: Model Response
 it('can return a model response', function() {
     $data = Airline::factory()->create(['icao' => 'gti']);
 
@@ -115,7 +148,8 @@ it('can return a model response', function() {
         ->assertOk();
 });
 
-test('error response for model not found', function() {
+// Model Handling: Model Not Found Error Response
+it('will return an error response for model not found', function() {
     Airline::factory()->create();
 
     $this->actingAs(sanctumToken())->get('v1/airlines?icao=ABC')
@@ -125,28 +159,4 @@ test('error response for model not found', function() {
             'code' => 404
         ]])
         ->assertStatus(404);
-});
-
-test('error response for bad parameter name', function() {
-    Airline::factory()->create(['icao' => 'GTI']);
-
-    $this->actingAs(sanctumToken())->get('v1/airlines?icoa=GTI')
-        ->assertExactJson(['error' => [
-            'message' => 'Please check your request parameters.',
-            'type' => 'Symfony\Component\HttpFoundation\Exception\BadRequestException',
-            'code' => 401
-        ]])
-        ->assertStatus(401);
-});
-
-test('error response for icao parameter not being filled', function() {
-    Airline::factory()->create(['icao' => 'GTI']);
-
-    $this->actingAs(sanctumToken())->get('v1/airlines?icao=')
-        ->assertExactJson(['error' => [
-            'message' => 'Please check your request parameters.',
-            'type' => 'Symfony\Component\HttpFoundation\Exception\BadRequestException',
-            'code' => 401
-        ]])
-        ->assertStatus(401);
 });

@@ -15,5 +15,6 @@ test('it has titles to each model resource', function() {
         ->assertSee('Awards')
         ->assertSee('Events')
         ->assertSee('Flashcards')
-        ->assertSee('Pilots');
+        ->assertSee('Pilots')
+        ->assertSee('Staffing');
 });

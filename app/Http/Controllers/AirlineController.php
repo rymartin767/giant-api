@@ -21,38 +21,54 @@ final class AirlineController
 
     public function __invoke(Request $request)
     {
-        if ($request->missing('icao') || !$request->filled('icao')) {
+        // !No Models Exist = Empty Response
+        if (!Airline::exists()) {
+            return new EmptyResponse();
+        }
 
-            if ($request->collect()->isNotEmpty() && $request->missing('scales')) {
+        // !ICAO Parameter Present (Model Response)
+        if ($request->has('icao')) {
+            if (!$request->filled('icao')) {
                 return new ErrorResponse(401, new BadRequestException('Please check your request parameters.'));
             }
 
-            $airlines = $this->query->handle(
-                query: Airline::query(),
-                icao: null,
-                scales: $request->has('scales')
-            )->get();
-
-            if ($airlines->isEmpty())
-            {
-                return new EmptyResponse();
+            // Model Handling
+            try {
+                $airline = $this->query->handle(
+                    query: Airline::query(),
+                    icao: request('icao')
+                )->firstOrFail();
+            } catch (ModelNotFoundException) {
+                $exception = new ModelNotFoundException('Airline with ICAO code ' . request('icao') . ' not found.');
+                return new ErrorResponse(404, $exception);
             }
 
-            return new CollectionResponse(
-                data: new AirlineCollection($airlines)
-            );
+            // Model Response
+            return new ModelResponse($airline);
         }
 
-        try {
-            $airline = $this->query->handle(
-                query: Airline::query(),
-                icao: request('icao')
-            )->firstOrFail();
-        } catch (ModelNotFoundException) {
-            $exception = new ModelNotFoundException('Airline with ICAO code ' . request('icao') . ' not found.');
-            return new ErrorResponse(404, $exception);
+        // !ICAO Parameter Missing (Collection Response)
+
+        // Bad Parameter name
+        if ($request->collect()->isNotEmpty() && $request->missing('scales')) {
+            return new ErrorResponse(401, new BadRequestException('Please check your request parameters.'));
         }
 
-        return new ModelResponse($airline);
+        // Collection Handling
+        $airlines = $this->query->handle(
+            query: Airline::query(),
+            scales: $request->has('scales')
+        )->get();
+
+        // Empty Response if collection is empty
+        if ($airlines->isEmpty())
+        {
+            return new EmptyResponse();
+        }
+        
+        // Collection Response
+        return new CollectionResponse(
+            data: new AirlineCollection($airlines)
+        );
     }
 }

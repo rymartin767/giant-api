@@ -1,5 +1,6 @@
 <?php
 
+use App\Actions\Pilots\GenerateStaffingReport;
 use Tests\TestCase;
 use App\Models\User;
 use Laravel\Sanctum\Sanctum;

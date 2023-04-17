@@ -20,9 +20,20 @@ final class ArticleController
     ) {}
 
     public function __invoke(Request $request)
-    { 
-        if ($request->has('id') && $request->filled('id')) {
+    {
+        // !No Models Exist = Empty Response
+        if (!Article::exists()) {
+            return new EmptyResponse();
+        }
 
+        // !ID Parameter is Present (Model Response)
+        if ($request->has('id')) {
+            // Empty Parameter
+            if (!$request->filled('id')) {
+                return new ErrorResponse(401, new BadRequestException('Please check your request parameters.'));
+            }
+
+            // Model Handling
             try {
                 $article = $this->query->handle(
                     query: Article::query(),
@@ -32,23 +43,30 @@ final class ArticleController
                 $exception = new ModelNotFoundException('Article not found. Please check your id.');
                 return new ErrorResponse(404, $exception);
             }
-    
-            return new ModelResponse($article);
+
+            // Model Response
+            return new ModelResponse($article); 
         }
 
+        // !ID Parameter is Missing (Collection Response)
+
+        // Bad Parameter
         if ($request->collect()->isNotEmpty()) {
             return new ErrorResponse(401, new BadRequestException('Please check your request parameters.'));
         }
 
+        // Collection Handling
         $articles = $this->query->handle(
             query: Article::query(),
         )->latest('date')->get();
 
+        // Empty Response if collection is empty
         if ($articles->isEmpty())
         {
             return new EmptyResponse();
         }
-
+        
+        // Collection Response
         return new CollectionResponse(
             data: new ArticleCollection($articles),
         );

@@ -5,18 +5,23 @@ use App\Models\Award;
 
 use function Pest\Laravel\get;
 
+// Unauth Request
 test('response for unauthenticated request', function() {
     get('v1/awards')
         ->assertStatus(302);
 });
 
+// No Models Exist = Empty Response
 it('can return an empty response', function() {
     $this->actingAs(sanctumToken())->get('v1/awards')
         ->assertExactJson(['data' => []])
         ->assertOk();
 });
 
-it('can return an error response for empty employee_number parameter', function() {
+// Error Response: Empty Parameter
+it('returns an error response for empty employee_number parameter', function() {
+    Award::factory()->create();
+
     $this->actingAs(sanctumToken())->get('v1/awards?employee_number=')
         ->assertExactJson(['error' => [
             'message' => 'Please check your request for an empty required parameter.',
@@ -26,7 +31,10 @@ it('can return an error response for empty employee_number parameter', function(
         ->assertStatus(401);
 });
 
-it('can return an error response for bad parameters', function() {
+// Error Response: Bad Parameter name
+it('returns an error response for bad parameters', function() {
+    Award::factory()->create();
+    
     $this->actingAs(sanctumToken())->get('v1/awards?emp=2244')
         ->assertExactJson(['error' => [
             'message' => 'Please check your request parameters.',
@@ -36,6 +44,7 @@ it('can return an error response for bad parameters', function() {
         ->assertStatus(401);
 });
 
+// Collection Handling: Collection Response
 it('can return a collection response', function() {
     $awardOne = Award::factory()->create(['base_seniority' => 1, 'employee_number' => 450765]);
     $awardTwo = Award::factory()->create(['base_seniority' => 2, 'employee_number' => 450766]);
@@ -71,7 +80,24 @@ it('can return a collection response', function() {
         ]])
         ->assertOk();
 });
+            
+// Collection Handling: Empty Response
+       
+// Model Handling: ModelNotFound Error Response
+it('can return an model not found response', 
+function() {
+    Award::factory()->create();
 
+    $this->actingAs(sanctumToken())->get('v1/awards?employee_number=2255')
+        ->assertExactJson(['error' => [
+            'message' => 'Award for employee number 2255 was not found.',
+            'type' => 'Illuminate\Database\Eloquent\ModelNotFoundException',
+            'code' => 404
+        ]])
+        ->assertStatus(404);
+});
+
+// Model Handling: Model Response
 it('can return an model response', function() {
     $award = Award::factory()->create(['employee_number' => 224]);
 
@@ -92,17 +118,4 @@ it('can return an model response', function() {
             ],
         ]])
         ->assertOk();
-});
-
-it('can return an model not found response', 
-function() {
-    Award::factory()->create();
-
-    $this->actingAs(sanctumToken())->get('v1/awards?employee_number=2255')
-        ->assertExactJson(['error' => [
-            'message' => 'Award for employee number 2255 was not found.',
-            'type' => 'Illuminate\Database\Eloquent\ModelNotFoundException',
-            'code' => 404
-        ]])
-        ->assertStatus(404);
 });

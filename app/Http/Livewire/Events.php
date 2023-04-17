@@ -2,11 +2,11 @@
 
 namespace App\Http\Livewire;
 
-use App\Http\Requests\EventRequest;
 use App\Models\Event;
 use Livewire\Component;
 use Illuminate\View\View;
 use Livewire\WithFileUploads;
+use App\Http\Requests\EventRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 

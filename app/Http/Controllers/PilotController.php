@@ -21,7 +21,18 @@ final readonly class PilotController
 
     public function __invoke(Request $request)
     {
+        // !No Models Exist = Empty Response
+        if (!Pilot::exists()) {
+            return new EmptyResponse();
+        }
+
+        // !Employee Number Parameter is Present (Model Response)
         if ($request->has('employee_number')) {
+            if (!$request->filled('employee_number')) {
+                return new ErrorResponse(401, new BadRequestException('Please check your request parameters.'));
+            }
+
+            // Model Handling
             try {
                 $pilot = $this->query->handle(
                     query: Pilot::query(),
@@ -32,22 +43,30 @@ final readonly class PilotController
                 return new ErrorResponse(404, $exception);
             }
     
+            // Model Response
             return new ModelResponse($pilot);
+
         }
 
+        // !Employee Number Parameter is Missing (Collection Response)
+            
+        // Error Response: Bad Parameter
         if ($request->collect()->isNotEmpty()) {
             return new ErrorResponse(401, new BadRequestException('Please check your request parameters.'));
         }
 
+        // Collection Handling
         $pilots = $this->query->handle(
             query: Pilot::currentSeniorityList(),
         )->get();
 
+        // Collection Handling: Empty Response
         if ($pilots->isEmpty())
         {
             return new EmptyResponse();
         }
 
+        // Collection Handling: Collection Response
         return new CollectionResponse(
             data: new PilotCollection($pilots)
         );

@@ -11,6 +11,13 @@ test('response for unauthenticated request', function() {
         ->assertStatus(302);
 });
 
+// No Models Exist = Empty Response
+// Error Response: Empty Parameter
+// Error Response: Bad Parameter name
+// Collection Handling: Empty Response
+// Collection Response: Collection Response
+// Model Handling: ModelNotFound Error Response
+// Model Handling: Model Response
 it('can return an empty response', function() {
     $this->actingAs(sanctumToken())->get('v1/pilots')
         ->assertExactJson(['data' => []])
@@ -18,6 +25,8 @@ it('can return an empty response', function() {
 });
 
 it('can return an error response', function() {
+    Pilot::factory()->create();
+
     $this->actingAs(sanctumToken())->get('v1/pilots?emp=2244')
         ->assertExactJson(['error' => [
             'message' => 'Please check your request parameters.',
@@ -25,6 +34,46 @@ it('can return an error response', function() {
             'code' => 401
         ]])
         ->assertStatus(401);
+});
+
+it('can return an model not found response', function() {
+    Pilot::factory()->create();
+
+    $this->actingAs(sanctumToken())->get('v1/pilots?employee_number=2255')
+        ->assertExactJson(['error' => [
+            'message' => 'Pilot with employee number 2255 was not found.',
+            'type' => 'Illuminate\Database\Eloquent\ModelNotFoundException',
+            'code' => 404
+        ]])
+        ->assertStatus(404);
+});
+
+it('can return an model response with latest award', function() {
+    $pilot = Pilot::factory()->has(Award::factory())->create(['employee_number' => 224]);
+
+    $this->actingAs(sanctumToken())->get('v1/pilots?employee_number=224')
+        ->assertExactJson([
+            'data' => [
+                [
+                    'seniority_number' => $pilot->seniority_number, 
+                    'employee_number' => $pilot->employee_number, 
+                    'doh' => Carbon::parse($pilot->doh)->format('m/d/Y'), 
+                    'seat' => $pilot->seat, 
+                    'fleet' => $pilot->fleet, 
+                    'domicile' => $pilot->domicile, 
+                    'retire' => Carbon::parse($pilot->retire)->format('m/d/Y'),
+                    'active' => $pilot->active, 
+                    'month' => Carbon::parse($pilot->month)->format('M Y'),
+                    'award' => [
+                        'employee_number' => $pilot->employee_number,
+                        'award_seat' => $pilot->seat,
+                        'award_fleet' => $pilot->fleet,
+                        'award_domicile' => $pilot->domicile
+                    ]
+                ]
+            ]
+        ])
+        ->assertOk();
 });
 
 it('can return an collection response', function() {
@@ -59,45 +108,4 @@ it('can return an collection response', function() {
             ]
         ])
         ->assertOk();
-});
-
-it('can return an model response with latest award', function() {
-    $pilot = Pilot::factory()->has(Award::factory())->create(['employee_number' => 224]);
-
-    $this->actingAs(sanctumToken())->get('v1/pilots?employee_number=224')
-        ->assertExactJson([
-            'data' => [
-                [
-                    'seniority_number' => $pilot->seniority_number, 
-                    'employee_number' => $pilot->employee_number, 
-                    'doh' => Carbon::parse($pilot->doh)->format('m/d/Y'), 
-                    'seat' => $pilot->seat, 
-                    'fleet' => $pilot->fleet, 
-                    'domicile' => $pilot->domicile, 
-                    'retire' => Carbon::parse($pilot->retire)->format('m/d/Y'),
-                    'active' => $pilot->active, 
-                    'month' => Carbon::parse($pilot->month)->format('M Y'),
-                    'award' => [
-                        'employee_number' => $pilot->employee_number,
-                        'award_seat' => $pilot->seat,
-                        'award_fleet' => $pilot->fleet,
-                        'award_domicile' => $pilot->domicile
-                    ]
-                ]
-            ]
-        ])
-        ->assertOk();
-});
-
-it('can return an model not found response', 
-function() {
-    Pilot::factory()->create();
-
-    $this->actingAs(sanctumToken())->get('v1/pilots?employee_number=2255')
-        ->assertExactJson(['error' => [
-            'message' => 'Pilot with employee number 2255 was not found.',
-            'type' => 'Illuminate\Database\Eloquent\ModelNotFoundException',
-            'code' => 404
-        ]])
-        ->assertStatus(404);
 });

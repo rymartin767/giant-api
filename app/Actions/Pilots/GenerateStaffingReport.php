@@ -23,13 +23,13 @@ final readonly class GenerateStaffingReport
             $current_list->each(fn($pilot) => $ages->push(65 - (now()->diffInYears($pilot->retire) + 1)));
 
             $report = [
-                "list_date" => $months->first()->format('m/d/Y'),
-                "total_pilot_count" => $current_list->count(),
-                "active_pilot_count" => $current_list->where('active', true)->count(),
-                "inactive_pilot_count" => $current_list->where('active', false)->count(),
-                "net_gain_loss" => $current_list->count() - $previous_list_count,
-                "ytd_gain_loss" => $current_list->count() - $ytd_starting_count,
-                "average_age" => round($ages->average())
+                "List Date" => $months->first()->format('m/d/Y'),
+                "Total Pilots" => $current_list->count(),
+                "Active Pilots" => $current_list->where('active', true)->count(),
+                "Inactive Pilots" => $current_list->where('active', false)->count(),
+                "Net Gain/Loss" => $current_list->count() - $previous_list_count,
+                "YTD Gain/Loss" => $current_list->count() - $ytd_starting_count,
+                "Average Age" => round($ages->average())
             ];
 
             return $report;

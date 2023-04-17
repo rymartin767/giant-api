@@ -4,17 +4,48 @@ use Carbon\Carbon;
 use App\Models\Article;
 use function Pest\Laravel\get;
 
+// Unauthenticated Response for missing Sanctum Token
 test('response for unauthenticated request', function() {
     get('v1/articles')
         ->assertStatus(302);
 });
 
+// No Models Exist = Empty Response
 it('can return an empty response', function() {
     $this->actingAs(sanctumToken())->get('v1/articles')
         ->assertExactJson(['data' => []])
         ->assertOk();
 });
 
+// Optional Parameter is missing or empty
+test('error response for id parameter not being filled', function() {
+    Article::factory()->create();
+
+    $this->actingAs(sanctumToken())->get('v1/articles?id=')
+        ->assertExactJson(['error' => [
+            'message' => 'Please check your request parameters.',
+            'type' => 'Symfony\Component\HttpFoundation\Exception\BadRequestException',
+            'code' => 401
+        ]])
+        ->assertStatus(401);
+});
+
+// Bad Parameter name
+test('error response for bad parameter name', function() {
+    Article::factory()->create();
+
+    $this->actingAs(sanctumToken())->get('v1/articles?ic=1')
+        ->assertExactJson(['error' => [
+            'message' => 'Please check your request parameters.',
+            'type' => 'Symfony\Component\HttpFoundation\Exception\BadRequestException',
+            'code' => 401
+        ]])
+        ->assertStatus(401);
+});
+
+// Collection Handling: Empty Response if collection is empty
+
+// Collection Handling: Collection Response
 it('can return a collection response', function() {
     $newestArticle = Article::factory()->create(['date' => now()]);
     $oldestArticle = Article::factory()->create(['date' => now()->subWeek()]);
@@ -45,6 +76,7 @@ it('can return a collection response', function() {
         ->assertOk();
 });
 
+// Collection Handling: Collection Response Sorted
 test('collection response sorts by latest articles', function() {
     $middle = Article::factory()->create(['date' => now()->subWeek()]);
     $newest = Article::factory()->create(['date' => now()]);
@@ -86,6 +118,7 @@ test('collection response sorts by latest articles', function() {
         ->assertOk();
 });
 
+// Model Handling: Model Response
 it('can return a model response', function() {
     $data = Article::factory()->create();
 
@@ -105,6 +138,7 @@ it('can return a model response', function() {
         ->assertOk();
 });
 
+// Model Handling: Model Not Found Error Response
 test('error response for model not found', function() {
     Article::factory()->create();
 
@@ -115,28 +149,4 @@ test('error response for model not found', function() {
             'code' => 404
         ]])
         ->assertStatus(404);
-});
-
-test('error response for bad parameter name', function() {
-    Article::factory()->create();
-
-    $this->actingAs(sanctumToken())->get('v1/articles?ic=1')
-        ->assertExactJson(['error' => [
-            'message' => 'Please check your request parameters.',
-            'type' => 'Symfony\Component\HttpFoundation\Exception\BadRequestException',
-            'code' => 401
-        ]])
-        ->assertStatus(401);
-});
-
-test('error response for id parameter not being filled', function() {
-    Article::factory()->create();
-
-    $this->actingAs(sanctumToken())->get('v1/articles?id=')
-        ->assertExactJson(['error' => [
-            'message' => 'Please check your request parameters.',
-            'type' => 'Symfony\Component\HttpFoundation\Exception\BadRequestException',
-            'code' => 401
-        ]])
-        ->assertStatus(401);
 });

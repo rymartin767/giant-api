@@ -21,10 +21,12 @@ final class EmployeeController
 
     public function __invoke(Request $request)
     {
+        // !Required Number Parameter is Missing or Empty
         if ($request->missing('number') || !$request->filled('number')) {
             return new ErrorResponse(401, new BadRequestException('Please check your request parameters.'));
         }
 
+        // !Model Handling: ModelNotFound Error Response
         try {
             $pilot = $this->queryPilots->handle(
                 query: Pilot::query(),
@@ -42,6 +44,7 @@ final class EmployeeController
             return new ErrorResponse(404, $exception);
         }
 
+        // !Model Handling: Model Response
         return $employee->handle();
     }
 }
