@@ -22,12 +22,12 @@ class AwardController extends Controller
 
     public function __invoke(Request $request)
     {
-        // !No Models Exist = Empty Response
+        // ! No Models Exist = Empty Response
         if (!Award::exists()) {
             return new EmptyResponse();
         }
 
-        // !Employee Number Parameter Present (Model Response)
+        // ! Employee Number Parameter Present (Model Response)
         if ($request->has('employee_number')) {
 
             // Empty Parameter
@@ -50,7 +50,7 @@ class AwardController extends Controller
             return new ModelResponse($award);
         }
 
-        // !Employee Number Parameter Missing (Collection Response)
+        // ! Employee Number Parameter Missing (Collection Response)
 
         // Bad Parameter name
         if ($request->collect()->isNotEmpty()) {

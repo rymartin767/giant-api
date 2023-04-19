@@ -47,8 +47,8 @@ test('error response for bad parameter name', function() {
 
 // Collection Handling: Collection Response
 it('can return a collection response', function() {
-    $newestArticle = Article::factory()->create(['date' => now()]);
     $oldestArticle = Article::factory()->create(['date' => now()->subWeek()]);
+    $newestArticle = Article::factory()->create(['date' => now()]);
 
     $this->actingAs(sanctumToken())->get('v1/articles')
         ->assertExactJson(['data' => [
