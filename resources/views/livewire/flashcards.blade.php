@@ -4,7 +4,7 @@
     </x-section>
 
     <x-section class="max-w-5xl" title="Flashcard Index">
-        <div class="mb-4">
+        <div class="bg-white p-3 mb-4">
             <select wire:model="showByCategory">
                 <option value="Choose Category" selected></option>
                 @foreach (\App\Enums\FlashcardCategory::cases() as $category)
@@ -42,5 +42,9 @@
                 @endforeach
             </x-slot:body>
         </x-table>
+    </x-section>
+
+    <x-section class="max-w-5xl" title="Flashcard Preview">
+        <x-image :url="/path/to/aws-image.webp"></x-image>
     </x-section>
 </div>

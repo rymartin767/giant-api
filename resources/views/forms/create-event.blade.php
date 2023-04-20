@@ -1,5 +1,5 @@
-<form wire:submit.prevent="storeEvent">
-    <div class="grid grid-cols-4 gap-3 p-4 bg-white rounded-md shadow-md">
+<form wire:submit.prevent="storeEvent" class="base-form">
+    <div class="grid grid-cols-4 gap-3">
         <div class="col-span-4 sm:col-span-1">
             <input wire:model.lazy="date" type="date" class="w-full rounded border-none bg-gray-200">
             @error('date')

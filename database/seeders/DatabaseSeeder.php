@@ -33,6 +33,6 @@ class DatabaseSeeder extends Seeder
 
         Event::factory()->create();
 
-        Flashcard::factory()->create();
+        Flashcard::factory()->create(['question' => 'What is the Maximum Operating Altitude', 'answer' => 'FL431']);
     }
 }
