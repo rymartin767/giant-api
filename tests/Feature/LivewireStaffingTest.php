@@ -35,12 +35,15 @@ it('plucks the month attribute from the pilot db', function() {
         ->assertSee('Has Staffing Report: NO');
 });
 
-// test('the generateReport method', function() {
-//     Pilot::factory(10)->create(['month' => '03-15-2023']);
+test('the storeReport method', function() {
+    Pilot::factory(30)->create(['month' => '2023-01-15']);
+    Pilot::factory(27)->create(['month' => '2023-02-15']);
+    Pilot::factory(25)->create(['month' => '2023-03-15']);
 
-//     Livewire::test(Staffing::class)
-//         ->call('generateReport')
-//         ->assertSee('Has Staffing Report: Yes');
+    Livewire::test(Staffings::class)
+        ->call('storeStaffing')
+        ->assertSet('status', 'Report Successfully Generated!');
 
-//     $this->assertDatabaseHas('staffing', ['list_date' => '2023-03-15', 'total_pilot_count' => 10]);
-// });
+    $this->assertDatabaseHas('staffings', ['list_date' => '2023-03-15', 'ytd_gain_loss' => -5]);
+    expect(Staffing::count())->toBe(1);
+});

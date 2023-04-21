@@ -45,6 +45,6 @@
     </x-section>
 
     <x-section class="max-w-5xl" title="Flashcard Preview">
-        <x-image :url="/path/to/aws-image.webp"></x-image>
+        @livewire('image', ['imagePath' => 'images/flashcards/development/flashcard-test.jpg'])
     </x-section>
 </div>
