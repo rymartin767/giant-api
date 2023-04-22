@@ -24,14 +24,40 @@ it('returns an error response for empty employee_number parameter', function() {
 
     $this->actingAs(sanctumToken())->get('v1/awards?employee_number=')
         ->assertExactJson(['error' => [
-            'message' => 'Please check your request for an empty required parameter.',
+            'message' => 'Please check your request parameters.',
             'type' => 'Symfony\Component\HttpFoundation\Exception\BadRequestException',
             'code' => 401
         ]])
         ->assertStatus(401);
 });
 
-// Error Response: Bad Parameter name
+// Error Response: Empty Parameter
+it('returns an error response for empty domicile parameter', function() {
+    Award::factory()->create();
+
+    $this->actingAs(sanctumToken())->get('v1/awards?domicile=')
+        ->assertExactJson(['error' => [
+            'message' => 'Please check your request parameters.',
+            'type' => 'Symfony\Component\HttpFoundation\Exception\BadRequestException',
+            'code' => 401
+        ]])
+        ->assertStatus(401);
+});
+
+// Error Response: Dual Parameter
+it('returns an error response if employee_number and domicile are in the request', function() {
+    Award::factory()->create();
+
+    $this->actingAs(sanctumToken())->get('v1/awards?employee_number=450765&domicile=ORD')
+        ->assertExactJson(['error' => [
+            'message' => 'Please check your request parameters.',
+            'type' => 'Symfony\Component\HttpFoundation\Exception\BadRequestException',
+            'code' => 401
+        ]])
+        ->assertStatus(401);
+});
+
+// Error Response: Bad Parameter
 it('returns an error response for bad parameters', function() {
     Award::factory()->create();
     
@@ -44,7 +70,7 @@ it('returns an error response for bad parameters', function() {
         ->assertStatus(401);
 });
 
-// Collection Handling: Collection Response
+// Collection Handling: Collection Response (no filters)
 it('can return a collection response', function() {
     $awardOne = Award::factory()->create(['base_seniority' => 1, 'employee_number' => 450765]);
     $awardTwo = Award::factory()->create(['base_seniority' => 2, 'employee_number' => 450766]);
@@ -80,8 +106,57 @@ it('can return a collection response', function() {
         ]])
         ->assertOk();
 });
+
+// Collection Handling: Collection Response (filters)
+it('can return a filtered collection response', function() {
+    Award::factory()->create(['base_seniority' => 1, 'employee_number' => 450765, 'award_domicile' => 'CVG']);
+    $awardOne = Award::factory()->create(['base_seniority' => 1, 'employee_number' => 450766, 'award_domicile' => 'ORD']);
+    $awardTwo = Award::factory()->create(['base_seniority' => 2, 'employee_number' => 450767, 'award_domicile' => 'ORD']);
+
+    $this->actingAs(sanctumToken())->get('v1/awards?domicile=ORD')
+        ->assertExactJson(['data' => [
+            [
+                'base_seniority' => $awardOne->base_seniority, 
+                'employee_number' => $awardOne->employee_number, 
+                'domicile' => $awardOne->domicile, 
+                'fleet' => $awardOne->fleet, 
+                'seat' => $awardOne->seat, 
+                'award_domicile' => $awardOne->award_domicile, 
+                'award_fleet' => $awardOne->award_fleet, 
+                'award_seat' => $awardOne->award_seat, 
+                'is_new_hire' => false,
+                'is_upgrade' => false,
+                'month' => Carbon::parse($awardOne->month)->format('M Y'),
+            ],
+            [
+                'base_seniority' => $awardTwo->base_seniority, 
+                'employee_number' => $awardTwo->employee_number, 
+                'domicile' => $awardTwo->domicile, 
+                'fleet' => $awardTwo->fleet, 
+                'seat' => $awardTwo->seat, 
+                'award_domicile' => $awardTwo->award_domicile, 
+                'award_fleet' => $awardTwo->award_fleet, 
+                'award_seat' => $awardTwo->award_seat,
+                'is_new_hire' => false,
+                'is_upgrade' => false,
+                'month' => Carbon::parse($awardTwo->month)->format('M Y'),
+            ],
+        ]])
+        ->assertOk();
+});
             
 // Collection Handling: Empty Response
+it('can return an empty collection response', function() {
+    Award::factory()->create(['base_seniority' => 1, 'employee_number' => 450765, 'award_domicile' => 'CVG']);
+    Award::factory()->create(['base_seniority' => 1, 'employee_number' => 450766, 'award_domicile' => 'ORD']);
+    Award::factory()->create(['base_seniority' => 2, 'employee_number' => 450767, 'award_domicile' => 'ORD']);
+
+    $this->actingAs(sanctumToken())->get('v1/awards?domicile=JFK')
+        ->assertExactJson([
+            'data' => []
+        ])
+        ->assertOk();
+});
        
 // Model Handling: ModelNotFound Error Response
 it('can return an model not found response', 

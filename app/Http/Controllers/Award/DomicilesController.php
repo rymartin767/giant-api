@@ -34,7 +34,7 @@ final readonly class DomicilesController
             $awards = $this->query->handle(
                 query: Award::query(),
                 employeeNumber: null,
-                code: request('code')
+                domicile: request('code')
             )->get(['award_domicile', 'award_fleet']);
 
             $report = $this->report->handle($awards);

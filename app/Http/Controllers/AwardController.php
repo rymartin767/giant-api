@@ -18,22 +18,81 @@ class AwardController extends Controller
 {
     public function __construct(
         private readonly FetchAwards $query
-    ) {}
+    ) {
+    }
 
     public function __invoke(Request $request)
     {
-        // ! No Models Exist = Empty Response
+        // ! Empty Response
         if (!Award::exists()) {
             return new EmptyResponse();
         }
 
-        // ! Employee Number Parameter Present (Model Response)
-        if ($request->has('employee_number')) {
+        // ! Error Responses
+        // Both Optional Parameters Present
+        if ($request->has('employee_number') && $request->has('domicile')) {
+            return new ErrorResponse(401, new BadRequestException('Please check your request parameters.'));
+        }
 
-            // Empty Parameter
-            if (!$request->filled('employee_number')) {
-                return new ErrorResponse(401, new BadRequestException('Please check your request for an empty required parameter.'));
+        // Both Optional Parameters Missing
+        if (
+            $request->collect()->isNotEmpty() &&
+            $request->missing('employee_number') &&
+            $request->missing('domicile')
+        ) {
+            return new ErrorResponse(401, new BadRequestException('Please check your request parameters.'));
+        }
+
+         // Optional Parameter Present but Empty
+        if (
+            $request->collect()->isNotEmpty() &&
+            $request->has('employee_number') &&
+            ! $request->filled('employee_number')
+        ) {
+            return new ErrorResponse(401, new BadRequestException('Please check your request parameters.'));
+        }
+
+        if (
+            $request->collect()->isNotEmpty() &&
+            $request->has('domicile') &&
+            ! $request->filled('domicile')
+        ) {
+            return new ErrorResponse(401, new BadRequestException('Please check your request parameters.'));
+        }
+
+        // ! Collection Response: No Parameters
+        if ($request->collect()->isEmpty()) {
+            // Collection Handling
+            $awards = $this->query->handle(
+                query: Award::query(),
+            )->get();
+
+            // Empty Response if collection is empty
+            if ($awards->isEmpty()) {
+                return new EmptyResponse();
             }
+
+            // Collection Response
+            return new CollectionResponse(
+                data: new AwardCollection($awards)
+            );
+        }
+
+        // ! Collection Response: parameter> domicile
+        if ($request->has('domicile')) {
+            $awards = $this->query->handle(
+                query: Award::query(),
+                employeeNumber: null,
+                domicile: request('domicile')
+            )->get();
+
+            return new CollectionResponse(
+                data: new AwardCollection($awards)
+            );
+        }
+
+        // ! Model Response: parameter> employee_number
+        if ($request->has('employee_number')) {
 
             // Model Handling: ModelNotFound Error Response
             try {
@@ -49,28 +108,5 @@ class AwardController extends Controller
             // Model Handling: Model Response
             return new ModelResponse($award);
         }
-
-        // ! Employee Number Parameter Missing (Collection Response)
-
-        // Bad Parameter name
-        if ($request->collect()->isNotEmpty()) {
-            return new ErrorResponse(401, new BadRequestException('Please check your request parameters.'));
-        }
-
-        // Collection Handling
-        $awards = $this->query->handle(
-            query: Award::query(),
-        )->get();
-
-        // Empty Response if collection is empty
-        if ($awards->isEmpty())
-        {
-            return new EmptyResponse();
-        }
-
-        // Collection Response
-        return new CollectionResponse(
-            data: new AwardCollection($awards)
-        );
     }
 }
