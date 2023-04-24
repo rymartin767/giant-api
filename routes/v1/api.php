@@ -12,6 +12,7 @@ use App\Http\Controllers\Award\UpgradesController;
 use App\Http\Controllers\Pilot\StaffingController;
 use App\Http\Controllers\Award\DomicilesController;
 use App\Http\Controllers\Pilot\RetirementsListController;
+use App\Http\Controllers\Charts\RetirementChartController;
 
 Route::middleware('auth:sanctum')->group(function() {
     // BASE MODELS
@@ -31,4 +32,5 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::get('pilots/staffing', StaffingController::class)->name('api.pilots.staffing');
 
     // CHARTS
+    Route::get('charts/retirements', RetirementChartController::class)->name('api.charts.retirement');
 });

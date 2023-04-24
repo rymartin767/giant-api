@@ -26,7 +26,6 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('test1234')
         ]);
 
-        Airline::factory()->has(Scale::factory())->create();
         Airline::factory()->create(['sector' => 1, 'name' => 'Atlas Air', 'icao' => 'GTI', 'iata' => '5Y']);
 
         Article::factory()->create();

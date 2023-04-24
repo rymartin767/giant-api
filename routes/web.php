@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AirlineController;
 use App\Http\Livewire\Awards;
 use App\Http\Livewire\Events;
 use App\Http\Livewire\Pilots;
@@ -53,3 +54,5 @@ Route::middleware('admin')->group(function() {
     Route::get('pilots', Pilots::class)->name('pilots');
     Route::get('staffing', Staffings::class)->name('staffing');
 });
+
+Route::get('torch', AirlineController::class);
