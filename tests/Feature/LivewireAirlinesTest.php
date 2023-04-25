@@ -81,7 +81,6 @@ it('displays the airlines pay scales when you click the view button', function()
 
     Livewire::test(Airlines::class)
         ->call('showScales', ['airline' => $airline->id])
-        ->assertSee('SAVED PAY SCALES')
         ->assertSee('TRUNCATE SCALES');
 });
 

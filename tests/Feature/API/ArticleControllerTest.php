@@ -123,8 +123,8 @@ it('can return a model response', function() {
     $data = Article::factory()->create();
 
     $this->actingAs(sanctumToken())->get('v1/articles?id=1')
-        ->assertExactJson(['data' => [
-            [
+        ->assertExactJson([
+            'data' => [
                 'id' => $data->id,
                 'category' => $data->category,
                 'date' => Carbon::parse($data->date)->format('m/d/Y'),
@@ -134,7 +134,7 @@ it('can return a model response', function() {
                 'web_url' => $data->web_url,
                 'slug' => $data->slug,
             ]
-        ]])
+        ])
         ->assertOk();
 });
 

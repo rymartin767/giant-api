@@ -20,13 +20,13 @@ return new class extends Migration
             $table->string('fleet');
             $table->string('domicile');
             $table->date('retire');
-            $table->boolean('active');
+            $table->unsignedSmallInteger('status');
             $table->date('month');
             $table->timestamps();
 
             $table->unique(['seniority_number', 'month']);
             $table->unique(['employee_number', 'month']);
-            $table->index(['seat', 'fleet', 'domicile', 'month']);
+            $table->index(['seat', 'fleet', 'domicile', 'status', 'month']);
         });
     }
 

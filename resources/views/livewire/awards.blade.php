@@ -55,20 +55,40 @@
     </x-section>
 
     <x-section class="max-w-5xl" title="API Endpoints">
-        <x-api-snippet description="Collection Response" endpoint="v1/awards" params="optional[string: domicile]">
-            <x-slot:torchlight>
-                <pre><x-torchlight-code language='php' contents='views/torchlight/airlines/collection-response.blade.php'/></pre>
-            </x-slot:torchlight>
-        </x-api-snippet>
-        <x-api-snippet description="Collection Response" endpoint="v1/awards?domicile=ORD" params="optional[string: domicile]">
-            <x-slot:torchlight>
-                <pre><x-torchlight-code language='php' contents='views/torchlight/airlines/collection-response.blade.php'/></pre>
-            </x-slot:torchlight>
-        </x-api-snippet>
-        <x-api-snippet description="Model Response" endpoint="v1/awards?employee_number=450765" params="optional[int: employee_number]">
-            <x-slot:torchlight>
-                <pre><x-torchlight-code language='php' contents='views/torchlight/airlines/collection-response.blade.php'/></pre>
-            </x-slot:torchlight>
-        </x-api-snippet>
+        <x-api-list>
+            <x-slot:items>
+                <x-api-li type="Model Response: Employee" params="award->employee_number" endpoint="v1/awards?employee_number=450765">
+                    <pre><x-torchlight-code language='php' contents='views/torchlight/api/awards/model-response.blade.php'/></pre>
+                </x-api-li>
+            </x-slot:items>
+        </x-api-list>
+        <x-api-list>
+            <x-slot:items>
+                <x-api-li type="Collection Response" params="n/a" endpoint="v1/awards">
+                    <pre><x-torchlight-code language='php' contents='views/torchlight/api/awards/collection-response.blade.php'/></pre>
+                </x-api-li>
+            </x-slot:items>
+        </x-api-list>
+        <x-api-list>
+            <x-slot:items>
+                <x-api-li type="Collection Response: Domicile" params="code=award->award_domicile" endpoint="v1/awards/domiciles?code=cvg">
+                    <pre><x-torchlight-code language='php' contents='views/torchlight/api/awards/domiciles/collection-response.blade.php'/></pre>
+                </x-api-li>
+            </x-slot:items>
+        </x-api-list>
+        <x-api-list>
+            <x-slot:items>
+                <x-api-li type="Collection Response: Upgrades" params="n/a" endpoint="v1/awards/upgrades">
+                    <pre><x-torchlight-code language='php' contents='views/torchlight/awards/api/upgrades/collection-response.blade.php'/></pre>
+                </x-api-li>
+            </x-slot:items>
+        </x-api-list>
+        <x-api-list>
+            <x-slot:items>
+                <x-api-li type="Collection Response: Upgrades" params="n/a" endpoint="v1/awards/domiciles">
+                    <pre><x-torchlight-code language='php' contents='views/torchlight/awards/api/upgrades/collection-response.blade.php'/></pre>
+                </x-api-li>
+            </x-slot:items>
+        </x-api-list>
     </x-section>
 </div>

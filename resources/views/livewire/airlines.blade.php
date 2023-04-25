@@ -54,22 +54,22 @@
             </div>
             <x-table>
                 <x-slot:head>
-                    <x-table.th>YEAR</x-table>
-            <x-table.th>FLEET</x-table>
-                <x-table.th>CA</x-table>
-                    <x-table.th>FO</x-table>
-                        </x-slot:head>
-                        <x-slot:body>
-                            @foreach ($selectedAirline->scales as $scale)
-                            <tr>
-                                <x-table.td>{{ $scale->year }}</x-table>
-                                    <x-table.td>{{ $scale->fleet }}</x-table>
-                                        <x-table.td>{{ $scale->ca_rate }}</x-table>
-                                            <x-table.td>{{ $scale->fo_rate }}</x-table>
-                            </tr>
-                            @endforeach
-                        </x-slot:body>
-                        </x-table>
+                    <x-table.th>YEAR</x-table.th>
+                    <x-table.th>FLEET</x-table.th>
+                    <x-table.th>CA</x-table.th>
+                    <x-table.th>FO</x-table.th>
+                </x-slot:head>
+                <x-slot:body>
+                    @foreach ($selectedAirline->scales as $scale)
+                    <tr>
+                        <x-table.td>{{ $scale->year }}</x-table.td>
+                        <x-table.td>{{ $scale->fleet }}</x-table.td>
+                        <x-table.td>{{ $scale->ca_rate }}</x-table.td>
+                        <x-table.td>{{ $scale->fo_rate }}</x-table.td>
+                    </tr>
+                    @endforeach
+                </x-slot:body>
+            </x-table>
         </div>
     </x-section>
     @endisset
@@ -78,14 +78,14 @@
         <x-api-list>
             <x-slot:items>
                 <x-api-li type="Collection Response" params="scales=boolean" endpoint="v1/airlines?scales=true">
-                    <pre><x-torchlight-code language='php' contents='views/torchlight/airlines/collection-response.blade.php'/></pre>
+                    <pre><x-torchlight-code language='php' contents='views/torchlight/api/airlines/collection-response.blade.php'/></pre>
                 </x-api-li>
             </x-slot:items>
         </x-api-list>
         <x-api-list>
             <x-slot:items>
                 <x-api-li type="Model Response" params="icao=airline->icao" endpoint="v1/airlines?icao=gti">
-                    <pre><x-torchlight-code language='php' contents='views/torchlight/airlines/model-response.blade.php'/></pre>
+                    <pre><x-torchlight-code language='php' contents='views/torchlight/api/airlines/model-response.blade.php'/></pre>
                 </x-api-li>
             </x-slot:items>
         </x-api-list>

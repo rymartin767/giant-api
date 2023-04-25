@@ -2,7 +2,9 @@
 
 namespace App\Actions\Pilots;
 
+use App\Enums\PilotStatus;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rules\Enum;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Validator as ValidationValidator;
 
@@ -20,7 +22,7 @@ final class ValidatePilotRequest
             'fleet' => 'required|string|in:767,747,737,777',
             'domicile' => 'required|string|in:ANC,ALA,CVG,HHN,HNL,HSV,IAH,ICN,JFK,LAX,MEM,MIA,NRT,ONT,ORD,PAE,PDX,SYD,TPA,TPE',
             'retire' => 'required|date',
-            'active' => 'boolean',
+            'status' => [new Enum(PilotStatus::class)],
             'month' => 'required|date'
         ]);
 

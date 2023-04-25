@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\PilotStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,7 +11,7 @@ class Pilot extends Model
     use HasFactory;
 
     protected $fillable = [
-        'seniority_number', 'employee_number', 'doh', 'seat', 'fleet', 'domicile', 'retire', 'active', 'month'
+        'seniority_number', 'employee_number', 'doh', 'seat', 'fleet', 'domicile', 'retire', 'status', 'month'
     ];
 
     protected $hidden = [
@@ -21,6 +22,7 @@ class Pilot extends Model
         'doh' => 'immutable_date:m/d/Y',
         'retire' => 'immutable_date:m/d/Y',
         'active' => 'boolean',
+        'status' => PilotStatus::class,
         'month' => 'immutable_date:M Y'
     ];
 

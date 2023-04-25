@@ -21,7 +21,7 @@ class PilotFactory extends Factory
             'fleet' => '747',
             'domicile' => 'ORD',
             'retire' => Carbon::parse($retire), // mimic the CreatePilotRequest
-            'active' => true,
+            'status' => 1,
             'month' => $month // mimic the CreatePilotRequest
         ];
     }

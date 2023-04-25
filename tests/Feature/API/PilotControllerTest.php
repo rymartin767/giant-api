@@ -2,29 +2,24 @@
 
 use Carbon\Carbon;
 use App\Models\Award;
-
 use App\Models\Pilot;
 use function Pest\Laravel\get;
 
+// Unauth Response
 test('response for unauthenticated request', function() {
     get('v1/pilots')
         ->assertStatus(302);
 });
 
-// No Models Exist = Empty Response
-// Error Response: Empty Parameter
-// Error Response: Bad Parameter name
-// Collection Handling: Empty Response
-// Collection Response: Collection Response
-// Model Handling: ModelNotFound Error Response
-// Model Handling: Model Response
+// Empty Response
 it('can return an empty response', function() {
     $this->actingAs(sanctumToken())->get('v1/pilots')
         ->assertExactJson(['data' => []])
         ->assertOk();
 });
 
-it('can return an error response', function() {
+// Error Response: Bad Parameter name
+it('will return an error response for a bad param', function() {
     Pilot::factory()->create();
 
     $this->actingAs(sanctumToken())->get('v1/pilots?emp=2244')
@@ -36,7 +31,21 @@ it('can return an error response', function() {
         ->assertStatus(401);
 });
 
-it('can return an model not found response', function() {
+// Error Response: Empty Parameter
+it('will return an error response for empty param', function() {
+    Pilot::factory()->create();
+
+    $this->actingAs(sanctumToken())->get('v1/pilots?emp=')
+        ->assertExactJson(['error' => [
+            'message' => 'Please check your request parameters.',
+            'type' => 'Symfony\Component\HttpFoundation\Exception\BadRequestException',
+            'code' => 401
+        ]])
+        ->assertStatus(401);
+});
+
+// Model Handling: ModelNotFound Error Response
+it('will return an model not found response', function() {
     Pilot::factory()->create();
 
     $this->actingAs(sanctumToken())->get('v1/pilots?employee_number=2255')
@@ -48,34 +57,34 @@ it('can return an model not found response', function() {
         ->assertStatus(404);
 });
 
-it('can return an model response with latest award', function() {
+// Model Handling: Model Response
+it('will return an model response with latest award', function() {
     $pilot = Pilot::factory()->has(Award::factory())->create(['employee_number' => 224]);
 
     $this->actingAs(sanctumToken())->get('v1/pilots?employee_number=224')
         ->assertExactJson([
             'data' => [
-                [
-                    'seniority_number' => $pilot->seniority_number, 
-                    'employee_number' => $pilot->employee_number, 
-                    'doh' => Carbon::parse($pilot->doh)->format('m/d/Y'), 
-                    'seat' => $pilot->seat, 
-                    'fleet' => $pilot->fleet, 
-                    'domicile' => $pilot->domicile, 
-                    'retire' => Carbon::parse($pilot->retire)->format('m/d/Y'),
-                    'active' => $pilot->active, 
-                    'month' => Carbon::parse($pilot->month)->format('M Y'),
-                    'award' => [
-                        'employee_number' => $pilot->employee_number,
-                        'award_seat' => $pilot->seat,
-                        'award_fleet' => $pilot->fleet,
-                        'award_domicile' => $pilot->domicile
-                    ]
+                'seniority_number' => $pilot->seniority_number, 
+                'employee_number' => $pilot->employee_number, 
+                'doh' => Carbon::parse($pilot->doh)->format('m/d/Y'), 
+                'seat' => $pilot->seat, 
+                'fleet' => $pilot->fleet, 
+                'domicile' => $pilot->domicile, 
+                'retire' => Carbon::parse($pilot->retire)->format('m/d/Y'),
+                'status' => $pilot->status, 
+                'month' => Carbon::parse($pilot->month)->format('M Y'),
+                'award' => [
+                    'employee_number' => $pilot->employee_number,
+                    'award_seat' => $pilot->seat,
+                    'award_fleet' => $pilot->fleet,
+                    'award_domicile' => $pilot->domicile
                 ]
             ]
         ])
         ->assertOk();
 });
 
+// Collection Response: Collection Response
 it('can return an collection response', function() {
     $pilotOne = Pilot::factory()->create(['seniority_number' => 1, 'employee_number' => 450765]);
     $pilotTwo = Pilot::factory()->create(['seniority_number' => 2, 'employee_number' => 450766]);
@@ -91,7 +100,7 @@ it('can return an collection response', function() {
                     'fleet' => $pilotOne->fleet, 
                     'domicile' => $pilotOne->domicile, 
                     'retire' => Carbon::parse($pilotOne->retire)->format('m/d/Y'),
-                    'active' => $pilotOne->active, 
+                    'status' => $pilotOne->status, 
                     'month' => Carbon::parse($pilotOne->month)->format('M Y'),
                 ],
                 [
@@ -102,7 +111,7 @@ it('can return an collection response', function() {
                     'fleet' => $pilotTwo->fleet, 
                     'domicile' => $pilotTwo->domicile, 
                     'retire' => Carbon::parse($pilotTwo->retire)->format('m/d/Y'),
-                    'active' => $pilotTwo->active, 
+                    'status' => $pilotTwo->status, 
                     'month' => Carbon::parse($pilotTwo->month)->format('M Y'),
                 ],
             ]

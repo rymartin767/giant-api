@@ -17,9 +17,7 @@ final readonly class ModelResponse implements Responsable
     {
         return new JsonResponse(
             data: [
-                'data' => [
-                    $this->model
-                ]
+                'data' => $this->model
             ],
             status: $this->status
         );

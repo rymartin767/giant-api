@@ -72,15 +72,13 @@ it('will return a model response based on date in request', function () {
     $this->actingAs(sanctumToken())->get('v1/pilots/staffing?date=2023-02-15')
         ->assertExactJson([
             'data' => [
-                [
-                    "list_date" =>  "02/15/2023",
-                    "total_pilot_count" => 2800,
-                    "active_pilot_count" => 2693,
-                    "inactive_pilot_count" => 107,
-                    "net_gain_loss" => -14,
-                    "ytd_gain_loss" => -31,
-                    "average_age" => 45
-                ]
+                "list_date" =>  "02/15/2023",
+                "total_pilot_count" => 2800,
+                "active_pilot_count" => 2693,
+                "inactive_pilot_count" => 107,
+                "net_gain_loss" => -14,
+                "ytd_gain_loss" => -31,
+                "average_age" => 45
             ]
         ]);
 });
@@ -93,15 +91,13 @@ it('will return a model response of last staffing model if no month is in the re
     $this->actingAs(sanctumToken())->get('v1/pilots/staffing')
         ->assertExactJson([
             'data' => [
-                [
-                    "list_date" => now()->subMonth()->startOfMonth()->addDays(14)->format('m/d/Y'),
-                    "total_pilot_count" => 2800,
-                    "active_pilot_count" => 2693,
-                    "inactive_pilot_count" => 107,
-                    "net_gain_loss" => -14,
-                    "ytd_gain_loss" => -31,
-                    "average_age" => 45
-                ]
+                "list_date" => now()->subMonth()->startOfMonth()->addDays(14)->format('m/d/Y'),
+                "total_pilot_count" => 2800,
+                "active_pilot_count" => 2693,
+                "inactive_pilot_count" => 107,
+                "net_gain_loss" => -14,
+                "ytd_gain_loss" => -31,
+                "average_age" => 45
             ]
         ]);
 });

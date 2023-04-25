@@ -18,7 +18,7 @@ final class GeneratePilotRequest
             'seat' => $this->pilot[3],
             'domicile' => $this->pilot[4],
             'fleet' => $this->pilot[5],
-            'active' => $this->pilot[6] == 'ACTIVE' ? true : false,
+            'status' => constant("\App\Enums\PilotStatus::{$this->pilot[6]}")->value, //The constant() function can return the value of a constant using a string variable.
             'retire' => Carbon::parse($this->pilot[7]), // MM/DD/YY
             'month' => $this->month
         ]);

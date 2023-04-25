@@ -177,20 +177,20 @@ it('can return an model response', function() {
     $award = Award::factory()->create(['employee_number' => 224]);
 
     $this->actingAs(sanctumToken())->get('v1/awards?employee_number=224')
-        ->assertExactJson(['data' => [
-            [
-                'base_seniority' => $award->base_seniority, 
-                'employee_number' => $award->employee_number, 
-                'domicile' => $award->domicile, 
-                'fleet' => $award->fleet, 
-                'seat' => $award->seat, 
-                'award_domicile' => $award->award_domicile, 
-                'award_fleet' => $award->award_fleet, 
-                'award_seat' => $award->award_seat, 
-                'is_new_hire' => false,
-                'is_upgrade' => false,
-                'month' => Carbon::parse($award->month)->format('M Y'),
+        ->assertExactJson([
+            'data' => [
+            'base_seniority' => $award->base_seniority, 
+            'employee_number' => $award->employee_number, 
+            'domicile' => $award->domicile, 
+            'fleet' => $award->fleet, 
+            'seat' => $award->seat, 
+            'award_domicile' => $award->award_domicile, 
+            'award_fleet' => $award->award_fleet, 
+            'award_seat' => $award->award_seat, 
+            'is_new_hire' => false,
+            'is_upgrade' => false,
+            'month' => Carbon::parse($award->month)->format('M Y'),
             ],
-        ]])
+        ])
         ->assertOk();
 });

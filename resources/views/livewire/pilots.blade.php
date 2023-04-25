@@ -14,7 +14,7 @@
                         <x-table.th>SEAT#</x-table.th>
                         <x-table.th>DOMICILE</x-table.th>
                         <x-table.th>FLEET</x-table.th>
-                        <x-table.th>ACTIVE</x-table.th>
+                        <x-table.th>STATUS</x-table.th>
                         <x-table.th>RETIRE</x-table.th>
                         <x-table.th>MONTH</x-table.th>
                     </x-slot:head>
@@ -27,7 +27,9 @@
                                 <x-table.td>{{ $pilot->seat }}</x-table.td>
                                 <x-table.td>{{ $pilot->domicile }}</x-table.td>
                                 <x-table.td>{{ $pilot->fleet }}</x-table.td>
-                                <x-table.td>{{ $pilot->active }}</x-table.td>
+                                <x-table.td>
+                                    <div class="{{ $pilot->status->value === 1 ? 'bg-green-200' : 'bg-red-200' }} text-center rounded-lg px-1 {{ $pilot->status->value === 1 ? 'text-green-600' : 'text-red-600' }}">{{ $pilot->status->name }}</div>
+                                </x-table.td>
                                 <x-table.td>{{ Carbon\Carbon::parse($pilot->retire)->format('m/d/Y') }}</x-table.td>
                                 <x-table.td>{{ Carbon\Carbon::parse($pilot->month)->format('M Y') }}</x-table.td>
                             </tr>
