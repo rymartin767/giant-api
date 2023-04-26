@@ -29,4 +29,14 @@
             @endforeach
         </div>
     </x-section>
+
+    <x-section class="max-w-5xl" title="API Endpoints">
+        <x-api-list>
+            <x-slot:items>
+                <x-api-li type="Collection Response" params="n/a" endpoint="v1/events">
+                    <pre><x-torchlight-code language='php' contents='views/torchlight/api/events/collection-response.blade.php'/></pre>
+                </x-api-li>
+            </x-slot:items>
+        </x-api-list>
+    </x-section>
 </div>
