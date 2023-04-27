@@ -7,9 +7,9 @@ use App\Queries\FetchPilots;
 use Illuminate\Http\Request;
 use App\Http\Responses\EmptyResponse;
 use App\Http\Responses\ErrorResponse;
-use App\Actions\Pilots\GenerateDomicilesReport;
 use App\Http\Resources\PilotCollection;
 use App\Http\Responses\CollectionResponse;
+use App\Actions\Pilots\GenerateDomicilesReport;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 
 final readonly class DomicilesController

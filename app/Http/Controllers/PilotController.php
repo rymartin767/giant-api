@@ -22,7 +22,7 @@ final readonly class PilotController
     public function __invoke(Request $request)
     {
         // !No Models Exist = Empty Response
-        if (!Pilot::exists()) {
+        if (! Pilot::exists()) {
             return new EmptyResponse();
         }
 
@@ -37,7 +37,7 @@ final readonly class PilotController
                 $pilot = $this->query->handle(
                     query: Pilot::query(),
                     employeeNumber: request('employee_number')
-                )->orderBy('month', 'desc')->firstOrFail();
+                )->with('award:employee_number,award_domicile,award_fleet,award_seat')->orderBy('month', 'desc')->firstOrFail();
             } catch (ModelNotFoundException) {
                 $exception = new ModelNotFoundException('Pilot with employee number ' . request('employee_number') . ' was not found.');
                 return new ErrorResponse(404, $exception);

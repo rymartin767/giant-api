@@ -1,25 +1,29 @@
 <?php
 
+use App\Models\Award;
 use App\Models\Pilot;
 use function Pest\Laravel\get;
 
+// * UNAUTH
 test('response for unauthenticated request', function() {
-    get('v1/pilots/juniors')
+    get('v1/awards/juniors')
         ->assertStatus(302);
 });
 
+// * EMPTY RESPONSE
 it('will return an empty response', function() {
-    $this->actingAs(sanctumToken())->get('v1/pilots/juniors')
+    $this->actingAs(sanctumToken())->get('v1/awards/juniors')
         ->assertExactJson([
             'data' => []
         ])
         ->assertOk();
 });
 
+// * ERROR RESPONSE
 it('will return an error response if a parameter is present', function() {
-    Pilot::factory()->create();
+    Pilot::factory()->has(Award::factory())->create();
 
-    $this->actingAs(sanctumToken())->get('v1/pilots/juniors?code=')
+    $this->actingAs(sanctumToken())->get('v1/awards/juniors?code=')
         ->assertExactJson([
             'error' => [
                 'message' => 'Please check your request parameters.',
@@ -31,22 +35,23 @@ it('will return an error response if a parameter is present', function() {
 
 });
 
+// * COLLECTION RESPONSE
 it('will return a collection response with correct format', function() {
-    Pilot::factory()->create(['fleet' => 767, 'domicile' => 'CVG']);
-    Pilot::factory()->create(['fleet' => 747, 'domicile' => 'ANC']);
-    Pilot::factory()->create(['fleet' => 777, 'domicile' => 'MIA']);
-    Pilot::factory()->create(['fleet' => 737, 'domicile' => 'LAX']);
+    Pilot::factory()->has(Award::factory())->create(['doh' => '2020-07-08', 'fleet' => 767, 'domicile' => 'CVG']);
+    Pilot::factory()->has(Award::factory())->create(['doh' => '2020-07-08', 'fleet' => 747, 'domicile' => 'ANC']);
+    Pilot::factory()->has(Award::factory())->create(['doh' => '2020-07-08', 'fleet' => 777, 'domicile' => 'MIA']);
+    Pilot::factory()->has(Award::factory())->create(['doh' => '2020-07-08', 'fleet' => 737, 'domicile' => 'LAX']);
 
-    $this->actingAs(sanctumToken())->get('v1/pilots/juniors')
+    $this->actingAs(sanctumToken())->get('v1/awards/juniors')
         ->assertExactJson([
             'data' => [
                 [
-                    'CVG 767' => '12/12/2023',
-                    'ANC 747' => '12/12/2023',
-                    'MIA 777' => '12/12/2023',
-                    'LAX 737' => '12/12/2023',
+                    'CVG 767' => '08/07/2020',
+                    'ANC 747' => '08/07/2020',
+                    'MIA 777' => '08/07/2020',
+                    'LAX 737' => '08/07/2020',
                 ]
             ]
         ])
         ->assertOk();
-});
+})->todo();

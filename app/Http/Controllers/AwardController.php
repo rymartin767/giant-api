@@ -23,8 +23,8 @@ class AwardController extends Controller
 
     public function __invoke(Request $request)
     {
-        // ! Empty Response
-        if (!Award::exists()) {
+        // * Empty Response
+        if (! Award::exists()) {
             return new EmptyResponse();
         }
 
@@ -60,7 +60,7 @@ class AwardController extends Controller
             return new ErrorResponse(401, new BadRequestException('Please check your request parameters.'));
         }
 
-        // ! Collection Response: No Parameters
+        // * Collection Response: No Parameters
         if ($request->collect()->isEmpty()) {
             // Collection Handling
             $awards = $this->query->handle(
@@ -78,7 +78,7 @@ class AwardController extends Controller
             );
         }
 
-        // ! Collection Response: parameter> domicile
+        // * Collection Response: Domicile Parameter
         if ($request->has('domicile')) {
             $awards = $this->query->handle(
                 query: Award::query(),
@@ -91,7 +91,7 @@ class AwardController extends Controller
             );
         }
 
-        // ! Model Response: parameter> employee_number
+        // * Model Response: Employee Parameter
         if ($request->has('employee_number')) {
 
             // Model Handling: ModelNotFound Error Response

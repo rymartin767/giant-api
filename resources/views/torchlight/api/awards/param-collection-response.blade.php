@@ -1,5 +1,5 @@
 {
-    "data": [
+    "data":[
         {
             "base_seniority":1
             "employee_number":110
@@ -10,7 +10,7 @@
             "award_fleet":"747"
             "award_seat":"CA"
             "is_new_hire":false
-            "is_upgrade":true
+            "is_upgrade":true,
             "month":"Mar 2023"
         },
         {

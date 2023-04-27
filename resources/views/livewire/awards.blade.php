@@ -57,36 +57,29 @@
     <x-section class="max-w-5xl" title="API Endpoints">
         <x-api-list>
             <x-slot:items>
-                <x-api-li type="Model Response: Employee" params="award->employee_number" endpoint="v1/awards?employee_number=450765">
+                <x-api-li type="Model Response: Employee Parameter" params="award->employee_number" endpoint="v1/awards?employee_number=450765">
                     <pre><x-torchlight-code language='php' contents='views/torchlight/api/awards/model-response.blade.php'/></pre>
                 </x-api-li>
             </x-slot:items>
         </x-api-list>
         <x-api-list>
             <x-slot:items>
-                <x-api-li type="Collection Response" params="n/a" endpoint="v1/awards">
+                <x-api-li type="Collection Response: No Parameters" params="n/a" endpoint="v1/awards">
                     <pre><x-torchlight-code language='php' contents='views/torchlight/api/awards/collection-response.blade.php'/></pre>
                 </x-api-li>
             </x-slot:items>
         </x-api-list>
         <x-api-list>
             <x-slot:items>
-                <x-api-li type="Collection Response: Domicile" params="code=award->award_domicile" endpoint="v1/awards/domiciles?code=cvg">
-                    <pre><x-torchlight-code language='php' contents='views/torchlight/api/awards/domiciles/collection-response.blade.php'/></pre>
+                <x-api-li type="Collection Response: Domicile Parameter" params="domicile=award->award_domicile" endpoint="v1/awards?domicile=lax">
+                    <pre><x-torchlight-code language='php' contents='views/torchlight/api/awards/param-collection-response.blade.php'/></pre>
                 </x-api-li>
             </x-slot:items>
         </x-api-list>
         <x-api-list>
             <x-slot:items>
-                <x-api-li type="Collection Response: Upgrades" params="n/a" endpoint="v1/awards/upgrades">
-                    <pre><x-torchlight-code language='php' contents='views/torchlight/awards/api/upgrades/collection-response.blade.php'/></pre>
-                </x-api-li>
-            </x-slot:items>
-        </x-api-list>
-        <x-api-list>
-            <x-slot:items>
-                <x-api-li type="Collection Response: Upgrades" params="n/a" endpoint="v1/awards/domiciles">
-                    <pre><x-torchlight-code language='php' contents='views/torchlight/awards/api/upgrades/collection-response.blade.php'/></pre>
+                <x-api-li type="Collection Response: Upgrades Endpoint" params="n/a" endpoint="v1/awards/upgrades">
+                    <pre><x-torchlight-code language='php' contents='views/torchlight/api/awards/upgrades/collection-response.blade.php'/></pre>
                 </x-api-li>
             </x-slot:items>
         </x-api-list>

@@ -61,7 +61,7 @@ it('returns an error response if employee_number and domicile are in the request
 it('returns an error response for bad parameters', function() {
     Award::factory()->create();
     
-    $this->actingAs(sanctumToken())->get('v1/awards?emp=2244')
+    $this->actingAs(sanctumToken())->get('v1/awards?code=2244')
         ->assertExactJson(['error' => [
             'message' => 'Please check your request parameters.',
             'type' => 'Symfony\Component\HttpFoundation\Exception\BadRequestException',
@@ -107,7 +107,7 @@ it('can return a collection response', function() {
         ->assertOk();
 });
 
-// Collection Handling: Collection Response (filters)
+// Collection Handling: Collection Response (Domicile Parameter)
 it('can return a filtered collection response', function() {
     Award::factory()->create(['base_seniority' => 1, 'employee_number' => 450765, 'award_domicile' => 'CVG']);
     $awardOne = Award::factory()->create(['base_seniority' => 1, 'employee_number' => 450766, 'award_domicile' => 'ORD']);
@@ -145,7 +145,7 @@ it('can return a filtered collection response', function() {
         ->assertOk();
 });
             
-// Collection Handling: Empty Response
+// Collection Handling: Empty Response (Domicile Parameter)
 it('can return an empty collection response', function() {
     Award::factory()->create(['base_seniority' => 1, 'employee_number' => 450765, 'award_domicile' => 'CVG']);
     Award::factory()->create(['base_seniority' => 1, 'employee_number' => 450766, 'award_domicile' => 'ORD']);
