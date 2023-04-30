@@ -47,4 +47,22 @@
     <x-section class="max-w-5xl" title="Flashcard Preview">
         @livewire('image', ['imagePath' => 'images/flashcards/development/flashcard-test.jpg'])
     </x-section>
+
+    <x-section class="max-w-5xl" title="API Endpoints">
+        <x-api-list>
+            <x-slot:items>
+                <x-api-li type="Collection Response" params="category" endpoint="v1/flashcards">
+                    <pre><x-torchlight-code language='php' contents='views/torchlight/api/flashcards/collection-response.blade.php'/></pre>
+                </x-api-li>
+            </x-slot:items>
+        </x-api-list>
+    
+        <x-api-list>
+            <x-slot:items>
+                <x-api-li type="Collection Response: Category Parameter" params="category" endpoint="v1/flashcards?category=6">
+                    <pre><x-torchlight-code language='php' contents='views/torchlight/api/flashcards/collection-response.blade.php'/></pre>
+                </x-api-li>
+            </x-slot:items>
+        </x-api-list>
+    </x-section>
 </div>

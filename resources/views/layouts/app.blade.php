@@ -42,7 +42,7 @@
         </div>
 
         @stack('modals')
-
         @livewireScripts
+        @stack('apex-charts')
     </body>
 </html>

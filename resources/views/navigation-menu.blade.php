@@ -36,7 +36,7 @@
                     <x-nav-link href="{{ route('staffing') }}" :active="request()->routeIs('staffing')">
                         {{ __('Staffing') }}
                     </x-nav-link>
-                    <x-nav-link href="{{ route('staffing') }}" :active="request()->routeIs('staffing')">
+                    <x-nav-link href="{{ route('charts') }}" :active="request()->routeIs('charts')">
                         {{ __('[Charts]') }}
                     </x-nav-link>
                 </div>

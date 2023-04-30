@@ -10,8 +10,8 @@ class PilotFactory extends Factory
     public function definition(): array
     {
         $month = Carbon::parse('03/15/2023');
-        $doh = $this->faker->date('m/d/Y', '-2 years');
-        $retire = $this->faker->date('m/d/Y', '20 years');
+        $doh = $this->faker->dateTimeBetween('-15 years', '-6 months');
+        $retire = $this->faker->dateTimeBetween('now', '25 years');
 
         return [
             'seniority_number' => $this->faker->numberBetween(1,3000),

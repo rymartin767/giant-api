@@ -18,7 +18,6 @@ final readonly class JuniorsController
 {
     public function __construct(
         private readonly FetchAwards $query,
-        private readonly GenerateJuniorsReport $report
     ) {}
 
     public function __invoke(Request $request)
@@ -27,9 +26,24 @@ final readonly class JuniorsController
         if (! Award::exists()) {
             return new EmptyResponse();
         }
+
+        // * REQUEST MISSING SEAT PARAM
+        if ($request->missing('seat')) {
+            return new ErrorResponse(401, new BadRequestException('Please check your request parameters.'));
+        }
+
+        // * REQUEST SEAT PARAM IS EMPTY
+        if (! $request->filled('seat')) {
+            return new ErrorResponse(401, new BadRequestException('Please check your request parameters.'));
+        }
+
+        // * REQUEST SEAT PARAM VALUE IS BAD
+        if ($request->filled('seat') && request('seat') !== 'CA' && request('seat') !== 'FO') {
+            return new ErrorResponse(401, new BadRequestException('Please check your request parameters.'));
+        }
         
-        // * REQUEST HAS PARAM
-        if (! $request->collect()->isEmpty()) {
+        // * REQUEST HAS BAD PARAMs
+        if (! $request->collect()->isEmpty() && $request->missing('seat')) {
             return new ErrorResponse(401, new BadRequestException('Please check your request parameters.'));
         }
 
@@ -40,10 +54,11 @@ final readonly class JuniorsController
             domicile: null
         )->with('pilot:employee_number,doh')->get(['employee_number', 'award_domicile', 'award_fleet', 'award_seat']);
 
-        $juniors = $this->report->handle($awards);
+        $report =  new GenerateJuniorsReport($awards);
+        $captains = $report->handle(request('seat'));
 
         return new CollectionResponse(
-            data: new AwardCollection($juniors)
+            data: new AwardCollection($captains)
         );
     }
 }

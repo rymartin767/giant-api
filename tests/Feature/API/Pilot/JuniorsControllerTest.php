@@ -19,11 +19,59 @@ it('will return an empty response', function() {
         ->assertOk();
 });
 
-// * ERROR RESPONSE
-it('will return an error response if a parameter is present', function() {
+// * ERROR RESPONSE FOR MISSING SEAT PARAM
+it('will return an error response if seat parameter is missing', function() {
     Pilot::factory()->has(Award::factory())->create();
 
-    $this->actingAs(sanctumToken())->get('v1/awards/juniors?code=')
+    $this->actingAs(sanctumToken())->get('v1/awards/juniors')
+        ->assertExactJson([
+            'error' => [
+                'message' => 'Please check your request parameters.',
+                'type' => 'Symfony\Component\HttpFoundation\Exception\BadRequestException',
+                'code' => 401
+            ]
+        ])
+        ->assertStatus(401);
+
+});
+
+// * ERROR RESPONSE FOR EMPTY SEAT PARAM
+it('will return an error response if seat parameter is empty', function() {
+    Pilot::factory()->has(Award::factory())->create();
+
+    $this->actingAs(sanctumToken())->get('v1/awards/juniors?seat=')
+        ->assertExactJson([
+            'error' => [
+                'message' => 'Please check your request parameters.',
+                'type' => 'Symfony\Component\HttpFoundation\Exception\BadRequestException',
+                'code' => 401
+            ]
+        ])
+        ->assertStatus(401);
+
+});
+
+// * ERROR RESPONSE FOR INCORRECT SEAT PARAM VALUE
+it('will return an error response if seat parameter value is not CA or FO', function() {
+    Pilot::factory()->has(Award::factory())->create();
+
+    $this->actingAs(sanctumToken())->get('v1/awards/juniors?seat=FA')
+        ->assertExactJson([
+            'error' => [
+                'message' => 'Please check your request parameters.',
+                'type' => 'Symfony\Component\HttpFoundation\Exception\BadRequestException',
+                'code' => 401
+            ]
+        ])
+        ->assertStatus(401);
+
+});
+
+// * ERROR RESPONSE FOR BAD PARAMETER
+it('will return an error response for a bad parameter', function() {
+    Pilot::factory()->has(Award::factory())->create();
+
+    $this->actingAs(sanctumToken())->get('v1/awards/juniors?sete=CA')
         ->assertExactJson([
             'error' => [
                 'message' => 'Please check your request parameters.',
@@ -37,21 +85,19 @@ it('will return an error response if a parameter is present', function() {
 
 // * COLLECTION RESPONSE
 it('will return a collection response with correct format', function() {
-    Pilot::factory()->has(Award::factory())->create(['doh' => '2020-07-08', 'fleet' => 767, 'domicile' => 'CVG']);
-    Pilot::factory()->has(Award::factory())->create(['doh' => '2020-07-08', 'fleet' => 747, 'domicile' => 'ANC']);
-    Pilot::factory()->has(Award::factory())->create(['doh' => '2020-07-08', 'fleet' => 777, 'domicile' => 'MIA']);
-    Pilot::factory()->has(Award::factory())->create(['doh' => '2020-07-08', 'fleet' => 737, 'domicile' => 'LAX']);
+    Pilot::factory()->has(Award::factory(['award_domicile' => 'CVG', 'award_fleet' => '767']))->create(['doh' => '2020-08-07']);
+    Pilot::factory()->has(Award::factory(['award_domicile' => 'ANC', 'award_fleet' => '747']))->create(['doh' => '2019-08-07']);
+    Pilot::factory()->has(Award::factory(['award_domicile' => 'MIA', 'award_fleet' => '777']))->create(['doh' => '2018-08-07']);
+    Pilot::factory()->has(Award::factory(['award_domicile' => 'PDX', 'award_fleet' => '737']))->create(['doh' => '2017-08-07']);
 
-    $this->actingAs(sanctumToken())->get('v1/awards/juniors')
+    $this->actingAs(sanctumToken())->get('v1/awards/juniors?seat=CA')
         ->assertExactJson([
             'data' => [
-                [
-                    'CVG 767' => '08/07/2020',
-                    'ANC 747' => '08/07/2020',
-                    'MIA 777' => '08/07/2020',
-                    'LAX 737' => '08/07/2020',
-                ]
+                'PDX 737' => '08/07/2017',
+                'MIA 777' => '08/07/2018',
+                'ANC 747' => '08/07/2019',
+                'CVG 767' => '08/07/2020',
             ]
         ])
         ->assertOk();
-})->todo();
+});

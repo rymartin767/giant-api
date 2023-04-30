@@ -18,7 +18,7 @@ final readonly class RetirementsListController
     public function __invoke(Request $request)
     {
         $retirements = $this->query->handle(
-            query: Pilot::currentSeniorityList()->whereBetween('retire', [now()->startOfMonth()->format('Y-m-d'), now()->endOfMonth()->format('Y-m-d')]),
+            query: Pilot::currentSeniorityList()->whereBetween('retire', [now()->startOfMonth(), now()->endOfMonth()]),
         )->get(['employee_number', 'seat', 'fleet', 'domicile', 'retire']);
 
         if ($retirements->isEmpty())

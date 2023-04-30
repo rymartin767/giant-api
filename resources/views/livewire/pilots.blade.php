@@ -44,4 +44,46 @@
             </div>
         </div>
     </x-section>
+
+    <x-section class="max-w-5xl" title="API Endpoints">
+        <x-api-list>
+            <x-slot:items>
+                <x-api-li type="Model Response: Employee Number Parameter" params="employee_number" endpoint="v1/pilots?employee_number=450765">
+                    <pre><x-torchlight-code language='php' contents='views/torchlight/api/pilots/model.response.blade.php'/></pre>
+                </x-api-li>
+            </x-slot:items>
+        </x-api-list>
+
+        <x-api-list>
+            <x-slot:items>
+                <x-api-li type="Collection Response" params="employee_number" endpoint="v1/pilots">
+                    <pre><x-torchlight-code language='php' contents='views/torchlight/api/pilots/collection-response.blade.php'/></pre>
+                </x-api-li>
+            </x-slot:items>
+        </x-api-list>
+
+        <x-api-list>
+            <x-slot:items>
+                <x-api-li type="Collection Response" params="" endpoint="v1/pilots/staffing">
+                    STAFFING
+                </x-api-li>
+            </x-slot:items>
+        </x-api-list>
+
+        <x-api-list>
+            <x-slot:items>
+                <x-api-li type="Collection Response" params="" endpoint="v1/pilots/retirements-list">
+                    RETIREMENTS LIST
+                </x-api-li>
+            </x-slot:items>
+        </x-api-list>
+
+        <x-api-list>
+            <x-slot:items>
+                <x-api-li type="Collection Response" params="" endpoint="v1/pilots/domiciles">
+                    DOMICILES
+                </x-api-li>
+            </x-slot:items>
+        </x-api-list>
+    </x-section>
 </div>

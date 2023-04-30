@@ -24,12 +24,13 @@ final readonly class RetirementChartController
         )->get();
 
         try {
-            $collection = $pilots->where('retire', '>', now()->format('Y'))->groupBy(function ($item) {
-                return Carbon::parse($item['retire'])->format('Y');
+            $collection = $pilots->where('retire', '>', now()->format('Y'))->groupBy(function ($pilot) {
+                return Carbon::parse($pilot['retire'])->format('Y');
             })->map->count()->sortKeys();
             
             return new ChartResponse($collection->all());
-        } catch(Exception $e) {
+
+        } catch (Exception $e) {
             return new ErrorResponse(404, $e);
         }
     }

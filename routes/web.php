@@ -1,9 +1,7 @@
 <?php
 
-use App\Http\Controllers\Pilot\DomicilesController as PilotDomicilesController;
-
-
 use App\Http\Livewire\Awards;
+use App\Http\Livewire\Charts;
 use App\Http\Livewire\Events;
 use App\Http\Livewire\Pilots;
 use App\Http\Livewire\Airlines;
@@ -11,6 +9,7 @@ use App\Http\Livewire\Articles;
 use App\Http\Livewire\Staffings;
 use App\Http\Livewire\Flashcards;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Auth\Middleware\Authenticate;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -55,6 +54,6 @@ Route::middleware('admin')->group(function() {
     Route::get('flashcards', Flashcards::class)->name('flashcards');
     Route::get('pilots', Pilots::class)->name('pilots');
     Route::get('staffing', Staffings::class)->name('staffing');
-});
 
-Route::get('torch', PilotDomicilesController::class);
+    Route::get('charts', Charts::class)->name('charts');
+});

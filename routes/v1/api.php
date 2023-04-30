@@ -34,5 +34,5 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::get('pilots/domiciles', DomicilesController::class)->name('api.pilots.domiciles');
 
     // CHARTS
-    Route::get('charts/retirements', RetirementChartController::class)->name('api.charts.retirement');
+    Route::get('charts/pilots/retirements', RetirementChartController::class)->name('api.charts.retirement');
 });

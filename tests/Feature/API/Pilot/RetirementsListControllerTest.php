@@ -19,7 +19,7 @@ test('it returns an empty response for no monthly retirements', function() {
 
 test('it returns an collection response for monthly retirements', function() {
     Pilot::factory(2)->create();
-    $pilot = Pilot::factory()->create(['retire' => Carbon::parse(now()->format('m/d/Y'))]);
+    $pilot = Pilot::factory()->create(['retire' => Carbon::parse(now()->startOfMonth()->addDays(20)->format('m/d/Y'))]);
     $pilotTwo = Pilot::factory()->create(['retire' => Carbon::parse(now()->startOfMonth()->format('m/d/Y'))]);
 
     $this->actingAs(sanctumToken())->get('v1/pilots/retirements-list')
