@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('answer');
             $table->string('question_image_url')->nullable();
             $table->string('answer_image_url')->nullable();
+            $table->integer('reference');
             $table->timestamps();
         });
     }

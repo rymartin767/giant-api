@@ -9,7 +9,7 @@ class PilotFactory extends Factory
 {
     public function definition(): array
     {
-        $month = Carbon::parse('03/15/2023');
+        $month = now()->subMonth()->startOfMonth()->addDays(14);
         $doh = $this->faker->dateTimeBetween('-15 years', '-6 months');
         $retire = $this->faker->dateTimeBetween('now', '25 years');
 

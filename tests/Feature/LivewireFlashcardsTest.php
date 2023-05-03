@@ -32,6 +32,7 @@ test('Flashcards livewire component storeFlashcard method', function() {
         ->set('answer', 'FL410')
         ->set('question_image_url', null)
         ->set('answer_image_url', null)
+        ->set('reference', 1)
         ->call('storeFlashcard')
         ->assertSee('Limitations');
     

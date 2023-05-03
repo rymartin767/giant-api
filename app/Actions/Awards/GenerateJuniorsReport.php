@@ -18,7 +18,7 @@ final readonly class GenerateJuniorsReport
         }
 
         if ($seat == 'FO') {
-            return $this->captains();
+            return $this->firstOfficers();
         }
     }
 
@@ -59,6 +59,25 @@ final readonly class GenerateJuniorsReport
 
             if (! $results->isEmpty()) {
                 $collection->put($position, Carbon::parse($results->last()->pilot->doh)->format('m/d/Y'));
+            }
+        });
+
+        $collection = $collection->sort();
+        return $collection;
+    }
+
+    private function firstOfficers() : Collection
+    {
+        $collection = collect();
+        
+        $this->positions()->map(function($position) use($collection) {
+            $base = explode(" ", $position)[0];
+            $fleet = explode(" ", $position)[1];
+
+            $results = $this->awards->where('award_domicile', $base)->where('award_seat', 'FO')->where('award_fleet', $fleet)->sortBy('base_seniority');
+
+            if (! $results->isEmpty()) {
+                $collection->put($position, $results->last()->is_new_hire ? 'New Hire' : Carbon::parse($results->last()->pilot->doh)->format('m/d/Y'));
             }
         });
 

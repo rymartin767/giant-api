@@ -47,7 +47,7 @@ it('returns an error response for a bad parameter', function() {
 it('returns an empty response if flashcard category returns an empty collection', function() {
     Flashcard::factory()->create();
 
-    $this->actingAs(sanctumToken())->get('v1/flashcards?category=6')
+    $this->actingAs(sanctumToken())->get('v1/flashcards?category=61')
         ->assertExactJson(['data' => []])
         ->assertOk();
 });
@@ -65,14 +65,16 @@ it('returns a collection response of all flashcards if no category parameter is 
                     'question' => $flash->question,
                     'answer' => $flash->answer,
                     'question_image_url' => $flash->question_image_url,
-                    'answer_image_url' => $flash->answer_image_url
+                    'answer_image_url' => $flash->answer_image_url,
+                    'reference' => 1
                 ],
                 [
                     'category' => $flashTwo->category,
                     'question' => $flashTwo->question,
                     'answer' => $flashTwo->answer,
                     'question_image_url' => $flashTwo->question_image_url,
-                    'answer_image_url' => $flashTwo->answer_image_url
+                    'answer_image_url' => $flashTwo->answer_image_url,
+                    'reference' => 1
                 ],
         ]])
         ->assertOk();
@@ -91,7 +93,8 @@ it('returns a collection response of all flashcards in a given category', functi
                     'question' => $flash->question,
                     'answer' => $flash->answer,
                     'question_image_url' => $flash->question_image_url,
-                    'answer_image_url' => $flash->answer_image_url
+                    'answer_image_url' => $flash->answer_image_url,
+                    'reference' => 1
                 ]
         ]])
         ->assertOk();

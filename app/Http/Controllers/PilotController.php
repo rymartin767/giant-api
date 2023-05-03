@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pilot;
+use App\Models\Scale;
 use App\Queries\FetchPilots;
+use App\Queries\FetchScales;
 use Illuminate\Http\Request;
 use App\Http\Responses\EmptyResponse;
 use App\Http\Responses\ErrorResponse;
@@ -16,17 +18,18 @@ use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 final readonly class PilotController
 {
     public function __construct(
-        private readonly FetchPilots $query
+        private readonly FetchPilots $queryPilots,
+        private readonly FetchScales $queryScales,
     ) {}
 
     public function __invoke(Request $request)
     {
-        // !No Models Exist = Empty Response
+        // * No Models Exist = Empty Response
         if (! Pilot::exists()) {
             return new EmptyResponse();
         }
 
-        // !Employee Number Parameter is Present (Model Response)
+        // * Employee Number Parameter is Present (Model Response)
         if ($request->has('employee_number')) {
             if (!$request->filled('employee_number')) {
                 return new ErrorResponse(401, new BadRequestException('Please check your request parameters.'));
@@ -34,10 +37,17 @@ final readonly class PilotController
 
             // Model Handling
             try {
-                $pilot = $this->query->handle(
+                $pilot = $this->queryPilots->handle(
                     query: Pilot::query(),
                     employeeNumber: request('employee_number')
                 )->with('award:employee_number,award_domicile,award_fleet,award_seat')->orderBy('month', 'desc')->firstOrFail();
+
+                $scales = $this->queryScales->handle(
+                    query: Scale::query(),
+                    fleet: $pilot->fleet,
+                )->get(['year', 'fleet', $pilot->seat == 'CA' ? 'ca_rate' : 'fo_rate'])->toArray();
+
+                $pilot->scales = $scales;
             } catch (ModelNotFoundException) {
                 $exception = new ModelNotFoundException('Pilot with employee number ' . request('employee_number') . ' was not found.');
                 return new ErrorResponse(404, $exception);
@@ -48,7 +58,7 @@ final readonly class PilotController
 
         }
 
-        // !Employee Number Parameter is Missing (Collection Response)
+        // * Employee Number Parameter is Missing (Collection Response)
             
         // Error Response: Bad Parameter
         if ($request->collect()->isNotEmpty()) {
@@ -56,7 +66,7 @@ final readonly class PilotController
         }
 
         // Collection Handling
-        $pilots = $this->query->handle(
+        $pilots = $this->queryPilots->handle(
             query: Pilot::currentSeniorityList(),
         )->get();
 

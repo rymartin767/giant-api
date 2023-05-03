@@ -1,10 +1,18 @@
 <form wire:submit.prevent="storeFlashcard" class="base-form">
     <div class="grid grid-cols-4 gap-4">
-        <div class="col-span-4 sm:col-span-1">
+        <div class="col-span-4 sm:col-span-2">
             <select wire:model="category">
                 <option value="">Choose Category...</option>
                 @foreach (\App\Enums\FlashcardCategory::cases() as $category)
                     <option value="{{ $category->value }}">{{ $category->getFullName() }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="col-span-4 sm:col-span-2">
+            <select wire:model="category">
+                <option value="">Choose Reference...</option>
+                @foreach (\App\Enums\FlashcardReference::cases() as $reference)
+                    <option value="{{ $reference->value }}">{{ $reference->getFullName() }}</option>
                 @endforeach
             </select>
         </div>

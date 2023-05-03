@@ -84,7 +84,7 @@ it('will return an error response for a bad parameter', function() {
 });
 
 // * COLLECTION RESPONSE
-it('will return a collection response with correct format', function() {
+it('will return a collection response with correct format for captains', function() {
     Pilot::factory()->has(Award::factory(['award_domicile' => 'CVG', 'award_fleet' => '767']))->create(['doh' => '2020-08-07']);
     Pilot::factory()->has(Award::factory(['award_domicile' => 'ANC', 'award_fleet' => '747']))->create(['doh' => '2019-08-07']);
     Pilot::factory()->has(Award::factory(['award_domicile' => 'MIA', 'award_fleet' => '777']))->create(['doh' => '2018-08-07']);
@@ -97,6 +97,25 @@ it('will return a collection response with correct format', function() {
                 'MIA 777' => '08/07/2018',
                 'ANC 747' => '08/07/2019',
                 'CVG 767' => '08/07/2020',
+            ]
+        ])
+        ->assertOk();
+});
+
+// * COLLECTION RESPONSE
+it('will return a collection response with correct format for first officers', function() {
+    Pilot::factory()->has(Award::factory(['award_domicile' => 'CVG', 'award_fleet' => '767', 'award_seat' => 'FO', 'is_new_hire' => true]))->create();
+    Pilot::factory()->has(Award::factory(['award_domicile' => 'ANC', 'award_fleet' => '747', 'award_seat' => 'FO', 'is_new_hire' => true]))->create();
+    Pilot::factory()->has(Award::factory(['award_domicile' => 'MIA', 'award_fleet' => '777', 'award_seat' => 'FO']))->create(['doh' => '2022-09-14']);
+    Pilot::factory()->has(Award::factory(['award_domicile' => 'PDX', 'award_fleet' => '737', 'award_seat' => 'FO']))->create(['doh' => '2022-08-07']);
+
+    $this->actingAs(sanctumToken())->get('v1/awards/juniors?seat=FO')
+        ->assertExactJson([
+            'data' => [
+                'PDX 737' => '08/07/2022',
+                'MIA 777' => '09/14/2022',
+                'ANC 747' => 'New Hire',
+                'CVG 767' => 'New Hire',
             ]
         ])
         ->assertOk();

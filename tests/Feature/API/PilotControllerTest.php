@@ -3,6 +3,8 @@
 use Carbon\Carbon;
 use App\Models\Award;
 use App\Models\Pilot;
+use App\Models\Scale;
+use App\Models\Airline;
 use function Pest\Laravel\get;
 
 // Unauth Response
@@ -59,7 +61,8 @@ it('will return an model not found response', function() {
 
 // Model Handling: Model Response
 it('will return an model response with latest award', function() {
-    $pilot = Pilot::factory()->has(Award::factory())->create(['employee_number' => 224]);
+    $airline = Airline::factory()->has(Scale::factory())->create(['icao' => 'GTI']);
+    $pilot = Pilot::factory()->has(Award::factory(['award_fleet' => '737']))->create(['employee_number' => 224, 'fleet' => '737']);
 
     $this->actingAs(sanctumToken())->get('v1/pilots?employee_number=224')
         ->assertExactJson([
@@ -78,6 +81,13 @@ it('will return an model response with latest award', function() {
                     'award_seat' => $pilot->seat,
                     'award_fleet' => $pilot->fleet,
                     'award_domicile' => $pilot->domicile
+                ],
+                'scales' => [
+                    [
+                        'year' => $airline->scales->first()->year,
+                        'fleet' => $pilot->fleet,
+                        'ca_rate' => $airline->scales->first()->ca_rate,
+                    ],
                 ]
             ]
         ])

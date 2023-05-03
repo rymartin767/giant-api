@@ -3,8 +3,9 @@
 namespace App\Http\Requests;
 
 use App\Enums\FlashcardCategory;
-use Illuminate\Foundation\Http\FormRequest;
+use App\Enums\FlashcardReference;
 use Illuminate\Validation\Rules\Enum;
+use Illuminate\Foundation\Http\FormRequest;
 
 class FlashcardRequest extends FormRequest
 {
@@ -23,7 +24,8 @@ class FlashcardRequest extends FormRequest
             'question' => ['required', 'string'],
             'answer' => ['required', 'string'],
             'question_image_url' => ['present', 'string', 'nullable'],
-            'answer_image_url' => ['present', 'string', 'nullable']
+            'answer_image_url' => ['present', 'string', 'nullable'],
+            'reference' => [new Enum(FlashcardReference::class)],
         ];
     }
 }

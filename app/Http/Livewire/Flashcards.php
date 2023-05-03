@@ -18,6 +18,7 @@ class Flashcards extends Component
     public $answer;
     public $question_image_url;
     public $answer_image_url;
+    public $reference;
 
     public $questionImageUpload = null;
     public $answerImageUpload = null;
