@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Pilot;
 use App\Models\Scale;
+use App\Models\Staffing;
 use App\Queries\FetchPilots;
 use App\Queries\FetchScales;
 use Illuminate\Http\Request;
+use App\Queries\FetchStaffing;
 use App\Http\Responses\EmptyResponse;
 use App\Http\Responses\ErrorResponse;
 use App\Http\Responses\ModelResponse;
@@ -20,6 +22,7 @@ final readonly class PilotController
     public function __construct(
         private readonly FetchPilots $queryPilots,
         private readonly FetchScales $queryScales,
+        private readonly FetchStaffing $queryStaffing,
     ) {}
 
     public function __invoke(Request $request)
@@ -35,7 +38,7 @@ final readonly class PilotController
                 return new ErrorResponse(401, new BadRequestException('Please check your request parameters.'));
             }
 
-            // Model Handling
+            // * Model Handling
             try {
                 $pilot = $this->queryPilots->handle(
                     query: Pilot::query(),
@@ -48,35 +51,47 @@ final readonly class PilotController
                 )->get(['year', 'fleet', $pilot->seat == 'CA' ? 'ca_rate' : 'fo_rate'])->toArray();
 
                 $pilot->scales = $scales;
+
+                $count = $this->queryStaffing->handle(
+                    query: Staffing::query(), 
+                    date: $pilot->month
+                )->get()->sole()->total_pilot_count;
+
+                $pilot->seniority = [
+                    'seniority_number' => $pilot->seniority_number,
+                    'total_pilots' => $count,
+                    'seniority_percent' => ceil(round(($pilot->seniority_number / $count) * 100, 1, PHP_ROUND_HALF_DOWN))
+                ];
+
             } catch (ModelNotFoundException) {
                 $exception = new ModelNotFoundException('Pilot with employee number ' . request('employee_number') . ' was not found.');
                 return new ErrorResponse(404, $exception);
             }
     
-            // Model Response
+            // * Model Response
             return new ModelResponse($pilot);
 
         }
 
         // * Employee Number Parameter is Missing (Collection Response)
             
-        // Error Response: Bad Parameter
+        // * Error Response: Bad Parameter
         if ($request->collect()->isNotEmpty()) {
             return new ErrorResponse(401, new BadRequestException('Please check your request parameters.'));
         }
 
-        // Collection Handling
+        // * Collection Handling
         $pilots = $this->queryPilots->handle(
             query: Pilot::currentSeniorityList(),
         )->get();
 
-        // Collection Handling: Empty Response
+        // * Collection Handling: Empty Response
         if ($pilots->isEmpty())
         {
             return new EmptyResponse();
         }
 
-        // Collection Handling: Collection Response
+        // * Collection Handling: Collection Response
         return new CollectionResponse(
             data: new PilotCollection($pilots)
         );
