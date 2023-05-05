@@ -9,7 +9,7 @@
             </select>
         </div>
         <div class="col-span-4 sm:col-span-2">
-            <select wire:model="category">
+            <select wire:model="reference">
                 <option value="">Choose Reference...</option>
                 @foreach (\App\Enums\FlashcardReference::cases() as $reference)
                     <option value="{{ $reference->value }}">{{ $reference->getFullName() }}</option>

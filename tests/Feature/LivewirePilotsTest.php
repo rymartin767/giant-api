@@ -1,6 +1,5 @@
 <?php
 
-use Carbon\Carbon;
 use App\Models\Pilot;
 use Livewire\Livewire;
 use App\Http\Livewire\Pilots;
@@ -40,8 +39,8 @@ test('validation can fail', function() {
 });
 
 it('only displays pilots in index for most current seniority list', function() {
-    Pilot::factory(15)->create(['month' => Carbon::parse('02/15/2023')]);
-    Pilot::factory(15)->create(['month' => Carbon::parse('03/15/2023')]);
+    seedPilots(15, '02/15/2023');
+    seedPilots(15, '03/15/2023');
 
     $this->actingAs(adminUser())->get('/pilots')
         ->assertSee('Mar 2023')

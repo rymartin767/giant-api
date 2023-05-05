@@ -1,9 +1,13 @@
 <?php
 
-use App\Actions\Pilots\GenerateStaffingReport;
+use Carbon\Carbon;
 use Tests\TestCase;
 use App\Models\User;
+use App\Models\Pilot;
 use Laravel\Sanctum\Sanctum;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Storage;
+use App\Actions\Pilots\GenerateStaffingReport;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /*
@@ -57,4 +61,28 @@ function sanctumToken() : User
         User::factory()->create(),
         ['*']
     );
+}
+
+function seedPilots(int $count, string $date) : void
+{
+    $file = Storage::disk('public')->get('pilots.json');
+    $pilots = json_decode($file);
+
+    foreach ($pilots as $pilot) {
+        if ($count > 0) {
+            Pilot::create([
+                'seniority_number' => $pilot->seniority_number,
+                'employee_number' => $pilot->employee_number,
+                'doh' => Carbon::parse($pilot->doh)->format('Y-m-d'),
+                'seat' => $pilot->seat,
+                'fleet' => $pilot->fleet,
+                'domicile' => $pilot->domicile,
+                'retire' => Carbon::parse($pilot->retire)->format('Y-m-d'),
+                'status' => $pilot->status,
+                'month' => Carbon::parse($date)->format('Y-m-d')
+            ]);
+
+            $count--;
+        }
+    }
 }

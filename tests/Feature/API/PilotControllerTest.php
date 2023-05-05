@@ -61,18 +61,16 @@ it('will return an model not found response', function() {
 });
 
 // Model Handling: Model Response
-it('will return an model response with latest award', function() {
-    Airline::factory()->has(Scale::factory(['year' => 9, 'fleet' => '767', 'ca_rate' => 300]))->create(['icao' => 'GTI']);
-    foreach (range(1, 49) as $number) {
-        Pilot::factory()->create(['seniority_number' => $number]);
-    }
-    $pilot = Pilot::factory()->has(Award::factory(['award_fleet' => '747', 'award_seat' => 'CA', 'award_domicile' => 'MIA']))->create(['seniority_number' => 50, 'employee_number' => 450765, 'fleet' => '767']);
+it('will return an model response with latest award, scales (per seniority not award), and seniority', function() {
+    seedPilots(25, '04/15/2023');
+    Airline::factory()->has(Scale::factory(['year' => 1, 'fleet' => '767', 'ca_rate' => 220]))->create(['icao' => 'GTI']);
+    $pilot = Pilot::factory()->has(Award::factory(['award_fleet' => '747', 'award_seat' => 'CA', 'award_domicile' => 'MIA']))->create(['seniority_number' => 26, 'employee_number' => 450765, 'fleet' => '767']);
     Staffing::factory()->create();
 
     $this->actingAs(sanctumToken())->get('v1/pilots?employee_number=450765')
         ->assertExactJson([
             'data' => [
-                'seniority_number' => 50, 
+                'seniority_number' => 26, 
                 'employee_number' => 450765, 
                 'doh' => Carbon::parse($pilot->doh)->format('m/d/Y'), 
                 'seat' => 'CA', 
@@ -89,15 +87,15 @@ it('will return an model response with latest award', function() {
                 ],
                 'scales' => [
                     [
-                        'year' => 9,
+                        'year' => 1,
                         'fleet' => '767',
-                        'ca_rate' => 300,
+                        'ca_rate' => 220,
                     ],
                 ],
                 'seniority' => [
-                    'seniority_number' => 50,
+                    'seniority_number' => 26,
                     'total_pilots' => 2800,
-                    'seniority_percent' => 2
+                    'seniority_percent' => 1
                 ]
             ]
         ])
@@ -108,7 +106,7 @@ it('will return an model response with latest award', function() {
 it('can return an collection response', function() {
     $pilotOne = Pilot::factory()->create(['seniority_number' => 1, 'employee_number' => 450765]);
     $pilotTwo = Pilot::factory()->create(['seniority_number' => 2, 'employee_number' => 450766]);
-
+    
     $this->actingAs(sanctumToken())->get('v1/pilots')
         ->assertExactJson([
             'data' => [

@@ -25,8 +25,8 @@ final readonly class GenerateStaffingReport
             $array = [
                 "list_date" => $months->first()->format('Y-m-d'),
                 "total_pilot_count" => $current_list->count(),
-                "active_pilot_count" => $current_list->where('active', true)->count(),
-                "inactive_pilot_count" => $current_list->where('active', false)->count(),
+                "active_pilot_count" => $current_list->where('status.value', 1)->count(),
+                "inactive_pilot_count" => $current_list->where('status.value', '!==', 1)->count(),
                 "net_gain_loss" => $current_list->count() - $previous_list_count,
                 "ytd_gain_loss" => $current_list->count() - $ytd_starting_count,
                 "average_age" => round($ages->average())

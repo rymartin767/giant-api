@@ -11,7 +11,7 @@
                         <x-table.th>SEN#</x-table.th>
                         <x-table.th>EMP#</x-table.th>
                         <x-table.th>DOH</x-table.th>
-                        <x-table.th>SEAT#</x-table.th>
+                        <x-table.th>SEAT</x-table.th>
                         <x-table.th>DOMICILE</x-table.th>
                         <x-table.th>FLEET</x-table.th>
                         <x-table.th>STATUS</x-table.th>

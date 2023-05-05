@@ -14,6 +14,23 @@
             "award_domicile":"ORD",
             "award_fleet":"747",
             "award_seat":"CA"
+        },
+        "scales": {
+            {       
+                "year": 1,
+                "fleet": "767",
+                "ca_rate": 220,
+            },
+            {       
+                "year": 2,
+                "fleet": "767",
+                "ca_rate": 240,
+            }
+        },
+        "seniority": {
+            "seniority_number": 10,
+            "total_pilots": 2800,
+            "seniority_percent": 1
         }
     }
 }

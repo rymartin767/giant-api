@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
+use Livewire\Redirector;
 use App\Models\Flashcard;
 use Illuminate\View\View;
 use Livewire\WithFileUploads;
@@ -43,7 +44,7 @@ class Flashcards extends Component
         ]);
     }
 
-    public function storeFlashcard() : void
+    public function storeFlashcard() : Redirector
     {
         if ($this->questionImageUpload !== null) {
             $this->validate([
@@ -61,6 +62,8 @@ class Flashcards extends Component
 
         $validatedAttributes = $this->validate();
         Flashcard::create($validatedAttributes);
+
+        return to_route('flashcards')->with('flash.banner', 'The flashcard has been saved!');
     }
 
     public function storeUploadedImage(string $type) : string

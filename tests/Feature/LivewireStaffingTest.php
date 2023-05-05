@@ -36,9 +36,9 @@ it('plucks the month attribute from the pilot db', function() {
 });
 
 test('the storeReport method', function() {
-    Pilot::factory(20)->create(['month' => '2023-01-15']);
-    Pilot::factory(17)->create(['month' => '2023-02-15']);
-    Pilot::factory(15)->create(['month' => '2023-03-15']);
+    seedPilots(20, '01/15/2023');
+    seedPilots(17, '02/15/2023');
+    seedPilots(15, '03/15/2023');
 
     Livewire::test(Staffings::class)
         ->call('storeStaffing')
