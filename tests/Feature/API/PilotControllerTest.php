@@ -88,7 +88,7 @@ it('will return an model response with latest award, scales (per seniority not a
                 'scales' => [
                     [
                         'year' => 1,
-                        'fleet' => '767',
+                        'fleet' => 767,
                         'ca_rate' => 220,
                     ],
                 ],

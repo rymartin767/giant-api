@@ -45,6 +45,8 @@ class Airlines extends Component
         Airline::create($validatedData);
 
         $this->reset();
+
+        session()->flash('message', 'Airline successfully created.');
     }
 
     public function importAirlineScales(Airline $airline) : void

@@ -1,7 +1,3 @@
-@php
-    $flashcard = App\Models\Flashcard::first();
-@endphp
-
 <div>
     <x-section class="max-w-5xl" title="Create Flashcards">
         @include('forms.create-flashcard')
@@ -57,7 +53,11 @@
     </x-section>
 
     <x-section class="max-w-5xl" title="Flashcard Preview">
-        <x-flashcard :flashcard="$flashcard"></x-flashcard>
+        @forelse ($flashcards as $flashcard)
+            <x-flashcard :flashcard="$flashcard"></x-flashcard>
+        @empty
+            <div>EMPTY</div>
+        @endforelse
     </x-section>
 
     <x-section class="max-w-5xl" title="API Endpoints">

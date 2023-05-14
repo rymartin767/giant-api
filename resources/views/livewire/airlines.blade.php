@@ -1,4 +1,7 @@
-<div>
+<div class="relative">
+    
+    @include('layouts.flash-message')
+
     <x-section class="max-w-5xl" title="Create Airlines">
         @include('forms.create-airline')
     </x-section>
@@ -46,7 +49,8 @@
 
     @isset($selectedAirline)
     <x-section class="max-w-5xl" title="{{ $selectedAirline->name }}">
-        <div class="flex flex-col">
+        <!-- DESKTOP -->
+        <div class="hidden md:flex md:flex-col">
             <div class="flex justify-end mb-3">
                 <div>
                     <x-button wire:click="truncateScales({{ $airline->id}})" type="button" class="bg-red-500">TRUNCATE SCALES</x-button>
@@ -61,15 +65,49 @@
                 </x-slot:head>
                 <x-slot:body>
                     @foreach ($selectedAirline->scales as $scale)
-                    <tr>
-                        <x-table.td>{{ $scale->year }}</x-table.td>
-                        <x-table.td>{{ $scale->fleet }}</x-table.td>
-                        <x-table.td>{{ $scale->ca_rate }}</x-table.td>
-                        <x-table.td>{{ $scale->fo_rate }}</x-table.td>
-                    </tr>
+                        <tr>
+                            <x-table.td>{{ $scale->year }}</x-table.td>
+                            <x-table.td>{{ $scale->fleet->name }}</x-table.td>
+                            <x-table.td>{{ $scale->ca_rate }}</x-table.td>
+                            <x-table.td>{{ $scale->fo_rate }}</x-table.td>
+                        </tr>
                     @endforeach
                 </x-slot:body>
             </x-table>
+        </div>
+
+        <!-- MOBILE -->
+        <div class="block md:hidden bg-pink-300 p-3">
+            <div class="flex flex-col space-y-2 bg-white rounded-md shadow-md">
+                <div>
+                    <select name="" id="">
+                        <option value="">GTI · 767</option>
+                    </select>
+                </div>
+                <div class="col-span-6 sm:col-span-3 md:col-span-2">
+                    <div class="card grid grid-cols-2 gap-x-3">
+                        <div class="col-span-1">
+                            <div class="flex flex-wrap content-center h-full">
+                                <img src="images/airlines/GTI.webp" alt="Atlas Air Logo" class="rounded-md shadow-md" loading="lazy">
+                            </div>
+                        </div>
+                        <div class="col-span-1 text-center my-auto">
+                            <div class="border-b border-grey-light font-semibold text-sm">GTI</div>
+                            <div class="text-3xl font-mont font-semibold pt-2">737</div>
+                            <div class="text-base">FLEET RATES</div>
+                        </div>
+                        <div class="col-span-2 mt-3 divide-y divide-y-gray-300">
+                            @foreach ($selectedAirline->scales as $scale)
+                                <div class="flex flex-row justify-between  items-center py-1 px-3">
+                                    <div class="uppercase font-mont font-semibold text-lg tracking-wider text-gray-700">YEAR {{ $scale->year }}</div>
+                                    <div class="uppercase font-mont font-semibold text-lg tracking-wider text-gray-700">CA: ${{ $scale->ca_rate }}</div>
+                                    <div class="uppercase font-mont font-semibold text-lg tracking-wider text-gray-700">FO: ${{ $scale->fo_rate }}</div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </x-section>
     @endisset

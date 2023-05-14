@@ -68,6 +68,10 @@ input[type=date] {
     @apply w-full bg-gray-100 rounded border-none placeholder-gray-400;
 }
 
+.form-error {
+    @apply text-sm text-red-500 italic;
+}
+
 /* TORCHLIGHT */
 
 /*

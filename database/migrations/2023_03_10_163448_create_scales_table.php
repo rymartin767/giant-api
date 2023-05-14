@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('airline_id')->references('id')->on('airlines')->onCascade('delete');
             $table->unsignedSmallInteger('year');
-            $table->string('fleet')->index();
+            $table->unsignedSmallInteger('fleet')->index();
             $table->decimal('ca_rate', 10, 2)->index();
             $table->decimal('fo_rate', 10, 2)->index();
             $table->timestamps();

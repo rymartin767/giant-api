@@ -30,6 +30,10 @@ class DatabaseSeeder extends Seeder
         
         $this->command->info('Airline: GTI created!');
 
+        $this->call(AirlineScalesSeeder::class);
+
+        $this->command->info('737 Scales created for Atlas');
+
         Article::factory()->create();
 
         $this->command->info('Article created!');

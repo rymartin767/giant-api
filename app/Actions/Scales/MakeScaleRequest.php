@@ -14,9 +14,9 @@ final class MakeScaleRequest
         $request = new Request([
             'airline_id' => intval($this->collection['airline_id']),
             'year' => intval($this->collection[0]),
-            'fleet' => $this->collection[1],
-            'ca_rate' => intval($this->collection[2]),
-            'fo_rate' => intval($this->collection[3]),
+            'fleet' => $this->collection[2],
+            'ca_rate' => intval($this->collection[3]),
+            'fo_rate' => intval($this->collection[4]),
         ]);
 
         return $request;

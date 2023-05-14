@@ -7,15 +7,27 @@
                     <option value="{{ $sector->value }}">{{ $sector->name }}</option>
                 @endforeach
             </select>
+            @error('sector')
+                <div class="form-error">{{ $message }}</div>
+            @enderror
         </div>
         <div class="col-span-4 sm:col-span-1">
             <input wire:model.lazy="name" type="text" placeholder="Airline Name">
+            @error('name')
+                <div class="form-error">{{ $message }}</div>
+            @enderror
         </div>
         <div class="col-span-4 sm:col-span-1">
             <input wire:model.lazy="icao" type="text" maxlength="4" class="w-full" placeholder="ICAO Code">
+            @error('icao')
+                <div class="form-error">{{ $message }}</div>
+            @enderror
         </div>
         <div class="col-span-4 sm:col-span-1">
             <input wire:model.lazy="iata" type="text" maxlength="2" class="w-full" placeholder="IATA Code">
+            @error('iata')
+                <div class="form-error">{{ $message }}</div>
+            @enderror
         </div>
         <div class="col-span-4 sm:col-span-1">
             <select wire:model="union" class="w-full">
@@ -24,9 +36,15 @@
                     <option value="{{ $union->value }}">{{ $union->name }}</option>
                 @endforeach
             </select>
+            @error('union')
+                <div class="form-error">{{ $message }}</div>
+            @enderror
         </div>
         <div class="col-span-4 sm:col-span-1">
             <input wire:model.lazy="pilot_count" type="number" maxlength="5" class="w-full" placeholder="Pilot Count">
+            @error('pilot_count')
+                <div class="form-error">{{ $message }}</div>
+            @enderror
         </div>
         <div class="col-span-4 sm:col-span-1">
             <select wire:model="is_hiring" class="w-full">
@@ -34,9 +52,15 @@
                 <option value="1">True</option>
                 <option value="0">False</option>
             </select>
+            @error('is_hiring')
+                <div class="form-error">{{ $message }}</div>
+            @enderror
         </div>
         <div class="col-span-4 sm:col-span-1">
             <input wire:model.lazy="web_url" type="text" class="w-full" placeholder="Website Url">
+            @error('web_url')
+                <div class="form-error">{{ $message }}</div>
+            @enderror
         </div>
         <div class="col-span-4 sm:col-span-1 pt-1">
             <x-button type="submit" class="w-full">
