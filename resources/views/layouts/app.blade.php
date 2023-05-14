@@ -12,15 +12,14 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
         <!-- Scripts -->
+        @stack('scripts')
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
         <!-- Styles -->
         @livewireStyles
     </head>
     <body class="font-sans antialiased">
-        <x-banner />
-
-        <div class="min-h-screen bg-gray-100">
+        <div class="flex flex-col min-h-screen bg-gray-100">
             @livewire('navigation-menu')
 
             <!-- Page Heading -->
@@ -32,14 +31,18 @@
                 </header>
             @endif
 
+            <x-banner />
+
             <!-- Page Content -->
-            <main>
+            <main class="flex-1 py-8">
                 {{ $slot }}
             </main>
+
+            <footer>footer</footer>
         </div>
 
         @stack('modals')
-
         @livewireScripts
+        @stack('apex-charts')
     </body>
 </html>

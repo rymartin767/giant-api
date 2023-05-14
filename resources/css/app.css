@@ -1,3 +1,109 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+[x-cloak] { display: none !important; }
+
+/* Rich Editor */
+
+.rich-editor p {
+    @apply py-2;
+} 
+
+p > b, strong {
+    @apply text-blue-500;
+} 
+
+ul, ol {
+    @apply p-2;
+} 
+
+ul > li {
+    @apply list-disc list-inside mb-2;
+} 
+
+ol > li {
+    @apply list-decimal list-inside mb-2;
+} 
+
+ul > li > ul {
+    @apply px-6 space-y-2;
+} 
+
+ul > li > ol {
+    @apply px-6 space-y-2;
+} 
+
+ol > li > ol {
+    @apply px-6 space-y-2;
+}
+
+.flashcard-question {
+    @apply text-3xl font-semibold;
+}
+
+.flashcard-answer {
+    @apply text-xl font-semibold;
+}
+
+/* Forms */
+
+.base-form {
+    @apply bg-white p-3 shadow-md;
+}
+
+select {
+    @apply w-full bg-gray-100 rounded border-none text-gray-400;
+}
+
+input[type=text] {
+    @apply w-full bg-gray-100 rounded border-none placeholder-gray-400;
+}
+
+input[type=number] {
+    @apply w-full bg-gray-100 rounded border-none placeholder-gray-400;
+}
+
+input[type=date] {
+    @apply w-full bg-gray-100 rounded border-none placeholder-gray-400;
+}
+
+.form-error {
+    @apply text-sm text-red-500 italic;
+}
+
+/* TORCHLIGHT */
+
+/*
+Margin and rounding are personal preferences,
+overflow-x-auto is recommended.
+*/
+ pre {
+    @apply my-4 rounded overflow-x-auto;
+}
+ 
+/*
+Add some vertical padding and expand the width
+to fill its container. The horizontal padding
+comes at the line level so that background
+colors extend edge to edge.
+*/
+pre code.torchlight {
+    @apply block py-4 min-w-max;
+}
+
+/*
+Horizontal line padding.
+*/
+pre code.torchlight .line {
+    @apply px-4;
+}
+
+/*
+Push the code away from the line numbers and
+summary caret indicators.
+*/
+pre code.torchlight .line-number,
+pre code.torchlight .summary-caret {
+    @apply mr-4;
+}

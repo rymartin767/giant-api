@@ -15,6 +15,30 @@
                     <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    <x-nav-link href="{{ route('airlines') }}" :active="request()->routeIs('airlines')">
+                        {{ __('Airlines') }}
+                    </x-nav-link>
+                    <x-nav-link href="{{ route('articles') }}" :active="request()->routeIs('articles')">
+                        {{ __('Articles') }}
+                    </x-nav-link>
+                    <x-nav-link href="{{ route('awards') }}" :active="request()->routeIs('awards')">
+                        {{ __('Awards') }}
+                    </x-nav-link>
+                    <x-nav-link href="{{ route('events') }}" :active="request()->routeIs('events')">
+                        {{ __('Events') }}
+                    </x-nav-link>
+                    <x-nav-link href="{{ route('flashcards') }}" :active="request()->routeIs('flashcards')">
+                        {{ __('Flashcards') }}
+                    </x-nav-link>
+                    <x-nav-link href="{{ route('pilots') }}" :active="request()->routeIs('pilots')">
+                        {{ __('Pilots') }}
+                    </x-nav-link>
+                    <x-nav-link href="{{ route('staffing') }}" :active="request()->routeIs('staffing')">
+                        {{ __('Staffing') }}
+                    </x-nav-link>
+                    <x-nav-link href="{{ route('charts') }}" :active="request()->routeIs('charts')">
+                        {{ __('[Charts]') }}
+                    </x-nav-link>
                 </div>
             </div>
 

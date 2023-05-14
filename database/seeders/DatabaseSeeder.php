@@ -2,8 +2,13 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\User;
+use App\Models\Event;
+use App\Models\Airline;
+use App\Models\Article;
+use App\Models\Flashcard;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -12,11 +17,33 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        User::factory()->create([
+            'id' => env('ADMIN_KEY'),
+            'name' => 'Administrator',
+            'email' => 'ryan@nt4c.com',
+            'password' => Hash::make('test1234')
+        ]);
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        $this->command->info('User: Administrator (ryan@nt4c.com) created!');
+
+        Airline::factory()->create(['sector' => 1, 'name' => 'Atlas Air', 'icao' => 'GTI', 'iata' => '5Y']);
+        
+        $this->command->info('Airline: GTI created!');
+
+        $this->call(AirlineScalesSeeder::class);
+
+        $this->command->info('737 Scales created for Atlas');
+
+        Article::factory()->create();
+
+        $this->command->info('Article created!');
+
+        Event::factory()->create();
+
+        $this->command->info('Event created!');
+
+        Flashcard::factory()->create(['question' => 'What is the Maximum Operating Altitude', 'answer' => 'FL431']);
+        
+        $this->command->info('Flashcard: Limitation created!');
     }
 }
