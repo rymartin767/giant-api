@@ -13,10 +13,10 @@ final class ValidateScaleRequest
     public function handle() : ValidationValidator
     {
         $validator = Validator::make($this->request->all(), [
-            'year' => 'required',
-            'fleet' => 'required',
-            'ca_rate' => 'required',
-            'fo_rate' => 'required'
+            'year' => ['required', 'integer', 'min:1', 'max:15'],
+            'fleet' => ['required', 'string', 'starts_with:A,B,M'],
+            'ca_rate' => ['required', 'integer'],
+            'fo_rate' => ['required', 'integer']
         ]);
 
         return $validator;

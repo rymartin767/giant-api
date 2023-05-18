@@ -55,6 +55,6 @@ it('has a (pay) scales relationship', function() {
 });
 
 test('airline model hasAwsFile method', function() {
-    $airline = Airline::factory()->create(['icao' => 'GTI']);
+    $airline = Airline::factory()->create(['icao' => 'UPS']);
     expect($airline->hasAwsScales())->toBe(true);
 });

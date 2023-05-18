@@ -13,6 +13,6 @@ final class FetchScales
 
         return $query
             ->where('airline_id', $id)
-            ->where('fleet', $fleet);
+            ->where('fleet', 'B' . $fleet);
     }
 }

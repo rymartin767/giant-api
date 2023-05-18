@@ -20,7 +20,7 @@ class ScaleFactory extends Factory
         return [
             'airline_id' => Airline::factory(),
             'year' => 1,
-            'fleet' => 737,
+            'fleet' => 'B737',
             'ca_rate' => 100.10,
             'fo_rate' => 50.20
         ];

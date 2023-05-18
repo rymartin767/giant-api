@@ -27,12 +27,11 @@ class DatabaseSeeder extends Seeder
         $this->command->info('User: Administrator (ryan@nt4c.com) created!');
 
         Airline::factory()->create(['sector' => 1, 'name' => 'Atlas Air', 'icao' => 'GTI', 'iata' => '5Y']);
+        Airline::factory()->create(['sector' => 1, 'name' => 'United Parcel Service', 'icao' => 'UPS', 'iata' => '5X']);
+        Airline::factory()->create(['sector' => 1, 'name' => 'Fedex Express', 'icao' => 'FDX', 'iata' => 'FX']);
+        Airline::factory()->create(['sector' => 1, 'name' => 'Delta Air Lines', 'icao' => 'DAL', 'iata' => 'DL']);
         
-        $this->command->info('Airline: GTI created!');
-
-        $this->call(AirlineScalesSeeder::class);
-
-        $this->command->info('737 Scales created for Atlas');
+        $this->command->info('Airlines Created!');
 
         Article::factory()->create();
 
