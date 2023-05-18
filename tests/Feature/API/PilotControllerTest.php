@@ -63,7 +63,7 @@ it('will return an model not found response', function() {
 // Model Handling: Model Response
 it('will return an model response with latest award, scales (per seniority not award), and seniority', function() {
     seedPilots(25, '04/15/2023');
-    Airline::factory()->has(Scale::factory(['year' => 1, 'fleet' => '767', 'ca_rate' => 220]))->create(['icao' => 'GTI']);
+    Airline::factory()->has(Scale::factory(['year' => 1, 'fleet' => 'B767', 'ca_rate' => 220]))->create(['icao' => 'GTI']);
     $pilot = Pilot::factory()->has(Award::factory(['award_fleet' => '747', 'award_seat' => 'CA', 'award_domicile' => 'MIA']))->create(['seniority_number' => 26, 'employee_number' => 450765, 'fleet' => '767']);
     Staffing::factory()->create();
 
@@ -88,7 +88,7 @@ it('will return an model response with latest award, scales (per seniority not a
                 'scales' => [
                     [
                         'year' => 1,
-                        'fleet' => 767,
+                        'fleet' => 'B767',
                         'ca_rate' => 220,
                     ],
                 ],

@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Storage;
 
 test('connection to AWS S3 private bucket', function () {
-    $path = 'pay-scales/GTI.tsv';
+    $path = 'pay-scales/UPS.tsv';
     $this->assertTrue(Storage::disk('s3')->exists($path));
 });
 

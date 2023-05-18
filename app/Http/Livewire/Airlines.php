@@ -25,6 +25,8 @@ class Airlines extends Component
     public $slug;
 
     public $selectedAirline;
+    public $fleetTypes;
+    public $selectedFleet;
 
     protected function rules() : array
     {
@@ -75,6 +77,8 @@ class Airlines extends Component
     public function showScales(Airline $airline) : void
     {
         $this->selectedAirline = $airline->load('scales');
+        $this->fleetTypes = $this->selectedAirline->scales->pluck('fleet.value')->unique();
+        $this->selectedFleet = $this->fleetTypes->first();
     }
 
     public function truncateScales(Airline $airline) : void

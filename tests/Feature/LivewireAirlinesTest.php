@@ -56,7 +56,7 @@ it('displays a red SVG if there are no scales found on AWS S3', function() {
 });
 
 it('displays a green SVG if there are scales found on AWS S3', function() {
-    Airline::factory()->create(['icao' => 'GTI']);
+    Airline::factory()->create(['icao' => 'UPS']);
 
     Livewire::test(Airlines::class)
         ->assertSeeHtml('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" class="h-8 w-8 fill-current text-green-500">');
