@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use Carbon\Carbon;
 use App\Models\Pilot;
 use Livewire\Component;
+use Livewire\Redirector;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Storage;
 use App\Actions\Parsers\TsvToCollection;
@@ -20,13 +21,14 @@ class Pilots extends Component
 
     public function render() : View
     {
+
         return view('livewire.pilots', [
             'files' => Storage::disk('s3')->allFiles('/seniority-lists/' . $this->selectedYear),
             'pilots' => Pilot::currentSeniorityList()->paginate(5),
         ]);
     }
 
-    public function storePilots() : void
+    public function storePilots() : Redirector
     {
         $file = $this->selectedAwsFilePath;
         $month = Carbon::parse(str($file)->replace('-', '/')->substr(-14, 10));
@@ -53,7 +55,7 @@ class Pilots extends Component
 
         if ($validatedPilots->count() === $rows->count()) {
             $validatedPilots->each(fn($attributes) => Pilot::create($attributes));
-            $this->status = $validatedPilots->count() . ' Pilots Saved!';
+            return to_route('pilots')->with('flash.banner', $rows->count() . ' pilots were successfully saved!');
         }
     }
 }
