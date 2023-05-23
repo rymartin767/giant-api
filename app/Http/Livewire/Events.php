@@ -9,6 +9,7 @@ use Livewire\WithFileUploads;
 use App\Http\Requests\EventRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Livewire\Redirector;
 
 class Events extends Component
 {
@@ -37,7 +38,7 @@ class Events extends Component
         ]);
     }
 
-    public function storeEvent() : void
+    public function storeEvent() : Redirector
     {
         $this->validate(['photoUpload' => ['present', 'image', 'nullable']]);
 
@@ -48,6 +49,8 @@ class Events extends Component
 
         Event::create($attributes);
         $this->reset();
+
+        return to_route('events')->with('flash.banner', 'Event successfully created!');
     }
 
     public function deleteEvent($id) : void
