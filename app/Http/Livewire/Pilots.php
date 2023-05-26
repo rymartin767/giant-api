@@ -24,7 +24,7 @@ class Pilots extends Component
 
         return view('livewire.pilots', [
             'files' => Storage::disk('s3')->allFiles('/seniority-lists/' . $this->selectedYear),
-            'pilots' => Pilot::currentSeniorityList()->paginate(5),
+            'pilots' => Pilot::currentSeniorityList()->simplePaginate(50),
         ]);
     }
 
