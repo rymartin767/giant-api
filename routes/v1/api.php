@@ -11,6 +11,7 @@ use App\Http\Controllers\Award\JuniorsController;
 use App\Http\Controllers\Award\UpgradesController;
 use App\Http\Controllers\Pilot\StaffingController;
 use App\Http\Controllers\Pilot\DomicilesController;
+use App\Http\Controllers\Pilot\PilotHistoryController;
 use App\Http\Controllers\Pilot\RetirementsListController;
 use App\Http\Controllers\Charts\RetirementChartController;
 
@@ -30,6 +31,7 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::get('pilots/retirements-list', RetirementsListController::class)->name('api.pilots.retirements-list');
     Route::get('pilots/staffing', StaffingController::class)->name('api.pilots.staffing');
     Route::get('pilots/domiciles', DomicilesController::class)->name('api.pilots.domiciles');
+    Route::get('pilots/history', PilotHistoryController::class)->name('api.pilots.history');
 
     // CHARTS
     Route::get('charts/pilots/retirements', RetirementChartController::class)->name('api.charts.retirement');

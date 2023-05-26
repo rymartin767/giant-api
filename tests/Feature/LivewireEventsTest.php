@@ -34,7 +34,7 @@ test('events livewire component storeEvent method', function() {
         ->set('existingImageUrl', 'images/events/test-image.webp')
         ->set('web_url', null)
         ->call('storeEvent')
-        ->assertSee('Test Event');
+        ->assertRedirect('events');
     
     $this->assertDatabaseHas('events', ['id' => 1, 'time' => '13:13']);
 });

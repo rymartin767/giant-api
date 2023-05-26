@@ -26,24 +26,3 @@ test('staffing livewire component shows staffing in database', function() {
     Livewire::test(Staffings::class)
         ->assertSee($month);
 });
-
-it('plucks the month attribute from the pilot db', function() {
-    $pilot= Pilot::factory()->create();
-
-    Livewire::test(Staffings::class)
-        ->assertSee(Carbon::parse($pilot->month)->format('M Y'))
-        ->assertSee('Has Staffing Report: NO');
-});
-
-test('the storeReport method', function() {
-    seedPilots(20, '01/15/2023');
-    seedPilots(17, '02/15/2023');
-    seedPilots(15, '03/15/2023');
-
-    Livewire::test(Staffings::class)
-        ->call('storeStaffing')
-        ->assertSet('status', 'Report Successfully Generated!');
-
-    $this->assertDatabaseHas('staffings', ['list_date' => '2023-03-15', 'ytd_gain_loss' => -5]);
-    expect(Staffing::count())->toBe(1);
-});

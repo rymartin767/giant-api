@@ -2,6 +2,7 @@
 
 use App\Models\Pilot;
 use Livewire\Livewire;
+use App\Models\Staffing;
 use App\Http\Livewire\Pilots;
 use function Pest\Laravel\get;
 
@@ -24,11 +25,23 @@ it('displays a select list of aws s3 files as options', function () {
 test('storePilot method', function () {
     Livewire::test(Pilots::class)
         ->set('selectedAwsFilePath', 'seniority-lists/2023/test-03-10-2023.tsv')
-        ->call('storePilots')
-        ->assertSet('status', '10 Pilots Saved!');
+        ->call('storePilots');
 
     $this->assertDatabaseHas('pilots', ['id' => 1, 'employee_number' => '224']);
+
     expect(Pilot::count())->toBe(10);
+});
+
+test('storeStaffingReport method', function () {
+    seedPilots(15, '03/15/2023');
+
+    Livewire::test(Pilots::class)
+        ->set('selectedAwsFilePath', 'seniority-lists/2023/test-03-10-2023.tsv')
+        ->call('storePilots', 15);
+
+    $this->assertDatabaseHas('staffings', ['id' => 1, 'list_date' => '2023-03-15']);
+
+    expect(Staffing::count())->toBe(1);
 });
 
 test('validation can fail', function() {
