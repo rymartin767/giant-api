@@ -1,14 +1,21 @@
 {
-    "data":[
-        {
-            "id":1
-            "title":"Event Factory Test"
-            "date":"11\/19\/1997"
-            "time":"21:38"
-            "location":"Columbus
-             OH"
-            "image_url":"images\/events\/test-image.webp"
-            "web_url":"http:\/\/www.jacobson.com\/tempore-soluta-quisquam-velit-modi-in.html"
-        }
-    ],
+  "data": [
+    {
+      "id": 1,
+      "title": "B747 New Hire Class",
+      "date": "05/30/2023",
+      "time": null,
+      "location": "Miami, FL",
+      "image_url": "images/events/BtYYFnO5etl6xuEkLb3tzKXrqUAgQxNOtixZjfl1.jpg",
+      "web_url": null
+    },
+    {
+      "id": 2,
+      "title": "B767 New Hire Class",
+      "date": "05/31/2023",
+      "time": null,
+      "location": "Miami, FL",
+      "image_url": "images/events/tVcPhsl36msPGrQo7p37KCuoJNP4rjopIhLWBjqL.webp",
+      "web_url": null
+    },
 }

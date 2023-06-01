@@ -2,11 +2,11 @@
 
 namespace App\Http\Livewire;
 
-use Carbon\Carbon;
 use App\Models\Pilot;
 use Livewire\Component;
 use App\Models\Staffing;
 use Livewire\Redirector;
+use Carbon\CarbonImmutable;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Storage;
 use App\Actions\Parsers\TsvToCollection;
@@ -27,7 +27,7 @@ class Pilots extends Component
     {
 
         return view('livewire.pilots', [
-            'files' => Storage::disk('s3')->allFiles('/seniority-lists/' . $this->selectedYear),
+            'files' => Storage::disk('s3')->allFiles('/seniority-lists/v1/' . $this->selectedYear),
             'pilots' => Pilot::currentSeniorityList()->simplePaginate(50),
         ]);
     }
@@ -35,7 +35,7 @@ class Pilots extends Component
     public function storePilots() : void
     {
         $file = $this->selectedAwsFilePath;
-        $month = Carbon::parse(str($file)->replace('-', '/')->substr(-14, 10));
+        $month = CarbonImmutable::parse(str($file)->replace('-', '/')->substr(-14, 10));
 
         $tsv = new TsvToCollection($file);
         $rows = $tsv->handle();
@@ -59,13 +59,13 @@ class Pilots extends Component
 
         if ($validatedPilots->count() === $rows->count()) {
             $validatedPilots->each(fn($attributes) => Pilot::create($attributes));
-            $this->storeStaffingReport($rows->count());
+            $this->storeStaffingReport($month, $rows->count());
         }
     }
 
-    public function storeStaffingReport(int $count)
+    public function storeStaffingReport(CarbonImmutable $month, int $count)
     {
-        $report = new GenerateStaffingReport;
+        $report = new GenerateStaffingReport($month);
         $data = $report->handle();
 
         $gsr = new GenerateStaffingRequest($data);
@@ -81,6 +81,6 @@ class Pilots extends Component
             Staffing::create($request->all());
         }
 
-        return to_route('pilots')->with('flash.banner', $count . ' pilots were successfully saved & a Staffing Report was generated!');
+        return to_route('pilots')->with('flash.banner', $count . ' pilots were successfully saved! A Staffing Report was generated!');
     }
 }

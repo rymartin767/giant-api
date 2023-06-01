@@ -16,23 +16,23 @@ use App\Http\Controllers\Pilot\RetirementsListController;
 use App\Http\Controllers\Charts\RetirementChartController;
 
 Route::middleware('auth:sanctum')->group(function() {
-    // BASE MODELS
+    // * BASE MODELS
     Route::get('airlines', AirlineController::class)->name('api.airlines');
     Route::get('articles', ArticleController::class)->name('api.articles');
     Route::get('awards', AwardController::class)->name('api.awards');
     Route::get('events', EventController::class)->name('api.events');
     Route::get('flashcards', FlashcardController::class)->name('api.airlines');
     Route::get('pilots', PilotController::class)->name('api.pilots');
+    Route::get('staffing', StaffingController::class)->name('api.staffing');
 
-    // EXTENDED FROM BASE MODELS
+    // * EXTENDED FROM BASE MODELS
     Route::get('awards/upgrades', UpgradesController::class)->name('api.awards.upgrades');
     Route::get('awards/juniors', JuniorsController::class)->name('api.awards.juniors');
 
     Route::get('pilots/retirements-list', RetirementsListController::class)->name('api.pilots.retirements-list');
-    Route::get('pilots/staffing', StaffingController::class)->name('api.pilots.staffing');
     Route::get('pilots/domiciles', DomicilesController::class)->name('api.pilots.domiciles');
     Route::get('pilots/history', PilotHistoryController::class)->name('api.pilots.history');
 
-    // CHARTS
+    // * APEX CHARTS
     Route::get('charts/pilots/retirements', RetirementChartController::class)->name('api.charts.retirement');
 });

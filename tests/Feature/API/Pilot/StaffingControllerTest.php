@@ -6,13 +6,13 @@ use function Pest\Laravel\get;
 
 // Unauth Response
 test('response for unauthenticated request', function () {
-    get('v1/pilots/staffing')
+    get('v1/staffing')
         ->assertStatus(302);
 });
 
 // No Models Exist = Empty Response
 it('can return an empty response', function () {
-    $this->actingAs(sanctumToken())->get('v1/pilots/staffing')
+    $this->actingAs(sanctumToken())->get('v1/staffing')
         ->assertExactJson([
             'data' => []
         ])
@@ -24,7 +24,7 @@ it('will return an error response for an empty date parameter', function() {
     Pilot::factory()->create();
     Staffing::factory()->create();
 
-    $this->actingAs(sanctumToken())->get('v1/pilots/staffing?date=')
+    $this->actingAs(sanctumToken())->get('v1/staffing?date=')
         ->assertExactJson([
             'error' => [
                 'message' => 'Please check your request parameters.',
@@ -40,7 +40,7 @@ it('will return an error response for an bad parameter', function() {
     Pilot::factory()->create();
     Staffing::factory()->create();
 
-    $this->actingAs(sanctumToken())->get('v1/pilots/staffing?daet=2023-03-15')
+    $this->actingAs(sanctumToken())->get('v1/staffing?daet=2023-03-15')
         ->assertExactJson([
             'error' => [
                 'message' => 'Please check your request parameters.',
@@ -56,7 +56,7 @@ it('will return an error response for model not found', function() {
     Pilot::factory()->create();
     Staffing::factory()->create();
 
-    $this->actingAs(sanctumToken())->get('v1/pilots/staffing?date=2023-02-15')
+    $this->actingAs(sanctumToken())->get('v1/staffing?date=2023-02-15')
         ->assertExactJson(['error' => [
             'message' => 'Staffing report for 2023-02-15 not found.',
             'type' => 'Illuminate\Database\Eloquent\ModelNotFoundException',
@@ -69,7 +69,7 @@ it('will return an error response for model not found', function() {
 it('will return a model response based on date in request', function () {
     Staffing::factory()->create(['list_date' => '2023-02-15']);
 
-    $this->actingAs(sanctumToken())->get('v1/pilots/staffing?date=2023-02-15')
+    $this->actingAs(sanctumToken())->get('v1/staffing?date=2023-02-15')
         ->assertExactJson([
             'data' => [
                 "list_date" =>  "02/15/2023",
@@ -88,7 +88,7 @@ it('will return a model response of last staffing model if no month is in the re
     Pilot::factory()->create();
     Staffing::factory()->create();
     
-    $this->actingAs(sanctumToken())->get('v1/pilots/staffing')
+    $this->actingAs(sanctumToken())->get('v1/staffing')
         ->assertExactJson([
             'data' => [
                 "list_date" => now()->subMonth()->startOfMonth()->addDays(14)->format('m/d/Y'),
