@@ -77,33 +77,45 @@
             </div>
 
             <!-- MOBILE -->
-            <div class="block md:hidden bg-pink-300 p-3">
+            <div class="block md:hidden p-3">
                 <div class="flex flex-col space-y-2 bg-white rounded-md shadow-md">
-                    <div>
-                        <select wire:model="selectedFleet">
+                    <div class="">
+                        <select wire:model="selectedFleet" class="bg-slate-200">
                             @foreach ($fleetTypes as $fleet)
                                 <option value="{{ $fleet }}">{{ $fleet }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="col-span-6 sm:col-span-3 md:col-span-2">
-                        <div class="card grid grid-cols-2 gap-x-3">
+                        <div class="card grid grid-cols-2">
                             <div class="col-span-1">
                                 <div class="flex flex-wrap content-center h-full">
                                     <img src="images/airlines/GTI.webp" alt="Atlas Air Logo" class="rounded-md shadow-md" loading="lazy">
                                 </div>
                             </div>
-                            <div class="col-span-1 text-center my-auto">
+                            <div class="col-span-1 text-center my-auto px-3">
                                 <div class="border-b border-grey-light font-semibold text-sm">{{ $selectedAirline->icao }}</div>
                                 <div class="text-3xl font-mont font-semibold pt-2">{{ $selectedFleet }}</div>
                                 <div class="text-base">FLEET RATES</div>
                             </div>
-                            <div class="col-span-2 mt-3 divide-y divide-y-gray-300">
+                            <div class="col-span-2 mt-3">
                                 @foreach ($selectedAirline->scales->where('fleet.value', $selectedFleet) as $scale)
-                                    <div class="flex flex-row justify-between  items-center py-1 px-3">
-                                        <div class="uppercase font-mont font-semibold text-lg tracking-wider text-gray-700">YEAR {{ $scale->year }}</div>
-                                        <div class="uppercase font-mont font-semibold text-lg tracking-wider text-gray-700">CA: ${{ $scale->ca_rate }}</div>
-                                        <div class="uppercase font-mont font-semibold text-lg tracking-wider text-gray-700">FO: ${{ $scale->fo_rate }}</div>
+                                    <div class="flex flex-col py-2">
+                                        <div class="flex flex-row">
+                                            <div class="flex-1 h-px mt-3 bg-gray-200 border-0 dark:bg-gray-700"></div>
+                                            <div class="flex-1 text-center font-bold text-slate-700 uppercase">YEAR #{{ $scale->year }}</div>
+                                            <div class="flex-1 h-px mt-3 bg-gray-200 border-0 dark:bg-gray-700"></div>
+                                        </div>
+                                        <div class="flex flex-row">
+                                            <div class="flex-1 flex-col">
+                                                <div class="text-sm text-center">CAPT</div>
+                                                <div class="text-3xl text-center">${{ $scale->ca_rate }}</div>
+                                            </div>
+                                            <div class="flex-1 flex-col">
+                                                <div class="text-sm text-center">FO</div>
+                                                <div class="text-3xl text-center">${{ $scale->fo_rate }}</div>
+                                            </div>
+                                        </div>
                                     </div>
                                 @endforeach
                             </div>

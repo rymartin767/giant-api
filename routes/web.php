@@ -9,7 +9,8 @@ use App\Http\Livewire\Articles;
 use App\Http\Livewire\Staffings;
 use App\Http\Livewire\Flashcards;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Auth\Middleware\Authenticate;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
