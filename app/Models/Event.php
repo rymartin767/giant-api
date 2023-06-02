@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Prunable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Event extends Model
 {
-    use HasFactory;
+    use HasFactory, Prunable;
 
     protected $fillable = [
         'user_id',
@@ -25,7 +27,7 @@ class Event extends Model
         'time' => 'immutable_datetime:H:i'
     ];
 
-    public function prunable()
+    public function prunable() : Builder
     {
         return static::where('date', '<', now()->subDay());
     }
