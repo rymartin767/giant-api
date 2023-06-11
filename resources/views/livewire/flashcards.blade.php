@@ -53,11 +53,13 @@
     </x-section>
 
     <x-section class="max-w-5xl" title="Flashcard Preview">
-        @forelse ($flashcards as $flashcard)
-            <x-flashcard :flashcard="$flashcard"></x-flashcard>
-        @empty
-            <div>EMPTY</div>
-        @endforelse
+        <div class="flex flex-col space-y-2">
+            @forelse ($flashcards as $flashcard)
+                <x-flashcard :flashcard="$flashcard"></x-flashcard>
+            @empty
+                <div>EMPTY</div>
+            @endforelse
+        </div>
     </x-section>
 
     <x-section class="max-w-5xl" title="API Endpoints">

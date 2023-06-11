@@ -6,6 +6,7 @@ use App\Http\Livewire\Events;
 use App\Http\Livewire\Pilots;
 use App\Http\Livewire\Airlines;
 use App\Http\Livewire\Articles;
+use App\Http\Livewire\Dashboard;
 use App\Http\Livewire\Staffings;
 use App\Http\Livewire\Flashcards;
 use Illuminate\Support\Facades\Route;
@@ -31,9 +32,7 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', Dashboard::class)->name('dashboard');
 });
 
 /*

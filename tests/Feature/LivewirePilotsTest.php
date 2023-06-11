@@ -19,7 +19,8 @@ test('pilots livewire component is present on pilots page', function() {
 
 it('displays a select list of aws s3 files as options', function () {
     Livewire::test(Pilots::class)
-        ->assertSeeHtml('<option value="seniority-lists/2023/03-10-2023.tsv">seniority-lists/2023/03-10-2023.tsv</option>');
+        ->assertSeeHtml('<option value="seniority-lists/v1/2023/V1-03-10-2023.tsv">seniority-lists/v1/2023/V1-03-10-2023.tsv</option>');
+                         
 });
 
 test('storePilot method', function () {
@@ -39,7 +40,7 @@ test('storeStaffingReport method', function () {
         ->set('selectedAwsFilePath', 'seniority-lists/2023/test-03-10-2023.tsv')
         ->call('storePilots', 15);
 
-    $this->assertDatabaseHas('staffings', ['id' => 1, 'list_date' => '2023-03-15']);
+    $this->assertDatabaseHas('staffings', ['id' => 1, 'list_date' => '2023-03-10']);
 
     expect(Staffing::count())->toBe(1);
 });

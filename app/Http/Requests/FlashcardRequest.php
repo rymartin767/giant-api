@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Enums\FlashcardCategory;
+use App\Enums\FlashcardEicasType;
 use App\Enums\FlashcardReference;
 use Illuminate\Validation\Rules\Enum;
 use Illuminate\Foundation\Http\FormRequest;
@@ -26,6 +27,8 @@ class FlashcardRequest extends FormRequest
             'question_image_url' => ['present', 'string', 'nullable'],
             'answer_image_url' => ['present', 'string', 'nullable'],
             'reference' => [new Enum(FlashcardReference::class)],
+            'eicas_type' => [new Enum(FlashcardEicasType::class), 'nullable'],
+            'eicas_message' => ['present', 'string', 'nullable'],
         ];
     }
 }

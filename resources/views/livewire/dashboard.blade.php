@@ -1,0 +1,30 @@
+<div>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Dashboard') }}
+        </h2>
+    </x-slot>
+    
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-3 gap-2">
+                <div class="col-span-3 mb-4 p-3 bg-white rounded">
+                    <div class="flex flex-row justify-around">
+                        <div>API v1.0</div>
+                        <div>PHP v{{ PHP_VERSION }}</div>
+                        <div>Laravel v{{ app()->version() }}</div>
+                    </div>
+                </div>
+                
+                @livewire('dashboard.airlines')
+                @livewire('dashboard.articles')
+                @livewire('dashboard.awards')
+                @livewire('dashboard.events')
+                @livewire('dashboard.flashcards')
+                @livewire('dashboard.pilots')
+                @livewire('dashboard.staffing')
+
+            </div>
+        </div>
+    </div>
+</div>
