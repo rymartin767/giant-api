@@ -16,7 +16,14 @@
                     </div>
                 </div>
                 
+                @livewire('dashboard.airlines')
                 @livewire('dashboard.articles')
+                @livewire('dashboard.awards')
+                @livewire('dashboard.events')
+                @livewire('dashboard.flashcards')
+                @livewire('dashboard.pilots')
+                @livewire('dashboard.staffing')
+
             </div>
         </div>
     </div>
