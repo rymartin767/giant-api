@@ -4,13 +4,13 @@
     </div>
     <div class="col-span-2 md:col-span-1">
         <!-- QUESTION -->
-        <div x-show="! showAnswer" class="flex bg-pink-500 min-h-full p-3">
+        <div x-show="! showAnswer" class="flex bg-pink-100 min-h-full p-3">
             <div class="flex flex-col bg-yellow-300 grow p-1">
-                <div class="grow bg-purple-400">
+                <div class="grow bg-white">
                     {!! $flashcard->question !!}
                 </div>
                 <div>
-                    <button @click="showAnswer = true" class="bg-yellow-300 text-white text-center p-2 mt-1 rounded-md w-full">SHOW ANSWER</button>
+                    <button @click="showAnswer = true" class="bg-gray-50 text-slate-400 text-center p-2 mt-1 rounded-md w-full">SHOW ANSWER</button>
                 </div>
             </div>
         </div>

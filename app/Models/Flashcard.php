@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\FlashcardCategory;
+use App\Enums\FlashcardEicasType;
 use App\Enums\FlashcardReference;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,11 +12,21 @@ class Flashcard extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['category', 'question', 'answer', 'question_image_url', 'answer_image_url', 'reference'];
+    protected $fillable = [
+        'category',
+        'question',
+        'answer',
+        'question_image_url',
+        'answer_image_url',
+        'reference',
+        'eicas_type',
+        'eicas_message'
+    ];
 
     protected $casts = [
         'category' => FlashcardCategory::class,
-        'reference' => FlashcardReference::class
+        'reference' => FlashcardReference::class,
+        'eicas_type' => FlashcardEicasType::class
     ];
 
     protected $hidden = [

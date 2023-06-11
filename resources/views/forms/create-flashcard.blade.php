@@ -16,6 +16,17 @@
                 @endforeach
             </select>
         </div>
+        <div class="col-span-4 sm:col-span-2">
+            <select wire:model="eicas_type">
+                <option value="">Choose EICAS Type...</option>
+                @foreach (\App\Enums\FlashcardEicasType::cases() as $type)
+                    <option value="{{ $type->value }}">{{ $type->name }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="col-span-4 sm:col-span-2">
+            <input wire:model="eicas_message" type="text" placeholder="Enter exact EICAS message">
+        </div>
         <div class="col-span-4">
             <div wire:ignore>
                 <textarea wire:model="question" name="question" id="question" class="rich-editor"></textarea>

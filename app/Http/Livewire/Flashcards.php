@@ -20,6 +20,8 @@ class Flashcards extends Component
     public $question_image_url;
     public $answer_image_url;
     public $reference;
+    public $eicas_type = null;
+    public $eicas_message = null;
 
     public $questionImageUpload = null;
     public $answerImageUpload = null;
