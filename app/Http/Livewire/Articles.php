@@ -34,5 +34,8 @@ class Articles extends Component
         $validatedData = $this->validate();
 
         Article::create($validatedData);
+
+        return to_route('articles')->with('flash.banner', 'The article has been saved!');
+
     }
 }
