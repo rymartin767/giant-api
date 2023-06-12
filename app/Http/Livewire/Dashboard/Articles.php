@@ -18,7 +18,7 @@ class Articles extends Component
     public function initLoading() : void
     {
         $article = Article::latest()->get()->first();
-        $this->status = str($article->title)->limit(15) . ' published ' . $article->created_at->diffForHumans();
+        $this->status = str($article->title ?? 'No Articles')->limit(15) . ' published ' . $article?->created_at->diffForHumans();
 
         $this->loaded = true;
     }

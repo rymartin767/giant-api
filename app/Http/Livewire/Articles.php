@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Article;
 use Livewire\Component;
+use Livewire\Redirector;
 use App\Http\Requests\ArticleRequest;
 
 class Articles extends Component
@@ -29,10 +30,12 @@ class Articles extends Component
         ]);
     }
 
-    public function storeArticle()
+    public function storeArticle() : Redirector
     {
         $validatedData = $this->validate();
 
         Article::create($validatedData);
+
+        return to_route('articles')->with('flash.banner', 'The article has been saved!');
     }
 }
