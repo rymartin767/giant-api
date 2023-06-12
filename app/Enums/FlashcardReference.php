@@ -18,6 +18,11 @@ enum FlashcardReference : int
     case FCOM_VOL2__CHAPTER_8_FIRE_PROTECTION = 12;
     case FCOM_VOL2__CHAPTER_9_FLIGHT_CONTROLS = 13;
     case FCOM_VOL2__CHAPTER_10_FLIGHT_INSTRUMENTS_DISPLAYS = 14;
+    case FCOM_VOL2__CHAPTER_11_FLIGHT_MANAGEMENT_NAVIGATION = 15;
+    case FCOM_VOL2__CHAPTER_12_FUEL = 16;
+    case FCOM_VOL2__CHAPTER_13_HYDRAULICS = 17;
+    case FCOM_VOL2__CHAPTER_14_LANDING_GEAR = 18;
+    case FCOM_VOL2__CHAPTER_15_WARNING_SYSTEMS = 19;
 
     public function getFullName() : string
     {
@@ -36,6 +41,11 @@ enum FlashcardReference : int
             self::FCOM_VOL2__CHAPTER_8_FIRE_PROTECTION => 'FCOM VOL2: Chapter 8 - Fire Protection',
             self::FCOM_VOL2__CHAPTER_9_FLIGHT_CONTROLS => 'FCOM VOL2: Chapter 9 - Flight Controls',
             self::FCOM_VOL2__CHAPTER_10_FLIGHT_INSTRUMENTS_DISPLAYS => 'FCOM VOL2: Chapter 10 - Flight Instruments & Displays',
+            self::FCOM_VOL2__CHAPTER_11_FLIGHT_MANAGEMENT_NAVIGATION => 'FCOM VOL2: Chapter 11 - Flight Management & Navigation',
+            self::FCOM_VOL2__CHAPTER_12_FUEL => 'FCOM VOL2: Chapter 12 - Fuel',
+            self::FCOM_VOL2__CHAPTER_13_HYDRAULICS => 'FCOM VOL2: Chapter 13 - Hydraulics',
+            self::FCOM_VOL2__CHAPTER_14_LANDING_GEAR => 'FCOM VOL2: Chapter 14 - Landing Gear',
+            self::FCOM_VOL2__CHAPTER_15_WARNING_SYSTEMS => 'FCOM VOL2: Chapter 15 - Warning Systems',
         };
     }
 }
