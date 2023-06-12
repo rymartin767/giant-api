@@ -42,5 +42,13 @@
                 </x-api-li>
             </x-slot:items>
         </x-api-list>
+
+        <x-api-list>
+            <x-slot:items>
+                <x-api-li type="Collection Response" params="date" endpoint="v1/staffing">
+                    <pre><x-torchlight-code language='php' contents='views/torchlight/api/staffings/collection-response.blade.php'/></pre>
+                </x-api-li>
+            </x-slot:items>
+        </x-api-list>
     </x-section>
 </div>
