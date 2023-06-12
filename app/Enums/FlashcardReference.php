@@ -14,6 +14,10 @@ enum FlashcardReference : int
     case FCOM_VOL2__CHAPTER_4_AUTOMATIC_FLIGHT = 8;
     case FCOM_VOL2__CHAPTER_5_COMMUNICATIONS = 9;
     case FCOM_VOL2__CHAPTER_6_ELECTRICAL = 10;
+    case FCOM_VOL2__CHAPTER_7_ENGINES = 11;
+    case FCOM_VOL2__CHAPTER_8_FIRE_PROTECTION = 12;
+    case FCOM_VOL2__CHAPTER_9_FLIGHT_CONTROLS = 13;
+    case FCOM_VOL2__CHAPTER_10_FLIGHT_INSTRUMENTS_DISPLAYS = 14;
 
     public function getFullName() : string
     {
@@ -28,6 +32,10 @@ enum FlashcardReference : int
             self::FCOM_VOL2__CHAPTER_4_AUTOMATIC_FLIGHT => 'FCOM VOL2: Chapter 4 - Automatic Flight',
             self::FCOM_VOL2__CHAPTER_5_COMMUNICATIONS => 'FCOM VOL2: Chapter 5 - Communications',
             self::FCOM_VOL2__CHAPTER_6_ELECTRICAL => 'FCOM VOL2: Chapter 6 - Electrical',
+            self::FCOM_VOL2__CHAPTER_7_ENGINES => 'FCOM VOL2: Chapter 7 - Engines',
+            self::FCOM_VOL2__CHAPTER_8_FIRE_PROTECTION => 'FCOM VOL2: Chapter 8 - Fire Protection',
+            self::FCOM_VOL2__CHAPTER_9_FLIGHT_CONTROLS => 'FCOM VOL2: Chapter 9 - Flight Controls',
+            self::FCOM_VOL2__CHAPTER_10_FLIGHT_INSTRUMENTS_DISPLAYS => 'FCOM VOL2: Chapter 10 - Flight Instruments & Displays',
         };
     }
 }
