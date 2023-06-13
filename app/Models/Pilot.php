@@ -28,7 +28,7 @@ class Pilot extends Model
 
     public function scopeCurrentSeniorityList($query)
     {
-        $month = Pilot::latest()->first()?->month;
+        $month = Pilot::latest('month')->first()?->month;
         return $query->where('month', $month);
     }
 

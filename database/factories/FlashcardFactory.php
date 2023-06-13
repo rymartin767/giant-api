@@ -14,7 +14,9 @@ class FlashcardFactory extends Factory
             'answer' => $this->faker->sentence(30, true),
             'question_image_url' => $this->faker->imageUrl(),
             'answer_image_url' => $this->faker->imageUrl(),
-            'reference' => 1
+            'reference' => 1,
+            'eicas_type' => 2,
+            'eicas_message' => 'LOW AIRSPEEED'
         ];
     }
 }

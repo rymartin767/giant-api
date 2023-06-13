@@ -18,7 +18,11 @@ class Staffing extends Component
 
     public function initLoading() : void
     {
-        $this->status = 'Latest Staffing Report: ' . Carbon::parse(ModelsStaffing::pluck('list_date')->sortDesc()->first())->format('F Y');
+        if (! ModelsStaffing::all()->isEmpty()) {
+            $this->status = 'Latest Staffing Report: ' . Carbon::parse(ModelsStaffing::pluck('list_date')->sortDesc()->first())->format('F Y');
+        } else {
+            $this->status = 'No Staffing Reports Saved!';
+        }
 
         $this->loaded = true;
     }

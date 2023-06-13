@@ -53,7 +53,8 @@ final readonly class PilotController
                 $pilot->scales = $scales;
 
                 $count = $this->queryStaffing->handle(
-                    query: Staffing::query(), 
+                    query: Staffing::query(),
+                    year: null,
                     date: $pilot->month
                 )->get()->sole()->total_pilot_count;
 
@@ -73,7 +74,7 @@ final readonly class PilotController
 
         }
 
-        // * Employee Number Parameter is Missing (Collection Response)
+        // ! Employee Number Parameter is Missing (Collection Response)
             
         // * Error Response: Bad Parameter
         if ($request->collect()->isNotEmpty()) {
