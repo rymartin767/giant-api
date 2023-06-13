@@ -66,7 +66,9 @@ it('returns a collection response of all flashcards if no category parameter is 
                     'answer' => $flash->answer,
                     'question_image_url' => $flash->question_image_url,
                     'answer_image_url' => $flash->answer_image_url,
-                    'reference' => 1
+                    'reference' => 1,
+                    'eicas_type' => 2,
+                    'eicas_message' => 'LOW AIRSPEEED'
                 ],
                 [
                     'category' => $flashTwo->category,
@@ -74,7 +76,9 @@ it('returns a collection response of all flashcards if no category parameter is 
                     'answer' => $flashTwo->answer,
                     'question_image_url' => $flashTwo->question_image_url,
                     'answer_image_url' => $flashTwo->answer_image_url,
-                    'reference' => 1
+                    'reference' => 1,
+                    'eicas_type' => 2,
+                    'eicas_message' => 'LOW AIRSPEEED'
                 ],
         ]])
         ->assertOk();
@@ -94,7 +98,9 @@ it('returns a collection response of all flashcards in a given category', functi
                     'answer' => $flash->answer,
                     'question_image_url' => $flash->question_image_url,
                     'answer_image_url' => $flash->answer_image_url,
-                    'reference' => 1
+                    'reference' => 1,
+                    'eicas_type' => 2,
+                    'eicas_message' => 'LOW AIRSPEEED'
                 ]
         ]])
         ->assertOk();

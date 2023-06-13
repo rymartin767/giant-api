@@ -1,12 +1,13 @@
 {
-    "data": {
-        "sector": "cargo",
-        "name": "Atlas Air",
-        "icao": "GTI",
-        "iata": "5Y",
-        "union": "teamsters",
-        "pilots": 2000,
-        "hiring": true,
-        "url": "atlasair.com"
-    }
+  "data": {
+    "id": 1,
+    "sector": 1,
+    "name": "Atlas Air",
+    "icao": "GTI",
+    "iata": "5Y",
+    "union": 1,
+    "pilot_count": 2800,
+    "is_hiring": true,
+    "web_url": "https://atlasair.com"
+  }
 }

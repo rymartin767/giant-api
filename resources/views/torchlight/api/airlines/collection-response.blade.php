@@ -1,22 +1,31 @@
 {
-    "data": [
+  "data": [
+    {
+      "id": 1,
+      "sector": 1,
+      "name": "Atlas Air",
+      "icao": "GTI",
+      "iata": "5Y",
+      "union": 1,
+      "pilot_count": 2800,
+      "is_hiring": true,
+      "web_url": "https://atlasair.com",
+      "scales": [
         {
-            "sector": "cargo",
-            "name": "Atlas Air",
-            "icao": "GTI",
-            "iata": "5Y",
-            "union": "teamsters",
-            "pilots": 2000,
-            "hiring": true,
-            "url": "atlasair.com",
-            "scales": [
-                {
-                    "year": 1,
-                    "fleet": "747",
-                    "ca": "232.03",
-                    "fo": "94.76"
-                },
-            ]
+          "airline_id": 1,
+          "year": 1,
+          "fleet": "B737",
+          "ca_rate": "176.00",
+          "fo_rate": "94.00"
+        },
+        {
+          "airline_id": 1,
+          "year": 2,
+          "fleet": "B737",
+          "ca_rate": "180.00",
+          "fo_rate": "108.00"
         }
-    ]
+      ]
+    }
+  ]
 }

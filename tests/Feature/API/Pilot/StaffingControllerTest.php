@@ -19,12 +19,21 @@ it('can return an empty response', function () {
         ->assertOk();
 });
 
+// Empty Collection (based on year paramater) = Empty Response
+it('can return an empty collection response', function () {
+    $this->actingAs(sanctumToken())->get('v1/staffing?year=2020')
+        ->assertExactJson([
+            'data' => []
+        ])
+        ->assertOk();
+});
+
 // Empty Parameter
-it('will return an error response for an empty date parameter', function() {
+it('will return an error response for an empty year parameter', function() {
     Pilot::factory()->create();
     Staffing::factory()->create();
 
-    $this->actingAs(sanctumToken())->get('v1/staffing?date=')
+    $this->actingAs(sanctumToken())->get('v1/staffing?year=')
         ->assertExactJson([
             'error' => [
                 'message' => 'Please check your request parameters.',
@@ -40,7 +49,7 @@ it('will return an error response for an bad parameter', function() {
     Pilot::factory()->create();
     Staffing::factory()->create();
 
-    $this->actingAs(sanctumToken())->get('v1/staffing?daet=2023-03-15')
+    $this->actingAs(sanctumToken())->get('v1/staffing?yaer=2023')
         ->assertExactJson([
             'error' => [
                 'message' => 'Please check your request parameters.',
@@ -51,40 +60,8 @@ it('will return an error response for an bad parameter', function() {
         ->assertStatus(401);
 });
 
-// Model Handling: ModelNotFound Error Response
-it('will return an error response for model not found', function() {
-    Pilot::factory()->create();
-    Staffing::factory()->create();
-
-    $this->actingAs(sanctumToken())->get('v1/staffing?date=2023-02-15')
-        ->assertExactJson(['error' => [
-            'message' => 'Staffing report for 2023-02-15 not found.',
-            'type' => 'Illuminate\Database\Eloquent\ModelNotFoundException',
-            'code' => 404
-        ]])
-        ->assertStatus(404);
-});
-
-// Model Handling: Model Response
-it('will return a model response based on date in request', function () {
-    Staffing::factory()->create(['list_date' => '2023-02-15']);
-
-    $this->actingAs(sanctumToken())->get('v1/staffing?date=2023-02-15')
-        ->assertExactJson([
-            'data' => [
-                "list_date" =>  "02/15/2023",
-                "total_pilot_count" => 2800,
-                "active_pilot_count" => 2693,
-                "inactive_pilot_count" => 107,
-                "net_gain_loss" => -14,
-                "ytd_gain_loss" => -31,
-                "average_age" => 45
-            ]
-        ]);
-});
-
 // Model Handling: Model Response (filtered)
-it('will return a model response of last staffing model if no month is in the request', function () {
+it('will return a model response of last staffing model if no year is in the request', function () {
     Pilot::factory()->create();
     Staffing::factory()->create();
     
@@ -98,6 +75,53 @@ it('will return a model response of last staffing model if no month is in the re
                 "net_gain_loss" => -14,
                 "ytd_gain_loss" => -31,
                 "average_age" => 45
+            ]
+        ]);
+});
+
+// Collection Handling: filtered
+it('will return a collection response of staffing reports by year', function () {
+    Staffing::factory()->create([
+        "list_date" => '2022-11-15',
+        "total_pilot_count" => 2700,
+        "active_pilot_count" => 2593,
+        "inactive_pilot_count" => 107,
+        "net_gain_loss" => -10,
+        "ytd_gain_loss" => -26,
+        "average_age" => 44
+    ]);
+
+    Staffing::factory()->create([
+        "list_date" => '2022-12-15',
+        "total_pilot_count" => 2800,
+        "active_pilot_count" => 2693,
+        "inactive_pilot_count" => 107,
+        "net_gain_loss" => -14,
+        "ytd_gain_loss" => -31,
+        "average_age" => 45
+    ]);
+    
+    $this->actingAs(sanctumToken())->get('v1/staffing?year=2022')
+        ->assertExactJson([
+            'data' => [
+                [
+                    "list_date" => '11/15/2022',
+                    "total_pilot_count" => 2700,
+                    "active_pilot_count" => 2593,
+                    "inactive_pilot_count" => 107,
+                    "net_gain_loss" => -10,
+                    "ytd_gain_loss" => -26,
+                    "average_age" => 44
+                ],
+                [
+                    "list_date" => '12/15/2022',
+                    "total_pilot_count" => 2800,
+                    "active_pilot_count" => 2693,
+                    "inactive_pilot_count" => 107,
+                    "net_gain_loss" => -14,
+                    "ytd_gain_loss" => -31,
+                    "average_age" => 45
+                ],
             ]
         ]);
 });

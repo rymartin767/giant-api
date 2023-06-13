@@ -18,7 +18,11 @@ class Awards extends Component
 
     public function initLoading() : void
     {
-        $this->status = 'Current Award: ' . Carbon::parse(Award::latest()->get()->first()?->month)->format('M Y') ?? 'NULL';
+        if (! Award::all()->isEmpty()) {
+            $this->status = 'Current Award: ' . Carbon::parse(Award::latest()->get()->first()?->month)->format('M Y');
+        } else {
+            $this->status = 'No Awards Saved!';
+        }
 
         $this->loaded = true;
     }
