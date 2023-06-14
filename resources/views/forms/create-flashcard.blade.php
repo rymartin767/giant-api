@@ -7,6 +7,9 @@
                     <option value="{{ $category->value }}">{{ $category->getFullName() }}</option>
                 @endforeach
             </select>
+            @error('category')
+                <div class="form-error">{{ $message }}</div>
+            @enderror
         </div>
         <div class="col-span-4 sm:col-span-2">
             <select wire:model="reference">
@@ -15,6 +18,9 @@
                     <option value="{{ $reference->value }}">{{ $reference->getFullName() }}</option>
                 @endforeach
             </select>
+            @error('reference')
+                <div class="form-error">{{ $message }}</div>
+            @enderror
         </div>
         <div class="col-span-4 sm:col-span-2">
             <select wire:model="eicas_type">
@@ -23,27 +29,45 @@
                     <option value="{{ $type->value }}">{{ $type->name }}</option>
                 @endforeach
             </select>
+            @error('eicas_type')
+                <div class="form-error">{{ $message }}</div>
+            @enderror
         </div>
         <div class="col-span-4 sm:col-span-2">
             <input wire:model="eicas_message" type="text" placeholder="Enter exact EICAS message">
+            @error('eicas_message')
+                <div class="form-error">{{ $message }}</div>
+            @enderror
         </div>
         <div class="col-span-4">
             <div wire:ignore>
                 <textarea wire:model="question" name="question" id="question" class="rich-editor"></textarea>
             </div>
+            @error('question')
+                <div class="form-error">{{ $message }}</div>
+            @enderror
         </div>
         <div class="col-span-4">
             <div wire:ignore>
                 <textarea wire:model="answer" name="answer" id="answer" class="rich-editor"></textarea>
             </div>
+            @error('answer')
+                <div class="form-error">{{ $message }}</div>
+            @enderror
         </div>
         <div class="col-span-4">
             <div class="grid grid-cols-3">
                 <div class="col-span-3 sm:col-span-1">
                     <input type="file" wire:model="questionImageUpload">
+                    @error('questionImageUpload')
+                        <div class="form-error">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div class="col-span-3 sm:col-span-1">
                     <input type="file" wire:model="answerImageUpload">
+                    @error('answerImageUpload')
+                        <div class="form-error">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div class="col-span-3 sm:col-span-1 pb-1">
                     <button type="submit" class="w-full text-xs bg-blue-500 text-white font-semibold p-2 rounded-md shadow">Submit</button>
