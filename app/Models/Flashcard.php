@@ -6,6 +6,7 @@ use App\Enums\FlashcardCategory;
 use App\Enums\FlashcardEicasType;
 use App\Enums\FlashcardReference;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Flashcard extends Model
@@ -32,6 +33,19 @@ class Flashcard extends Model
     protected $hidden = [
         'id', 'created_at', 'updated_at'
     ];
+
+    protected static function booted()
+    {
+        static::deleting(function ($flashcard) {
+            if (! is_null($flashcard->question_image_url)) {
+                Storage::disk('s3-public')->delete($flashcard->question_image_url);
+            }
+
+            if (! is_null($flashcard->answer_image_url)) {
+                Storage::disk('s3-public')->delete($flashcard->answer_image_url);
+            }
+        });
+    }
 
     public function path() : string
     {

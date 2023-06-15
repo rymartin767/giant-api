@@ -17,14 +17,12 @@ class Flashcards extends Component
     public $category;
     public $question;
     public $answer;
-    public $question_image_url;
-    public $answer_image_url;
     public $reference;
     public $eicas_type = null;
     public $eicas_message = null;
 
-    public $questionImageUpload = null;
-    public $answerImageUpload = null;
+    public $questionImageUpload;
+    public $answerImageUpload;
 
     public $showByCategory;
 
@@ -48,21 +46,24 @@ class Flashcards extends Component
 
     public function storeFlashcard() : Redirector
     {
+        $validatedAttributes = $this->validate();
+
         if ($this->questionImageUpload !== null) {
             $this->validate([
                 'questionImageUpload' => ['required', 'image', 'mimes:jpg,png,webp'],
             ]);
-            $this->question_image_url = $this->storeUploadedImage('question');
+            $s3 = $this->storeUploadedImage('question');
+            $validatedAttributes['question_image_url'] = $s3;
         }
         
         if ($this->answerImageUpload !== null) {
             $this->validate([
                 'answerImageUpload' => ['required', 'image', 'mimes:jpg,png,webp']
             ]);
-            $this->answer_image_url = $this->storeUploadedImage('answer');
+            $s3 = $this->storeUploadedImage('answer');
+            $validatedAttributes['answer_image_url'] = $s3;
         }
 
-        $validatedAttributes = $this->validate();
         Flashcard::create($validatedAttributes);
 
         return to_route('flashcards')->with('flash.banner', 'The flashcard has been saved!');
@@ -71,9 +72,9 @@ class Flashcards extends Component
     public function storeUploadedImage(string $type) : string
     {
         if ($type == 'question') {
-            $url = $this->questionImageUpload->store('images/flashcards/development', 's3');
+            $url = $this->questionImageUpload->store('images/flashcards', 's3-public');
         } else {
-            $url = $this->answerImageUpload->store('images/flashcards/development', 's3');
+            $url = $this->answerImageUpload->store('images/flashcards', 's3-public');
         }
 
         return (string) $url;
