@@ -30,8 +30,6 @@ test('Flashcards livewire component storeFlashcard method', function() {
         ->set('category', 1)
         ->set('question', 'What is the maximum operating altitude?')
         ->set('answer', 'FL410')
-        ->set('question_image_url', null)
-        ->set('answer_image_url', null)
         ->set('reference', 1)
         ->call('storeFlashcard')
         ->assertSee('Limitations');
@@ -39,12 +37,10 @@ test('Flashcards livewire component storeFlashcard method', function() {
     $this->assertDatabaseHas('flashcards', ['id' => 1, 'category' => 1]);
 });
 
-test('flashcards livewire component deleteFlashcard method', function() {
-    $flashcard = Flashcard::factory()->create();
+test('links are present to edit each flashcard', function() {
+    Flashcard::factory()->create();
 
-    Livewire::test(Flashcards::class)
-        ->call('deleteFlashcard', $flashcard->id);
-    
-    $this->assertDatabaseMissing('flashcards', ['id' => $flashcard->id]);
+    $r = Livewire::test(Flashcards::class)
+        ->assertSeeHtml('<a href="http://giant-api.test/flashcards/1/edit">');
 });
 

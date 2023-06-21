@@ -9,6 +9,7 @@ use App\Http\Livewire\Articles;
 use App\Http\Livewire\Dashboard;
 use App\Http\Livewire\Staffings;
 use App\Http\Livewire\Flashcards;
+use App\Http\Livewire\Flashcards\Edit;
 use Illuminate\Support\Facades\Route;
 
 
@@ -52,6 +53,7 @@ Route::middleware('admin')->group(function() {
     Route::get('awards', Awards::class)->name('awards');
     Route::get('events', Events::class)->name('events');
     Route::get('flashcards', Flashcards::class)->name('flashcards');
+    Route::get('flashcards/{flashcard}/edit', Edit::class)->name('flashcards.edit');
     Route::get('pilots', Pilots::class)->name('pilots');
     Route::get('staffing', Staffings::class)->name('staffing');
 

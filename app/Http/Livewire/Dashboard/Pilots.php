@@ -18,8 +18,8 @@ class Pilots extends Component
 
     public function initLoading() : void
     {
-        if (! Pilot::all()->isEmpty()) {
-            $this->status = 'Current Seniority List: ' . Carbon::parse(Pilot::latest()->get('month')->first()?->month)->format('F Y');
+        if (Pilot::exists()) {
+            $this->status = 'Current Seniority List: ' . Carbon::parse(Pilot::orderByDesc('month')->first()?->month)->format('F Y');
         } else {
             $this->status = 'No Pilots Stored!';
         }

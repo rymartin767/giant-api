@@ -1,50 +1,47 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Flashcards;
 
 use Livewire\Component;
 use Livewire\Redirector;
 use App\Models\Flashcard;
-use Illuminate\View\View;
 use Livewire\WithFileUploads;
 use App\Http\Requests\FlashcardRequest;
 
-class Flashcards extends Component
+class Edit extends Component
 {
     use WithFileUploads;
+
+    public Flashcard $flashcard;
 
     // FORMDATA
     public $category;
     public $question;
     public $answer;
     public $reference;
-    public $eicas_type = null;
-    public $eicas_message = null;
+    public $eicas_type;
+    public $eicas_message;
 
-    public $questionImageUpload;
-    public $answerImageUpload;
-
-    public $showByCategory;
+    public $questionImageUpload = null;
+    public $answerImageUpload = null;
 
     protected function rules() : array
     {
         return (new FlashcardRequest())->rules();
     }
 
-    public function render() : View
+    public function mount(Flashcard $flashcard)
     {
-        if ($this->showByCategory) {
-            $flashcards = Flashcard::query()->where('category', $this->showByCategory)->get();
-        } else {
-            $flashcards = Flashcard::query()->get();
-        }
-
-        return view('livewire.flashcards', [
-            'flashcards' => $flashcards
-        ]);
+        $this->flashcard = $flashcard;
+        $this->eicas_message = $flashcard->eicas_message;
     }
 
-    public function storeFlashcard() : Redirector
+    public function render()
+    {
+        return view('livewire.flashcards.edit');
+    }
+
+    public function updateFlashcard() : Redirector
     {
         $validatedAttributes = $this->validate();
 
@@ -64,7 +61,7 @@ class Flashcards extends Component
             $validatedAttributes['answer_image_url'] = $s3;
         }
 
-        Flashcard::create($validatedAttributes);
+        $this->flashcard->update($validatedAttributes);
 
         return to_route('flashcards')->with('flash.banner', 'The flashcard has been saved!');
     }
@@ -78,5 +75,10 @@ class Flashcards extends Component
         }
 
         return (string) $url;
+    }
+
+    public function deleteFlashcard(int $id) : void
+    {
+        Flashcard::destroy($id);
     }
 }
