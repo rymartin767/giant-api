@@ -22,7 +22,7 @@ class PilotFactory extends Factory
             'domicile' => 'ORD',
             'retire' => Carbon::parse($retire), // mimic the CreatePilotRequest
             'status' => 1,
-            'month' => Carbon::parse($month) // mimic the CreatePilotRequest
+            'month' => Carbon::parse($month)->format('Y-m-d') // mimic the CreatePilotRequest and mysql format mm/dd/YYYY
         ];
     }
 }

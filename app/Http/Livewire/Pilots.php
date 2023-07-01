@@ -25,7 +25,6 @@ class Pilots extends Component
 
     public function render() : View
     {
-
         return view('livewire.pilots', [
             'files' => Storage::disk('s3')->allFiles('/seniority-lists/v1/' . $this->selectedYear),
             'pilots' => Pilot::currentSeniorityList()->simplePaginate(50),
