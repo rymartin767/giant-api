@@ -57,7 +57,7 @@ final class FlashcardController
         // Collection Handling
         $flashcards = $this->query->handle(
             query: Flashcard::query(),
-        )->get()->take(request('count'));
+        )->get()->shuffle()->take(request('count'));
 
         // Collection Handling: Empty Response
         if ($flashcards->isEmpty())
