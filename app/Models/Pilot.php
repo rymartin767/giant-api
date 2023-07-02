@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use App\Enums\PilotStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -29,7 +30,7 @@ class Pilot extends Model
     public function scopeCurrentSeniorityList($query)
     {
         $month = Pilot::latest('month')->first()?->month;
-        return $query->where('month', $month);
+        $query->where('month', Carbon::parse($month)->format('Y-m-d'));
     }
 
     public function award()
