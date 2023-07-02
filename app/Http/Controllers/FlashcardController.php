@@ -19,15 +19,15 @@ final class FlashcardController
 
     public function __invoke(Request $request)
     {
-        // !No Models Exist = Empty Response
+        // ! No Models Exist = Empty Response
         if (!Flashcard::exists()) {
             return new EmptyResponse();
         }
 
-        // !Category Parameter Present
+        // ! Category Parameter Present
         if ($request->has('category')) {
 
-            if (!$request->filled('category')) {
+            if (! $request->filled('category')) {
                 $exception = new BadRequestException('Please check your request parameters.');
                 return new ErrorResponse(401, $exception);
             }
@@ -35,7 +35,7 @@ final class FlashcardController
             $flashcards = $this->query->handle(
                 query: Flashcard::query(),
                 category: request('category')
-            )->get();
+            )->get()->take(request('count'));
     
             if ($flashcards->isEmpty()) {
                 return new EmptyResponse();
@@ -46,10 +46,10 @@ final class FlashcardController
             );
         }
 
-        // !Category Parameter Missing
+        // ! Category Parameter Missing
 
         // Bad Parameter
-        if ($request->collect()->isNotEmpty()) {
+        if ($request->collect()->isNotEmpty() && $request->missing('count')) {
             $exception = new BadRequestException('Please check your request parameters.');
             return new ErrorResponse(401, $exception);
         }
@@ -57,7 +57,7 @@ final class FlashcardController
         // Collection Handling
         $flashcards = $this->query->handle(
             query: Flashcard::query(),
-        )->get();
+        )->get()->take(request('count'));
 
         // Collection Handling: Empty Response
         if ($flashcards->isEmpty())
