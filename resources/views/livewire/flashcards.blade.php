@@ -24,7 +24,7 @@
                 @foreach ($flashcards as $flashcard)
                     <tr>
                         <x-table.td>{{ $flashcard->category->getFullName() }}</x-table.td>
-                        <x-table.td>{!! str($flashcard->question)->limit(50) !!}</x-table.td>
+                        <x-table.td>{!! str($flashcard->question)->limit(75) !!}</x-table.td>
                         <x-table.td>
                             @if (! $flashcard->question_image_url == null)
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="h-6 w-6 fill-current text-green-500"><!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
