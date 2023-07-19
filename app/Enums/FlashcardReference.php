@@ -23,6 +23,7 @@ enum FlashcardReference : int
     case FCOM_VOL2__CHAPTER_13_HYDRAULICS = 17;
     case FCOM_VOL2__CHAPTER_14_LANDING_GEAR = 18;
     case FCOM_VOL2__CHAPTER_15_WARNING_SYSTEMS = 19;
+    case FOM_FLIGHT_OPERATIONS_MANUAL = 20;
 
     public function getFullName() : string
     {
@@ -46,6 +47,7 @@ enum FlashcardReference : int
             self::FCOM_VOL2__CHAPTER_13_HYDRAULICS => 'FCOM VOL2: Chapter 13 - Hydraulics',
             self::FCOM_VOL2__CHAPTER_14_LANDING_GEAR => 'FCOM VOL2: Chapter 14 - Landing Gear',
             self::FCOM_VOL2__CHAPTER_15_WARNING_SYSTEMS => 'FCOM VOL2: Chapter 15 - Warning Systems',
+            self::FOM_FLIGHT_OPERATIONS_MANUAL => 'FOM: Flight Operations Manual'
         };
     }
 }
