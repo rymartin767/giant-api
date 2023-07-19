@@ -17,6 +17,7 @@ enum FlashcardCategory : int
     case FLIGHT_CONTROLS_HYDRAULICS = 11;
     case FUEL = 12;
     case WARNING_SYSTEMS = 13;
+    case FOM = 14;
 
     public function getFullName() : string
     {
@@ -33,7 +34,8 @@ enum FlashcardCategory : int
             self::FLIGHT_MANAGEMENT => 'Flight Management & Navigation',
             self::FLIGHT_CONTROLS_HYDRAULICS => 'Flight Controls & Hydraulics',
             self::FUEL => 'Fuel',
-            self::WARNING_SYSTEMS => 'Warning Systems'
+            self::WARNING_SYSTEMS => 'Warning Systems',
+            self::FOM => 'Flight Operations Manual'
         };
     }
 }
