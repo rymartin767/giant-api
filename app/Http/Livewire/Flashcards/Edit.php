@@ -7,6 +7,7 @@ use Livewire\Redirector;
 use App\Models\Flashcard;
 use Livewire\WithFileUploads;
 use App\Http\Requests\FlashcardRequest;
+use Illuminate\Support\Facades\Storage;
 
 class Edit extends Component
 {
@@ -77,8 +78,22 @@ class Edit extends Component
         return (string) $url;
     }
 
-    public function deleteFlashcard(int $id) : void
+    public function deleteUploadedImage(string $type) : void
+    {
+        if ($type == 'question') {
+            Storage::disk('s3-public')->delete($this->flashcard->question_image_url);
+            $this->flashcard->question_image_url = null;
+            $this->flashcard->save();
+        } else {
+            Storage::disk('s3-public')->delete($this->flashcard->answer_image_url);
+            $this->flashcard->answer_image_url = null;
+            $this->flashcard->save();
+        }
+    }
+
+    public function deleteFlashcard(int $id) : Redirector
     {
         Flashcard::destroy($id);
+        return to_route('flashcards')->with('flash.banner', 'The flashcard has been deleted!');
     }
 }

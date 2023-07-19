@@ -78,6 +78,28 @@
         </div>
     </form>
 
+    <div class="grid grid-cols-3 gap-3 mt-3">
+        @if ($flashcard->question_image_url != null)
+            <div class="col-span-1 flex flex-col space-y-2">
+                <img src="{{ Storage::disk('s3-public')->url($flashcard->question_image_url) }}" alt="">
+                <x-button wire:click="deleteUploadedImage('question')" type="button" class="bg-red-500">DELETE QUESTION IMAGE</x-button>
+            </div>
+        @endif
+
+        @if ($flashcard->answer_image_url != null)
+            <div class="col-span-1 flex flex-col space-y-2">
+                <img src="{{ Storage::disk('s3-public')->url($flashcard->answer_image_url) }}" alt="">
+                <x-button wire:click="deleteUploadedImage('answer')" type="button" class="bg-red-500">DELETE ANSWER IMAGE</x-button>
+            </div>
+        @endif
+
+        <div class="col-span-1">
+            <div class="flex flex-col">
+                <x-button wire:click="deleteFlashcard({{ $flashcard->id}})" type="button" class="bg-red-500">DELETE FLASHCARD</x-button>
+            </div>
+        </div>
+    </div>
+
     @push('scripts')
     <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
     @endpush
