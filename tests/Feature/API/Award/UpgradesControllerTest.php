@@ -33,6 +33,7 @@ it('returns a collection response', function() {
                 'award_fleet' => $pilot->award->award_fleet, 
                 'award_seat' => $pilot->award->award_seat,
                 'employee_number' => $pilot->award->pilot->employee_number,
+                'doh' => '05/31/2005',
                 'month' => Carbon::parse($pilot->award->month)->format('M Y'),
             ]
         ]])
@@ -40,6 +41,8 @@ it('returns a collection response', function() {
 });
 
 it('returns a collection response sorted by employee number', function() {
+    Pilot::factory()->create(['employee_number' => 450760, 'doh' => '05/31/2005']);
+    Pilot::factory()->create(['employee_number' => 450765, 'doh' => '05/31/2005']);
     $awardOne = Award::factory()->create(['employee_number' => 450765, 'is_upgrade' => true]);
     $awardTwo = Award::factory()->create(['employee_number' => 450760, 'is_upgrade' => true]);
 
@@ -50,6 +53,7 @@ it('returns a collection response sorted by employee number', function() {
                 'award_fleet' => $awardTwo->award_fleet, 
                 'award_seat' => $awardTwo->award_seat,
                 'employee_number' => $awardTwo->employee_number,
+                'doh' => '05/31/2005',
                 'month' => Carbon::parse($awardTwo->month)->format('M Y'),
             ],
             [
@@ -57,6 +61,7 @@ it('returns a collection response sorted by employee number', function() {
                 'award_fleet' => $awardOne->award_fleet, 
                 'award_seat' => $awardOne->award_seat,
                 'employee_number' => $awardOne->employee_number,
+                'doh' => '05/31/2005',
                 'month' => Carbon::parse($awardOne->month)->format('M Y'),
             ]
         ]])
