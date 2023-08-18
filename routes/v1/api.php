@@ -10,7 +10,7 @@ use App\Http\Controllers\FlashcardController;
 use App\Http\Controllers\Award\JuniorsController;
 use App\Http\Controllers\Award\UpgradesController;
 use App\Http\Controllers\Pilot\StaffingController;
-use App\Http\Controllers\Pilot\DomicilesController;
+use App\Http\Controllers\Award\DomicilesController;
 use App\Http\Controllers\Pilot\PilotHistoryController;
 use App\Http\Controllers\Pilot\RetirementsListController;
 use App\Http\Controllers\Charts\RetirementChartController;
@@ -28,9 +28,9 @@ Route::middleware('auth:sanctum')->group(function() {
     // * EXTENDED FROM BASE MODELS
     Route::get('awards/upgrades', UpgradesController::class)->name('api.awards.upgrades');
     Route::get('awards/juniors', JuniorsController::class)->name('api.awards.juniors');
+    Route::get('awards/domiciles', DomicilesController::class)->name('api.awards.domiciles');
 
     Route::get('pilots/retirements-list', RetirementsListController::class)->name('api.pilots.retirements-list');
-    Route::get('pilots/domiciles', DomicilesController::class)->name('api.pilots.domiciles');
     Route::get('pilots/history', PilotHistoryController::class)->name('api.pilots.history');
 
     // * APEX CHARTS

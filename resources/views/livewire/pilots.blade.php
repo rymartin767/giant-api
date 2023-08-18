@@ -69,13 +69,5 @@
                 </x-api-li>
             </x-slot:items>
         </x-api-list>
-
-        <x-api-list>
-            <x-slot:items>
-                <x-api-li type="Collection Response" params="" endpoint="v1/pilots/domiciles">
-                    <pre><x-torchlight-code language='php' contents='views/torchlight/api/pilots/domiciles/collection-response.blade.php'/></pre>
-                </x-api-li>
-            </x-slot:items>
-        </x-api-list>
     </x-section>
 </div>
