@@ -61,6 +61,7 @@ it('returns a collection response of all flashcards if no category parameter is 
         ->assertExactJson([
             'data' => [
                 [
+                    'id' => $flash->id,
                     'category' => $flash->category,
                     'question' => $flash->question,
                     'answer' => $flash->answer,
@@ -71,6 +72,7 @@ it('returns a collection response of all flashcards if no category parameter is 
                     'eicas_message' => 'LOW AIRSPEEED'
                 ],
                 [
+                    'id' => $flashTwo->id,
                     'category' => $flashTwo->category,
                     'question' => $flashTwo->question,
                     'answer' => $flashTwo->answer,
@@ -93,6 +95,7 @@ it('returns a collection response of all flashcards in a given category', functi
         ->assertExactJson([
             'data' => [
                 [
+                    'id' => $flash->id,
                     'category' => $flash->category,
                     'question' => $flash->question,
                     'answer' => $flash->answer,
@@ -126,6 +129,7 @@ it('returns a collection response of flashcards in a given category limited by c
         ->assertExactJson([
             'data' => [
                 [
+                    'id' => $one->id,
                     'category' => $one->category,
                     'question' => $one->question,
                     'answer' => $one->answer,
@@ -136,6 +140,7 @@ it('returns a collection response of flashcards in a given category limited by c
                     'eicas_message' => 'LOW AIRSPEEED'
                 ],
                 [
+                    'id' => $two->id,
                     'category' => $two->category,
                     'question' => $two->question,
                     'answer' => $two->answer,

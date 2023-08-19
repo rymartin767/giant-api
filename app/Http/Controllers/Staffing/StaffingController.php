@@ -1,6 +1,6 @@
 <?php 
 
-namespace App\Http\Controllers\Pilot;
+namespace App\Http\Controllers\Staffing;
 
 use App\Models\Staffing;
 use Illuminate\Http\Request;
@@ -25,7 +25,6 @@ final readonly class StaffingController
             return new EmptyResponse();
         }
 
-        // TODO Year Parameter is Present (Collection Response)
         if ($request->has('year')) {
             if (! $request->filled('year')) {
                 return new ErrorResponse(401, new BadRequestException('Please check your request parameters.'));

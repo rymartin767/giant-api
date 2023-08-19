@@ -19,7 +19,7 @@ it('can return an empty response', function () {
         ->assertOk();
 });
 
-// Empty Collection (based on year paramater) = Empty Response
+// Empty Collection (based on year parameter) = Empty Response
 it('can return an empty collection response', function () {
     $this->actingAs(sanctumToken())->get('v1/staffing?year=2020')
         ->assertExactJson([
