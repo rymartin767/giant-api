@@ -9,9 +9,10 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\FlashcardController;
 use App\Http\Controllers\Award\JuniorsController;
 use App\Http\Controllers\Award\UpgradesController;
-use App\Http\Controllers\Pilot\StaffingController;
 use App\Http\Controllers\Award\DomicilesController;
+use App\Http\Controllers\Staffing\StaffingController;
 use App\Http\Controllers\Pilot\PilotHistoryController;
+use App\Http\Controllers\Charts\StaffingChartController;
 use App\Http\Controllers\Pilot\RetirementsListController;
 use App\Http\Controllers\Charts\RetirementChartController;
 
@@ -29,10 +30,11 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::get('awards/upgrades', UpgradesController::class)->name('api.awards.upgrades');
     Route::get('awards/juniors', JuniorsController::class)->name('api.awards.juniors');
     Route::get('awards/domiciles', DomicilesController::class)->name('api.awards.domiciles');
-
     Route::get('pilots/retirements-list', RetirementsListController::class)->name('api.pilots.retirements-list');
     Route::get('pilots/history', PilotHistoryController::class)->name('api.pilots.history');
-
+    // TODO Route::get('staffing/history', StaffingHistoryController::class)->name('api.staffing.history');
+    
     // * APEX CHARTS
     Route::get('charts/pilots/retirements', RetirementChartController::class)->name('api.charts.retirement');
+    Route::get('charts/staffing', StaffingChartController::class)->name('api.charts.staffing'); 
 });

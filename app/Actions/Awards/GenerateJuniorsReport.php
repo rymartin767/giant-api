@@ -58,7 +58,7 @@ final readonly class GenerateJuniorsReport
             $results = $this->awards->where('award_domicile', $base)->where('award_seat', 'CA')->where('award_fleet', $fleet)->sortBy('base_seniority');
 
             if (! $results->isEmpty()) {
-                $collection->put($position, Carbon::parse($results->last()->pilot->doh)->format('m/d/Y'));
+                $collection->put($position, Carbon::parse($results->first()->pilot->doh)->format('m/d/Y'));
             }
         });
 
@@ -77,7 +77,7 @@ final readonly class GenerateJuniorsReport
             $results = $this->awards->where('award_domicile', $base)->where('award_seat', 'FO')->where('award_fleet', $fleet)->sortBy('base_seniority');
 
             if (! $results->isEmpty()) {
-                $collection->put($position, $results->last()->is_new_hire ? 'New Hire' : Carbon::parse($results->last()->pilot->doh)->format('m/d/Y'));
+                $collection->put($position, $results->first()->is_new_hire ? 'New Hire' : Carbon::parse($results->first()->pilot->doh)->format('m/d/Y'));
             }
         });
 
