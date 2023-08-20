@@ -1,6 +1,24 @@
+@php
+    $month = Carbon\Carbon::parse($pilots->first()?->month)->format('M Y');
+@endphp
+
 <div>
     <x-section class="max-w-5xl" title="Import Pilots">
         @include('forms.create-pilot')
+    </x-section>
+
+    <x-section class="max-w-5xl" title="Manage Seniority List">
+        <div class="grid grid-cols-4 gap-3">
+            <div class="col-span-4">
+                <div class="flex flex-row items-center">
+                    @if (! $pilots->isEmpty())
+                        <x-button wire:click="deleteCurrentSeniorityList" type="button" class="bg-red-400">DELETE {{ $month }} CURRENT SENIORITY LIST!</x-button>
+                    @else
+                        <x-button class="bg-blue-400" aria-disabled="true" disabled>NO SAVED SENIORITY LISTS TO MANAGE</x-button>
+                    @endif
+                </div>
+            </div>
+        </div>
     </x-section>
 
     <x-section class="max-w-5xl" title="Current Seniority List">
@@ -49,7 +67,7 @@
         <x-api-list>
             <x-slot:items>
                 <x-api-li type="Model Response: Employee Number Parameter" params="employee_number" endpoint="v1/pilots?employee_number=450765">
-                    <pre><x-torchlight-code language='php' contents='views/torchlight/api/pilots/model.response.blade.php'/></pre>
+                    <pre><x-torchlight-code language='php' contents='views/torchlight/api/pilots/model-response.blade.php'/></pre>
                 </x-api-li>
             </x-slot:items>
         </x-api-list>

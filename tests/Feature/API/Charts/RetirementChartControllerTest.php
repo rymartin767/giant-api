@@ -18,11 +18,9 @@ it('returns a chart response', function() {
     $this->actingAs(sanctumToken())->get('v1/charts/pilots/retirements')
         ->assertExactJson([
             'data' => [
-                [
-                    '2023' => 5,
-                    '2024' => 6,
-                    '2025' => 1,
-                ]
+                '2023' => 5,
+                '2024' => 6,
+                '2025' => 1,
             ]
         ]);
 });
