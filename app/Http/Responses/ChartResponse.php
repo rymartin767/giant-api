@@ -16,9 +16,7 @@ final readonly class ChartResponse implements Responsable
     {
         return new JsonResponse(
             data: [
-                'data' => [
-                    $this->array
-                ]
+                'data' => $this->array
             ],
             status: $this->status
         );

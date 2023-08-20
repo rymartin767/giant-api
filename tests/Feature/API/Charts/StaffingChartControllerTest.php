@@ -28,11 +28,9 @@ it('returns a chart response', function() {
     $this->actingAs(sanctumToken())->get('v1/charts/staffing')
         ->assertExactJson([
             'data' => [
-                [
-                    'May 2023' => 2700,
-                    'Jun 2023' => 2800,
-                    'Jul 2023' => 2600,
-                ]
+                'May 2023' => 2700,
+                'Jun 2023' => 2800,
+                'Jul 2023' => 2600,
             ]
         ]);
 });
