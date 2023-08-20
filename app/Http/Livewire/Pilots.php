@@ -7,6 +7,7 @@ use Livewire\Component;
 use App\Models\Staffing;
 use Livewire\Redirector;
 use Carbon\CarbonImmutable;
+use Illuminate\Support\Carbon;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Storage;
 use App\Actions\Parsers\TsvToCollection;
@@ -31,10 +32,15 @@ class Pilots extends Component
         ]);
     }
 
-    public function storePilots() : void
+    public function storePilots()
     {
         $file = $this->selectedAwsFilePath;
         $month = CarbonImmutable::parse(str($file)->replace('-', '/')->substr(-14, 10));
+
+        if (Pilot::where('month', $month)->exists()) {
+            session()->flash('flash.bannerStyle', 'danger');
+            return to_route('pilots')->with('flash.banner', 'Seniority List Already Saved for ' . Carbon::parse($month)->format('M Y') . '!');
+        }
 
         $tsv = new TsvToCollection($file);
         $rows = $tsv->handle();
@@ -81,5 +87,12 @@ class Pilots extends Component
         }
 
         return to_route('pilots')->with('flash.banner', $count . ' pilots were successfully saved! A Staffing Report was generated!');
+    }
+
+    public function deleteCurrentSeniorityList() : Redirector
+    {
+        Staffing::where('list_date', Pilot::currentSeniorityList()->first()->month)->delete();
+        Pilot::currentSeniorityList()->delete();
+        return to_route('pilots')->with('flash.banner', 'The current seniority list & staffing report was successfully deleted.');
     }
 }

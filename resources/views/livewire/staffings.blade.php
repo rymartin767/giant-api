@@ -13,7 +13,7 @@
                         <x-table.th>Average Age</x-table.th>
                     </x-slot:head>
                     <x-slot:body>
-                        @forelse ($staffing->sortBy('list_date') as $staff)
+                        @forelse ($staffing->sortByDesc('list_date') as $staff)
                             <tr>
                                 <x-table.td>{{ Carbon\Carbon::parse($staff->list_date)->format('Y-m-d') }}</x-table.td>
                                 <x-table.td>{{ $staff->total_pilot_count }}</x-table.td>
@@ -37,7 +37,7 @@
     <x-section class="max-w-5xl" title="API Endpoints">
         <x-api-list>
             <x-slot:items>
-                <x-api-li type="Model Response" params="date" endpoint="v1/staffing">
+                <x-api-li type="Model Response" params="n/a" endpoint="v1/staffing">
                     <pre><x-torchlight-code language='php' contents='views/torchlight/api/staffings/model-response.blade.php'/></pre>
                 </x-api-li>
             </x-slot:items>
@@ -45,7 +45,7 @@
 
         <x-api-list>
             <x-slot:items>
-                <x-api-li type="Collection Response" params="date" endpoint="v1/staffing">
+                <x-api-li type="Collection Response" params="year" endpoint="v1/staffing?year=2022">
                     <pre><x-torchlight-code language='php' contents='views/torchlight/api/staffings/collection-response.blade.php'/></pre>
                 </x-api-li>
             </x-slot:items>

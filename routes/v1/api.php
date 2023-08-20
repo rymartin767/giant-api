@@ -32,7 +32,6 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::get('awards/domiciles', DomicilesController::class)->name('api.awards.domiciles');
     Route::get('pilots/retirements-list', RetirementsListController::class)->name('api.pilots.retirements-list');
     Route::get('pilots/history', PilotHistoryController::class)->name('api.pilots.history');
-    // TODO Route::get('staffing/history', StaffingHistoryController::class)->name('api.staffing.history');
     
     // * APEX CHARTS
     Route::get('charts/pilots/retirements', RetirementChartController::class)->name('api.charts.retirement');
