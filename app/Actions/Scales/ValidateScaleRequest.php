@@ -15,8 +15,8 @@ final class ValidateScaleRequest
         $validator = Validator::make($this->request->all(), [
             'year' => ['required', 'integer', 'min:1', 'max:15'],
             'fleet' => ['required', 'string', 'starts_with:A,B,M'],
-            'ca_rate' => ['required', 'integer'],
-            'fo_rate' => ['required', 'integer']
+            'ca_rate' => ['required', 'numeric', 'min:97', 'max:400'],
+            'fo_rate' => ['required', 'numeric', 'min:97', 'max:300']
         ]);
 
         return $validator;

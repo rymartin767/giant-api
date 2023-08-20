@@ -52,7 +52,7 @@ final readonly class JuniorsController
             query: Award::query(),
             employeeNumber: null,
             domicile: null
-        )->with('pilot:employee_number,doh')->get(['employee_number', 'award_domicile', 'award_fleet', 'award_seat', 'is_new_hire']);
+        )->with('pilot:employee_number,doh')->get(['base_seniority', 'employee_number', 'award_domicile', 'award_fleet', 'award_seat', 'is_new_hire']);
 
         $report =  new GenerateJuniorsReport($awards);
         $awards = $report->handle(request('seat'));
