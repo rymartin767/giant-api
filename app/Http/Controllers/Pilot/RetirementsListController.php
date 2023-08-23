@@ -19,7 +19,7 @@ final readonly class RetirementsListController
     {
         $retirements = $this->query->handle(
             query: Pilot::currentSeniorityList()->whereBetween('retire', [now()->startOfMonth(), now()->endOfMonth()]),
-        )->get(['employee_number', 'seat', 'fleet', 'domicile', 'retire']);
+        )->get(['seniority_number', 'seat', 'fleet', 'domicile', 'retire']);
 
         if ($retirements->isEmpty())
         {

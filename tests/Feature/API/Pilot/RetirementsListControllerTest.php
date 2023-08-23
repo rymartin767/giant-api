@@ -26,14 +26,14 @@ test('it returns an collection response for monthly retirements', function() {
         ->assertExactJson([
             'data' => [
                 [
-                    'employee_number' => $pilot->employee_number,
+                    'seniority_number' => $pilot->seniority_number,
                     'seat' => $pilot->seat,
                     'fleet' => $pilot->fleet,
                     'domicile' => $pilot->domicile,
                     'retire' => Carbon::parse($pilot->retire)->format('m/d/Y')
                 ],
                 [
-                    'employee_number' => $pilotTwo->employee_number,
+                    'seniority_number' => $pilotTwo->seniority_number,
                     'seat' => $pilotTwo->seat,
                     'fleet' => $pilotTwo->fleet,
                     'domicile' => $pilotTwo->domicile,

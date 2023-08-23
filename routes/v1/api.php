@@ -8,6 +8,7 @@ use App\Http\Controllers\AirlineController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\FlashcardController;
 use App\Http\Controllers\Award\JuniorsController;
+use App\Http\Controllers\Award\NewhiresController;
 use App\Http\Controllers\Award\UpgradesController;
 use App\Http\Controllers\Award\DomicilesController;
 use App\Http\Controllers\Staffing\StaffingController;
@@ -30,6 +31,7 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::get('awards/upgrades', UpgradesController::class)->name('api.awards.upgrades');
     Route::get('awards/juniors', JuniorsController::class)->name('api.awards.juniors');
     Route::get('awards/domiciles', DomicilesController::class)->name('api.awards.domiciles');
+    Route::get('awards/newhires', NewhiresController::class)->name('api.awards.newhires');
     Route::get('pilots/retirements-list', RetirementsListController::class)->name('api.pilots.retirements-list');
     Route::get('pilots/history', PilotHistoryController::class)->name('api.pilots.history');
     
