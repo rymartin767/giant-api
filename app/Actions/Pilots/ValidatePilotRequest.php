@@ -20,7 +20,7 @@ final class ValidatePilotRequest
             'doh' => 'required|date',
             'seat' => 'required|string|in:CA,FO',
             'fleet' => 'required|string|in:767,747,737,777',
-            'domicile' => 'required|string|in:ANC,ALA,CVG,HHN,HNL,HSV,IAH,ICN,JFK,LAX,MEM,MIA,NRT,ONT,ORD,PAE,PDX,SYD,TPA,TPE',
+            'domicile' => 'required|string|in:ANC,ALA,CVG,HHN,HNL,HSV,IAH,ICN,JFK,LAX,LEJ,MEM,MIA,NRT,ONT,ORD,PAE,PDX,SYD,TPA,TPE',
             'retire' => 'required|date',
             'status' => [new Enum(PilotStatus::class)],
             'month' => 'required|date'
