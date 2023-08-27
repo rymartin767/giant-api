@@ -66,6 +66,7 @@ it('will return an model response with latest award, scales (per seniority not a
     Airline::factory()->has(Scale::factory(['year' => 10, 'fleet' => 'B767', 'ca_rate' => 283.31]))->create(['icao' => 'GTI']);
     $pilot = Pilot::factory()->has(Award::factory(['award_fleet' => '747', 'award_seat' => 'CA', 'award_domicile' => 'MIA']))->create(['seniority_number' => 26, 'employee_number' => 450765, 'fleet' => '767', 'doh' => '2014-06-30']);
     Staffing::factory()->create();
+    $service = today()->diff($pilot['doh']);
 
     $this->actingAs(sanctumToken())->get('v1/pilots?employee_number=450765')
         ->assertExactJson([
@@ -87,6 +88,7 @@ it('will return an model response with latest award, scales (per seniority not a
                     'month' => $pilot->award->month->format('M Y')
                 ],
                 'compensation' => [
+                    'service' => $service->y . ' YEARS + ' . $service->m . ' MONTH',
                     'current_rate' => 283.31,
                     'scales' => [
                         [
