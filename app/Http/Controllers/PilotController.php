@@ -50,11 +50,13 @@ final readonly class PilotController
                     fleet: $pilot->fleet,
                 )->get(['year', 'fleet', $pilot->seat == 'CA' ? 'ca_rate' : 'fo_rate'])->toArray();
 
-                $service = today()->diffInYears($pilot['doh']) + 1;
+                $pay_year = today()->diffInYears($pilot['doh']) + 1;
+                $service = today()->diff($pilot['doh']);
                 $seat = $pilot->seat == 'CA' ? 'ca_rate' : 'fo_rate';
-                $current_rate = collect($scales)->where('year', $service)->first()[$seat];
+                $current_rate = collect($scales)->where('year', $pay_year)->first()[$seat];
 
                 $pilot->compensation = [
+                    'service' => $service->y . ' YEARS + ' . $service->m . ' MONTH',
                     'current_rate' => $current_rate,
                     'scales' => $scales
                 ];
