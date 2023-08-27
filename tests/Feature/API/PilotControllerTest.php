@@ -83,7 +83,8 @@ it('will return an model response with latest award, scales (per seniority not a
                     'employee_number' => $pilot->employee_number,
                     'award_seat' => 'CA',
                     'award_fleet' => '747',
-                    'award_domicile' => 'MIA'
+                    'award_domicile' => 'MIA',
+                    'month' => $pilot->award->month->format('M Y')
                 ],
                 'scales' => [
                     [

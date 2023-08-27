@@ -43,7 +43,7 @@ final readonly class PilotController
                 $pilot = $this->queryPilots->handle(
                     query: Pilot::query(),
                     employeeNumber: request('employee_number')
-                )->with('award:employee_number,award_domicile,award_fleet,award_seat')->orderBy('month', 'desc')->firstOrFail();
+                )->with('award:employee_number,award_domicile,award_fleet,award_seat,month')->orderBy('month', 'desc')->firstOrFail();
 
                 $scales = $this->queryScales->handle(
                     query: Scale::query(),
