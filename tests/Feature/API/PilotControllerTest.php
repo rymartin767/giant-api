@@ -63,8 +63,8 @@ it('will return an model not found response', function() {
 // Model Handling: Model Response
 it('will return an model response with latest award, scales (per seniority not award), and seniority', function() {
     seedPilots(25, '04/15/2023');
-    Airline::factory()->has(Scale::factory(['year' => 1, 'fleet' => 'B767', 'ca_rate' => 220]))->create(['icao' => 'GTI']);
-    $pilot = Pilot::factory()->has(Award::factory(['award_fleet' => '747', 'award_seat' => 'CA', 'award_domicile' => 'MIA']))->create(['seniority_number' => 26, 'employee_number' => 450765, 'fleet' => '767']);
+    Airline::factory()->has(Scale::factory(['year' => 10, 'fleet' => 'B767', 'ca_rate' => 283.31]))->create(['icao' => 'GTI']);
+    $pilot = Pilot::factory()->has(Award::factory(['award_fleet' => '747', 'award_seat' => 'CA', 'award_domicile' => 'MIA']))->create(['seniority_number' => 26, 'employee_number' => 450765, 'fleet' => '767', 'doh' => '2014-06-30']);
     Staffing::factory()->create();
 
     $this->actingAs(sanctumToken())->get('v1/pilots?employee_number=450765')
@@ -86,11 +86,14 @@ it('will return an model response with latest award, scales (per seniority not a
                     'award_domicile' => 'MIA',
                     'month' => $pilot->award->month->format('M Y')
                 ],
-                'scales' => [
-                    [
-                        'year' => 1,
-                        'fleet' => 'B767',
-                        'ca_rate' => 220,
+                'compensation' => [
+                    'current_rate' => 283.31,
+                    'scales' => [
+                        [
+                            'year' => 10,
+                            'fleet' => 'B767',
+                            'ca_rate' => 283.31,
+                        ],
                     ],
                 ],
                 'seniority' => [

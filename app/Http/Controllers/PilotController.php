@@ -50,7 +50,14 @@ final readonly class PilotController
                     fleet: $pilot->fleet,
                 )->get(['year', 'fleet', $pilot->seat == 'CA' ? 'ca_rate' : 'fo_rate'])->toArray();
 
-                $pilot->scales = $scales;
+                $service = today()->diffInYears($pilot['doh']) + 1;
+                $seat = $pilot->seat == 'CA' ? 'ca_rate' : 'fo_rate';
+                $current_rate = collect($scales)->where('year', $service)->first()[$seat];
+
+                $pilot->compensation = [
+                    'current_rate' => $current_rate,
+                    'scales' => $scales
+                ];
 
                 $count = $this->queryStaffing->handle(
                     query: Staffing::query(),
