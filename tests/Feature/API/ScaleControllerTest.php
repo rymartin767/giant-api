@@ -2,7 +2,6 @@
 
 use App\Models\Scale;
 use App\Models\Airline;
-use Database\Factories\ScaleFactory;
 
 use function Pest\Laravel\get;
 

@@ -26,7 +26,7 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::get('events', EventController::class)->name('api.events');
     Route::get('flashcards', FlashcardController::class)->name('api.flashcards');
     Route::get('pilots', PilotController::class)->name('api.pilots');
-    Route::get('scales', ScaleController::class)->name('api.scales');
+    Route::get('pay-scales', ScaleController::class)->name('api.scales');
     Route::get('staffing', StaffingController::class)->name('api.staffing');
 
     // * EXTENDED FROM BASE MODELS
