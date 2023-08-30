@@ -21,14 +21,14 @@ final readonly class NewhiresController
 
     public function __invoke(Request $request)
     {
-        // * NO AWARDS = EMPTY RESPONSE
-        if (! Award::exists()) {
-            return new EmptyResponse();
-        }
-        
         // * REQUEST PARAMS = ERROR RESPONSE
         if ($request->collect()->isNotEmpty()) {
             return new ErrorResponse(401, new BadRequestException('Please check your request parameters.'));
+        }
+        
+        // * NO AWARDS = EMPTY RESPONSE
+        if (! Award::exists()) {
+            return new EmptyResponse();
         }
 
          // * COLLECTION RESPONSE

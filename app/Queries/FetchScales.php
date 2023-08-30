@@ -7,12 +7,16 @@ use Illuminate\Database\Eloquent\Builder;
 
 final class FetchScales
 {
-    public function handle(Builder $query, string $fleet) : Builder
+    public function handle(Builder $query, string $icao, string $fleet = null) : Builder
     {
-        $id = Airline::where('icao', 'GTI')->sole()->id;
+        $id = Airline::where('icao', $icao)->sole()->id;
 
-        return $query
-            ->where('airline_id', $id)
-            ->where('fleet', 'B' . $fleet);
+        if ($fleet !== null) {
+            return $query
+                ->where('airline_id', $id)
+                ->where('fleet', 'B' . $fleet);
+        }
+
+        return $query->where('airline_id', $id);
     }
 }

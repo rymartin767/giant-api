@@ -47,6 +47,7 @@ final readonly class PilotController
 
                 $scales = $this->queryScales->handle(
                     query: Scale::query(),
+                    icao: 'GTI',
                     fleet: $pilot->fleet,
                 )->get(['year', 'fleet', $pilot->seat == 'CA' ? 'ca_rate' : 'fo_rate'])->toArray();
 

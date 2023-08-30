@@ -28,7 +28,7 @@ final class AirlineController
 
         // !ICAO Parameter Present (Model Response)
         if ($request->has('icao')) {
-            if (!$request->filled('icao')) {
+            if (! $request->filled('icao')) {
                 return new ErrorResponse(401, new BadRequestException('Please check your request parameters.'));
             }
 

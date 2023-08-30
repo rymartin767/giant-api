@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AwardController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\PilotController;
+use App\Http\Controllers\ScaleController;
 use App\Http\Controllers\AirlineController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\FlashcardController;
@@ -25,6 +26,7 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::get('events', EventController::class)->name('api.events');
     Route::get('flashcards', FlashcardController::class)->name('api.flashcards');
     Route::get('pilots', PilotController::class)->name('api.pilots');
+    Route::get('scales', ScaleController::class)->name('api.scales');
     Route::get('staffing', StaffingController::class)->name('api.staffing');
 
     // * EXTENDED FROM BASE MODELS
