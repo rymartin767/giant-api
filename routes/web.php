@@ -1,15 +1,15 @@
 <?php
 
-use App\Http\Livewire\Awards;
-use App\Http\Livewire\Charts;
-use App\Http\Livewire\Events;
-use App\Http\Livewire\Pilots;
-use App\Http\Livewire\Airlines;
-use App\Http\Livewire\Articles;
-use App\Http\Livewire\Dashboard;
-use App\Http\Livewire\Staffings;
-use App\Http\Livewire\Flashcards;
-use App\Http\Livewire\Flashcards\Edit;
+use App\Livewire\Awards;
+use App\Livewire\Charts;
+use App\Livewire\Events;
+use App\Livewire\Pilots;
+use App\Livewire\Airlines;
+use App\Livewire\Articles;
+use App\Livewire\Dashboard;
+use App\Livewire\Staffings;
+use App\Livewire\Flashcards;
+use App\Livewire\Flashcards\Edit;
 use Illuminate\Support\Facades\Route;
 
 

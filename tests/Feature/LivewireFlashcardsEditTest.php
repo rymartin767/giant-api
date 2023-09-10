@@ -3,7 +3,7 @@
 use Livewire\Livewire;
 use App\Models\Flashcard;
 use function Pest\Laravel\get;
-use App\Http\Livewire\Flashcards\Edit;
+use App\Livewire\Flashcards\Edit;
 
 beforeEach(function () {
     Flashcard::factory()->create();

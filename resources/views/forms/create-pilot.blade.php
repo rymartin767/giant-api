@@ -1,4 +1,4 @@
-<form wire:submit.prevent="storePilots" class="base-form">
+<form wire:submit="storePilots" class="base-form">
     <div class="grid grid-cols-3 gap-3">
         <div class="col-span-3">
             @isset($status)
@@ -6,7 +6,7 @@
             @endisset
         </div>
         <div class="col-span-1">
-            <select wire:model="selectedYear" class="bg-gray-100 rounded-full border-none">
+            <select wire:model.live="selectedYear" class="bg-gray-100 rounded-full border-none">
                 <option value="" selected>Select Year</option>
                 <option value="2020">2020</option>
                 <option value="2021">2021</option>
@@ -15,7 +15,7 @@
             </select>
         </div>
         <div class="col-span-1">
-            <select wire:model="selectedAwsFilePath" class="w-full bg-gray-100 rounded-full border-none">
+            <select wire:model.live="selectedAwsFilePath" class="w-full bg-gray-100 rounded-full border-none">
                 <option value="">Select One...</option>
                 @foreach($files as $file)
                     <option value="{{ $file }}">{{ $file }}</option>

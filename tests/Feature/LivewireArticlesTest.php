@@ -3,7 +3,6 @@
 use Livewire\Livewire;
 use App\Models\Article;
 use function Pest\Laravel\get;
-use App\Http\Livewire\articles;
 
 test('articles route is guarded by admin middleware', function() {
     get('/articles')

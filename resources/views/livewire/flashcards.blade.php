@@ -5,7 +5,7 @@
 
     <x-section class="max-w-5xl" title="Flashcard Index">
         <div class="bg-white p-3 mb-4">
-            <select wire:model="showByCategory">
+            <select wire:model.live="showByCategory">
                 <option value="Choose Category" selected></option>
                 @foreach (\App\Enums\FlashcardCategory::cases() as $category)
                     <option value="{{ $category->value }}">{{ $category->getFullName() }}</option>

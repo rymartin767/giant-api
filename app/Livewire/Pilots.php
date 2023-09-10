@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Livewire;
 
 use App\Models\Pilot;
 use Livewire\Component;
@@ -16,9 +16,12 @@ use App\Actions\Pilots\ValidatePilotRequest;
 use App\Actions\Pilots\GenerateStaffingReport;
 use App\Actions\Pilots\GenerateStaffingRequest;
 use App\Actions\Pilots\ValidateStaffingRequest;
+use Livewire\WithPagination;
 
 class Pilots extends Component
 {
+    use WithPagination;
+    
     public $selectedYear = '2023';
     public $selectedAwsFilePath;
 

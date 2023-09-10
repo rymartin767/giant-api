@@ -3,7 +3,7 @@
 use App\Models\Pilot;
 use Livewire\Livewire;
 use App\Models\Staffing;
-use App\Http\Livewire\Pilots;
+use App\Livewire\Pilots;
 use function Pest\Laravel\get;
 
 test('pilots route is guarded by admin middleware', function() {

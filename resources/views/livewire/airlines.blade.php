@@ -85,7 +85,7 @@
             <div class="block md:hidden p-3">
                 <div class="flex flex-col space-y-2 bg-white rounded-md shadow-md">
                     <div class="">
-                        <select wire:model="selectedFleet" class="bg-slate-200">
+                        <select wire:model.live="selectedFleet" class="bg-slate-200">
                             @foreach ($fleetTypes as $fleet)
                                 <option value="{{ $fleet }}">{{ $fleet }}</option>
                             @endforeach

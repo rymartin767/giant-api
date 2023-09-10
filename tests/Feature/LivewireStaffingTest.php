@@ -5,7 +5,7 @@ use App\Models\Pilot;
 use Livewire\Livewire;
 use App\Models\Staffing;
 use function Pest\Laravel\get;
-use App\Http\Livewire\Staffings;
+use App\Livewire\Staffings;
 
 test('staffing route is guarded by admin middleware', function() {
     get('/staffing')

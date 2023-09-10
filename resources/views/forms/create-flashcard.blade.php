@@ -1,7 +1,7 @@
-<form wire:submit.prevent="storeFlashcard" class="base-form">
+<form wire:submit="storeFlashcard" class="base-form">
     <div class="grid grid-cols-4 gap-4">
         <div class="col-span-4 sm:col-span-2">
-            <select wire:model="category">
+            <select wire:model.live="category">
                 <option value="">Choose Category...</option>
                 @foreach (\App\Enums\FlashcardCategory::cases() as $category)
                     <option value="{{ $category->value }}">{{ $category->getFullName() }}</option>
@@ -12,7 +12,7 @@
             @enderror
         </div>
         <div class="col-span-4 sm:col-span-2">
-            <select wire:model="reference">
+            <select wire:model.live="reference">
                 <option value="">Choose Reference...</option>
                 @foreach (\App\Enums\FlashcardReference::cases() as $reference)
                     <option value="{{ $reference->value }}">{{ $reference->getFullName() }}</option>
@@ -23,7 +23,7 @@
             @enderror
         </div>
         <div class="col-span-4 sm:col-span-2">
-            <select wire:model="eicas_type">
+            <select wire:model.live="eicas_type">
                 <option value="">Choose EICAS Type...</option>
                 @foreach (\App\Enums\FlashcardEicasType::cases() as $type)
                     <option value="{{ $type->value }}">{{ $type->name }}</option>
@@ -34,14 +34,14 @@
             @enderror
         </div>
         <div class="col-span-4 sm:col-span-2">
-            <input wire:model="eicas_message" type="text" placeholder="Enter exact EICAS message">
+            <input wire:model.live="eicas_message" type="text" placeholder="Enter exact EICAS message">
             @error('eicas_message')
                 <div class="form-error">{{ $message }}</div>
             @enderror
         </div>
         <div class="col-span-4">
             <div wire:ignore>
-                <textarea wire:model="question" name="question" id="question" class="rich-editor"></textarea>
+                <textarea wire:model.live="question" name="question" id="question" class="rich-editor"></textarea>
             </div>
             @error('question')
                 <div class="form-error">{{ $message }}</div>
@@ -49,7 +49,7 @@
         </div>
         <div class="col-span-4">
             <div wire:ignore>
-                <textarea wire:model="answer" name="answer" id="answer" class="rich-editor"></textarea>
+                <textarea wire:model.live="answer" name="answer" id="answer" class="rich-editor"></textarea>
             </div>
             @error('answer')
                 <div class="form-error">{{ $message }}</div>
@@ -58,13 +58,13 @@
         <div class="col-span-4">
             <div class="grid grid-cols-3">
                 <div class="col-span-3 sm:col-span-1">
-                    <input type="file" wire:model="questionImageUpload">
+                    <input type="file" wire:model.live="questionImageUpload">
                     @error('questionImageUpload')
                         <div class="form-error">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="col-span-3 sm:col-span-1">
-                    <input type="file" wire:model="answerImageUpload">
+                    <input type="file" wire:model.live="answerImageUpload">
                     @error('answerImageUpload')
                         <div class="form-error">{{ $message }}</div>
                     @enderror

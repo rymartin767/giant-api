@@ -3,7 +3,7 @@
 use Livewire\Livewire;
 use App\Models\Flashcard;
 use function Pest\Laravel\get;
-use App\Http\Livewire\Flashcards;
+use App\Livewire\Flashcards;
 
 test('flashcards route is guarded by admin middleware', function() {
     get('/flashcards')
