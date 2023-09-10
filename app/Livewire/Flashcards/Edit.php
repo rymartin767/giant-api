@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Livewire\Flashcards;
+namespace App\Livewire\Flashcards;
 
 use Livewire\Component;
-use Livewire\Redirector;
 use App\Models\Flashcard;
 use Livewire\WithFileUploads;
 use App\Http\Requests\FlashcardRequest;
 use Illuminate\Support\Facades\Storage;
+use Livewire\Features\SupportRedirects\Redirector;
 
 class Edit extends Component
 {

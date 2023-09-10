@@ -2,7 +2,7 @@
 
 use App\Models\Event;
 use Livewire\Livewire;
-use App\Http\Livewire\Events;
+use App\Livewire\Events;
 use function Pest\Laravel\get;
 
 test('events route is guarded by admin middleware', function() {

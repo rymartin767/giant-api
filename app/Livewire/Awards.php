@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Livewire;
 
 use Carbon\Carbon;
 use App\Models\Award;
@@ -10,9 +10,12 @@ use Illuminate\Support\Facades\Storage;
 use App\Actions\Parsers\TsvToCollection;
 use App\Actions\Awards\CreateAwardRequest;
 use App\Actions\Awards\ValidateAwardRequest;
+use Livewire\WithPagination;
 
 class Awards extends Component
 {
+    use WithPagination;
+    
     public $selectedYear;
     public $selectedAwsFilePath;
 

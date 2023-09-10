@@ -7,7 +7,7 @@ use function Pest\Laravel\get;
 
 // Unauthenticated Response for missing Sanctum Token
 test('response for unauthenticated request', function() {
-    get('v1/scales')
+    get('v1/pay-scales')
         ->assertStatus(302);
 });
 
@@ -15,7 +15,7 @@ test('response for unauthenticated request', function() {
 test('error response for icao parameter not being filled', function() {
     Airline::factory()->has(Scale::factory())->create(['icao' => 'GTI']);
 
-    $this->actingAs(sanctumToken())->get('v1/scales?icao=')
+    $this->actingAs(sanctumToken())->get('v1/pay-scales?icao=')
         ->assertExactJson(['error' => [
             'message' => 'Please check your request parameters.',
             'type' => 'Symfony\Component\HttpFoundation\Exception\BadRequestException',
@@ -28,7 +28,7 @@ test('error response for icao parameter not being filled', function() {
 test('error response for bad parameter name', function() {
     Airline::factory()->has(Scale::factory())->create(['icao' => 'GTI']);
 
-    $this->actingAs(sanctumToken())->get('v1/scales?icoa=GTI')
+    $this->actingAs(sanctumToken())->get('v1/pay-scales?icoa=GTI')
         ->assertExactJson(['error' => [
             'message' => 'Please check your request parameters.',
             'type' => 'Symfony\Component\HttpFoundation\Exception\BadRequestException',
@@ -39,7 +39,7 @@ test('error response for bad parameter name', function() {
 
 // Collection Handling: Empty Response if airline doesnt exist
 it('can return a collection response if no airline exists based on icao parameter', function() {
-    $this->actingAs(sanctumToken())->get('v1/scales?icao=JBU')
+    $this->actingAs(sanctumToken())->get('v1/pay-scales?icao=JBU')
         ->assertExactJson(['data' => []])
         ->assertOk();
 });
@@ -48,7 +48,7 @@ it('can return a collection response if no airline exists based on icao paramete
 it('can return a collection response if no airline scales exist', function() {
     Airline::factory()->create(['icao' => 'JBU']);
 
-    $this->actingAs(sanctumToken())->get('v1/scales?icao=JBU')
+    $this->actingAs(sanctumToken())->get('v1/pay-scales?icao=JBU')
         ->assertExactJson(['data' => []])
         ->assertOk();
 });
@@ -58,7 +58,7 @@ it('can return a collection response of scales for a single airline', function()
     $airline = Airline::factory()->has(Scale::factory())->create(['icao' => 'GTI']);
     $scales = Scale::factory()->create(['airline_id' => $airline->id, 'year' => 2, 'ca_rate' => 200.20, 'fo_rate' => 100.10]);
 
-    $this->actingAs(sanctumToken())->get('v1/scales?icao=GTI')
+    $this->actingAs(sanctumToken())->get('v1/pay-scales?icao=GTI')
         ->assertExactJson([
             'data' => [
                 [
@@ -83,7 +83,7 @@ it('can return a collection response of scales for multiple airlines', function(
     $gti = Airline::factory()->has(Scale::factory())->create(['icao' => 'GTI']);
     $ups = Airline::factory()->has(Scale::factory())->create(['icao' => 'UPS']);
 
-    $this->actingAs(sanctumToken())->get('v1/scales?icao=GTI,UPS')
+    $this->actingAs(sanctumToken())->get('v1/pay-scales?icao=GTI,UPS')
         ->assertExactJson([
             'data' => [
                 'GTI' => [

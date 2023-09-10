@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Livewire;
 
 use App\Models\Event;
 use Livewire\Component;
@@ -9,7 +9,7 @@ use Livewire\WithFileUploads;
 use App\Http\Requests\EventRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use Livewire\Redirector;
+use Livewire\Features\SupportRedirects\Redirector;
 
 class Events extends Component
 {
@@ -56,7 +56,7 @@ class Events extends Component
     public function deleteEvent($id) : void
     {
         Event::destroy($id);
-        $this->dispatchBrowserEvent('flash-message', []);
+        $this->dispatch('flash-message', []);
     }
 
     public function storeUploadedImage() : String
@@ -68,6 +68,6 @@ class Events extends Component
     public function deleteImage($url)
     {
         // Storage::disk('s3-public')->delete($url);
-        $this->dispatchBrowserEvent('flash-message', []);
+        $this->dispatch('flash-message', []);
     }
 }

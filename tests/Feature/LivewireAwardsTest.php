@@ -2,7 +2,7 @@
 
 use App\Models\Award;
 use Livewire\Livewire;
-use App\Http\Livewire\Awards;
+use App\Livewire\Awards;
 use function Pest\Laravel\get;
 
 test('awards route is guarded by admin middleware', function() {

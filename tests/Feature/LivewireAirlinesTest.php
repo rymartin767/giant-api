@@ -4,7 +4,7 @@ use App\Models\Scale;
 use Livewire\Livewire;
 use App\Models\Airline;
 use function Pest\Laravel\get;
-use App\Http\Livewire\Airlines;
+use App\Livewire\Airlines;
 
 test('airlines route is guarded by admin middleware', function() {
     get('/airlines')

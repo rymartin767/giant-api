@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Livewire;
 
 use App\Models\Article;
 use Livewire\Component;
-use Livewire\Redirector;
 use App\Http\Requests\ArticleRequest;
+use Livewire\Features\SupportRedirects\Redirector;
 
 class Articles extends Component
 {

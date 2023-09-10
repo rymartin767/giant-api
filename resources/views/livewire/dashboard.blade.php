@@ -16,13 +16,13 @@
                     </div>
                 </div>
                 
-                @livewire('dashboard.airlines')
-                @livewire('dashboard.articles')
-                @livewire('dashboard.awards')
-                @livewire('dashboard.events')
-                @livewire('dashboard.flashcards')
-                @livewire('dashboard.pilots')
-                @livewire('dashboard.staffing')
+                <livewire:dashboard.airlines lazy />
+                <livewire:dashboard.articles lazy />
+                <livewire:dashboard.awards lazy />
+                <livewire:dashboard.events lazy />
+                <livewire:dashboard.flashcards lazy />
+                <livewire:dashboard.pilots lazy />
+                <livewire:dashboard.staffing lazy />
 
             </div>
         </div>
