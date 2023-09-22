@@ -5,8 +5,8 @@ namespace App\Livewire;
 use App\Models\Pilot;
 use Livewire\Component;
 use App\Models\Staffing;
-use Livewire\Redirector;
 use Carbon\CarbonImmutable;
+use Livewire\WithPagination;
 use Illuminate\Support\Carbon;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Storage;
@@ -16,7 +16,7 @@ use App\Actions\Pilots\ValidatePilotRequest;
 use App\Actions\Pilots\GenerateStaffingReport;
 use App\Actions\Pilots\GenerateStaffingRequest;
 use App\Actions\Pilots\ValidateStaffingRequest;
-use Livewire\WithPagination;
+use Livewire\Features\SupportRedirects\Redirector;
 
 class Pilots extends Component
 {
