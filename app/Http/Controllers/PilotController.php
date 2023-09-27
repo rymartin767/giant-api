@@ -52,12 +52,16 @@ final readonly class PilotController
                 )->get(['year', 'fleet', $pilot->seat == 'CA' ? 'ca_rate' : 'fo_rate'])->toArray();
 
                 $pay_year = today()->diffInYears($pilot['doh']) + 1;
+                if ($pay_year > 12) {
+                    $pay_year = 12;
+                }
+
                 $service = today()->diff($pilot['doh']);
                 $seat = $pilot->seat == 'CA' ? 'ca_rate' : 'fo_rate';
                 $current_rate = collect($scales)->where('year', $pay_year)->first()[$seat];
 
                 $pilot->compensation = [
-                    'service' => $service->y . ' YEARS + ' . $service->m . ' MONTH',
+                    'service' => $service->y . ' YEARS + ' . $service->m . ' MOS',
                     'current_rate' => $current_rate,
                     'scales' => $scales
                 ];
