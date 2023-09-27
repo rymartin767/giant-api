@@ -87,5 +87,13 @@
                 </x-api-li>
             </x-slot:items>
         </x-api-list>
+
+        <x-api-list>
+            <x-slot:items>
+                <x-api-li type="Collection Response" params="employee_number/year" endpoint="v1/pilots/history?employee_number=450765&year=2023">
+                    <pre><x-torchlight-code language='php' contents='views/torchlight/api/pilots/history/collection-response.blade.php'/></pre>
+                </x-api-li>
+            </x-slot:items>
+        </x-api-list>
     </x-section>
 </div>
