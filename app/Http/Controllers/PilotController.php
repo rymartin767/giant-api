@@ -74,6 +74,10 @@ final readonly class PilotController
 
                 $pilot->seniority = [
                     'seniority_number' => $pilot->seniority_number,
+                    'seniority_at_retirement' => Pilot::currentSeniorityList()
+                                                    ->select(['seniority_number', 'retire'])
+                                                    ->where('seniority_number', '<', $pilot->seniority_number)
+                                                    ->where('retire', '>', $pilot->retire)->count() + 1,
                     'total_pilots' => $count,
                     'seniority_percent' => ceil(round(($pilot->seniority_number / $count) * 100, 1, PHP_ROUND_HALF_DOWN))
                 ];
