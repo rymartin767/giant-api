@@ -37,7 +37,6 @@ final readonly class GenerateJuniorsReport
             'JFK 767',
             'LAX 747',
             'LAX 777',
-            'MEM 747',
             'MIA 747',
             'MIA 777',
             'ORD 747',
