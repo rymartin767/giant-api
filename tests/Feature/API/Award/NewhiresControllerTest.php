@@ -35,6 +35,7 @@ it('returns a collection response', function() {
     Award::factory(5)->create(['award_domicile' => 'CVG', 'award_fleet' => '767', 'is_new_hire' => true]);
     Award::factory(5)->create(['award_domicile' => 'CVG', 'award_fleet' => '777', 'is_new_hire' => true]);
     Award::factory(8)->create(['award_domicile' => 'ONT', 'award_fleet' => '767', 'is_new_hire' => true]);
+    Award::factory(2)->create(['award_domicile' => 'TPA', 'award_fleet' => '767', 'is_new_hire' => false]);
 
     $this->actingAs(sanctumToken())->get('v1/awards/newhires')
         ->assertExactJson([
@@ -63,4 +64,4 @@ it('returns a collection response', function() {
             ]
         ])
         ->assertOk();
-})->todo();
+});
