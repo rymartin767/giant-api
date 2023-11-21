@@ -25,7 +25,7 @@ final readonly class GenerateStaffingReport
             $january->isEmpty() ? $ytd_starting_count = 0 : $ytd_starting_count = $january->first()->total_pilot_count;
 
             $ages = collect();
-            $current_list->each(fn($pilot) => $ages->push(65 - (now()->diffInYears($pilot->retire) + 1)));
+            $current_list->each(fn($pilot) => $ages->push(64 - (now()->diffInYears($pilot->retire))));
 
             $previous_month = Staffing::latest('list_date')->get();
             $previous_month->isEmpty() ? $previous_count = 0 : $previous_count = $previous_month->first()->total_pilot_count;
