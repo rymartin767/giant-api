@@ -19,7 +19,7 @@ final class ValidateStaffingRequest
             'inactive_pilot_count' => 'required|integer',
             'net_gain_loss' => 'required|integer',
             'ytd_gain_loss' => 'required|integer',
-            'average_age' => 'required|integer|min:21|max:65'
+            'average_age' => 'required|integer'
         ]);
 
         return $validator;
