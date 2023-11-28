@@ -18,11 +18,11 @@ final readonly class GenerateNewhiresReport
         
         $domiciles->each(function($base) use ($report, $awards) {
             $report->put($base, [
-                'total' => $awards->where('award_domicile', $base)->count(),
-                '737' => $awards->where('award_domicile', $base)->where('award_fleet', '737')->count(),
-                '747' => $awards->where('award_domicile', $base)->where('award_fleet', '747')->count(),
-                '767' => $awards->where('award_domicile', $base)->where('award_fleet', '767')->count(),
-                '777' => $awards->where('award_domicile', $base)->where('award_fleet', '777')->count(),
+                'total' => $awards->where('award_domicile', $base)->where('is_new_hire', true)->count(),
+                '737' => $awards->where('award_domicile', $base)->where('is_new_hire', true)->where('award_fleet', '737')->count(),
+                '747' => $awards->where('award_domicile', $base)->where('is_new_hire', true)->where('award_fleet', '747')->count(),
+                '767' => $awards->where('award_domicile', $base)->where('is_new_hire', true)->where('award_fleet', '767')->count(),
+                '777' => $awards->where('award_domicile', $base)->where('is_new_hire', true)->where('award_fleet', '777')->count(),
             ]);
         });
 
