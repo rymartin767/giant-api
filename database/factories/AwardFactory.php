@@ -22,6 +22,7 @@ class AwardFactory extends Factory
             'award_seat' => $pilot->seat,
             'is_new_hire' => false,
             'is_upgrade' => false,
+            'omit_from_juniors' => false,
             'month' => $pilot->month
         ];
     }
