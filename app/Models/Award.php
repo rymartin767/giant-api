@@ -20,6 +20,7 @@ class Award extends Model
     protected $casts = [
         'is_new_hire' => 'boolean',
         'is_upgrade' => 'boolean',
+        'omit_from_juniors' => 'boolean',
         'month' => 'immutable_date:M Y'
     ];
 

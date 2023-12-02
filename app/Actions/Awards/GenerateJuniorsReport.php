@@ -4,7 +4,6 @@ declare(strict_types = 1);
 
 namespace App\Actions\Awards;
 
-use App\Models\Award;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
 
@@ -55,7 +54,7 @@ final readonly class GenerateJuniorsReport
             $base = explode(" ", $position)[0];
             $fleet = explode(" ", $position)[1];
 
-            $junior_in_base_award = $this->awards->where('award_domicile', $base)->where('award_seat', 'CA')->where('award_fleet', $fleet)->sortBy('base_seniority')->last();
+            $junior_in_base_award = $this->awards->where('award_domicile', $base)->where('award_seat', 'CA')->where('award_fleet', $fleet)->where('omit_from_juniors', false)->sortBy('base_seniority')->last();
 
             if (! $junior_in_base_award == null) {
                 $collection->put($position, Carbon::parse($junior_in_base_award->pilot->doh)->format('m/d/Y'));
@@ -75,7 +74,7 @@ final readonly class GenerateJuniorsReport
             $base = explode(" ", $position)[0];
             $fleet = explode(" ", $position)[1];
 
-            $junior_in_base_award = $this->awards->where('award_domicile', $base)->where('award_seat', 'FO')->where('award_fleet', $fleet)->sortBy('base_seniority')->last();
+            $junior_in_base_award = $this->awards->where('award_domicile', $base)->where('award_seat', 'FO')->where('award_fleet', $fleet)->where('omit_from_juniors', false)->sortBy('base_seniority')->last();
 
             if (! $junior_in_base_award == null) {
                 $collection->put($position, $junior_in_base_award->is_new_hire ? 'New Hire' : Carbon::parse($junior_in_base_award->pilot->doh)->format('m/d/Y'));

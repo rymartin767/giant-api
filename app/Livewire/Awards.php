@@ -61,6 +61,13 @@ class Awards extends Component
         Award::truncate();
     }
 
+    public function toggleOmit($employee_number) : void
+    {
+        $award = Award::where('employee_number', $employee_number)->sole();
+        $award->omit_from_juniors = ! $award->omit_from_juniors;
+        $award->save();
+    }
+
     public function deleteAward($employee_number) : void
     {
         $award = Award::where('employee_number', $employee_number)->sole();

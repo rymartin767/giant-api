@@ -23,6 +23,7 @@
                         <x-table.th>AWARD SEAT</x-table.th>
                         <x-table.th>NEW HIRE</x-table.th>
                         <x-table.th>UPGRADE</x-table.th>
+                        <x-table.th>OMIT AS JR</x-table.th>
                         <x-table.th>MONTH</x-table.th>
                         <x-table.th>DELETE</x-table.th>
                     </x-slot:head>
@@ -39,9 +40,14 @@
                                 <x-table.td>{{ $award->award_seat }}</x-table.td>
                                 <x-table.td>{{ $award->is_new_hire ? 'YES' : 'NO' }}</x-table.td>
                                 <x-table.td>{{ $award->is_upgrade ? 'YES' : 'NO' }}</x-table.td>
+                                <x-table.td>
+                                    <button type="button" wire:click="toggleOmit({{ $award->employee_number }})" class="{{ $award->omit_from_juniors ? 'bg-red-500' : 'bg-green-500'}} px-2 py-1 text-sm rounded-md text-white">
+                                        {{ $award->omit_from_juniors ? 'YES' : 'NO' }} 
+                                    </button>
+                                </x-table.td>
                                 <x-table.td>{{ Carbon\Carbon::parse($award->month)->format('M Y') }}</x-table.td>
-                                <x-table.td wire.click.confirm="deleteAward, {{ $award->id }}">
-                                    <button type="button" wire:click="deleteAward({{ $award->employee_number }})" wire:confirm.prompt="Are you sure?\n\nType DELETE to confirm|DELETE">
+                                <x-table.td>
+                                    <button type="button" wire:click="deleteAward({{ $award->employee_number }})" wire:confirm.prompt="Are you sure?\n\nType DELETE to confirm|DELETE" class="bg-red-500 px-2 py-1 text-white text-sm rounded-lg">
                                         Delete Award 
                                     </button>
                                 </x-table.td>
