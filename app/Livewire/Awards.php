@@ -25,7 +25,7 @@ class Awards extends Component
     {
         return view('livewire.awards', [
             'files' => Storage::disk('s3')->allFiles('/vacancy-awards/' . $this->selectedYear),
-            'awards' => Award::query()->paginate(25)
+            'awards' => Award::query()->orderBy('employee_number')->paginate(25)
         ]);
     }
 
@@ -56,7 +56,14 @@ class Awards extends Component
         $this->status = $validatedAwards->count() . ' Awards have been validated & saved!';
     }
 
-    public function truncateAwards() : void{
+    public function truncateAwards() : void
+    {
         Award::truncate();
+    }
+
+    public function deleteAward($employee_number) : void
+    {
+        $award = Award::where('employee_number', $employee_number)->sole();
+        $award->delete();
     }
 }
