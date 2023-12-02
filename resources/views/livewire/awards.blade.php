@@ -13,42 +13,48 @@
             <div class="col-span-4">
                 <x-table>
                     <x-slot:head>
-                        <x-table.th>BASE SEN#</x-table>
-                <x-table.th>EMP#</x-table>
-                    <x-table.th>DOMICILE</x-table>
-                        <x-table.th>FLEET</x-table>
-                            <x-table.th>SEAT</x-table>
-                                <x-table.th>AWARD DOMICILE</x-table>
-                                    <x-table.th>AWARD FLEET</x-table>
-                                        <x-table.th>AWARD SEAT</x-table>
-                                            <x-table.th>NEW HIRE</x-table>
-                                                <x-table.th>UPGRADE</x-table>
-                                                    <x-table.th>MONTH</x-table>
-                                                        </x-slot:head>
-                                                        <x-slot:body>
-                                                            @forelse ($awards as $award)
-                                                            <tr>
-                                                                <x-table.td>{{ $award->base_seniority }}</x-table>
-                                                                    <x-table.td>{{ $award->employee_number }}</x-table>
-                                                                        <x-table.td>{{ $award->domicile }}</x-table>
-                                                                            <x-table.td>{{ $award->fleet }}</x-table>
-                                                                                <x-table.td>{{ $award->seat }}</x-table>
-                                                                                    <x-table.td>{{ $award->award_domicile }}</x-table>
-                                                                                        <x-table.td>{{ $award->award_fleet }}</x-table>
-                                                                                            <x-table.td>{{ $award->award_seat }}</x-table>
-                                                                                                <x-table.td>{{ $award->is_new_hire ? 'YES' : 'NO' }}</x-table>
-                                                                                                    <x-table.td>{{ $award->is_upgrade ? 'YES' : 'NO' }}</x-table>
-                                                                                                        <x-table.td>{{ Carbon\Carbon::parse($award->month)->format('M Y') }}</x-table>
-                                                            </tr>
-                                                            @empty
-                                                            <tr>
-                                                                <x-table.td>EMPTY</x-table>
-                                                            </tr>
-                                                            @endforelse
-                                                        </x-slot:body>
-                                                        </x-table>
+                        <x-table.th>BASE SEN#</x-table.th>
+                        <x-table.th>EMP#</x-table.th>
+                        <x-table.th>DOMICILE</x-table.th>
+                        <x-table.th>FLEET</x-table.th>
+                        <x-table.th>SEAT</x-table.th>
+                        <x-table.th>AWARD DOMICILE</x-table.th>
+                        <x-table.th>AWARD FLEET</x-table.th>
+                        <x-table.th>AWARD SEAT</x-table.th>
+                        <x-table.th>NEW HIRE</x-table.th>
+                        <x-table.th>UPGRADE</x-table.th>
+                        <x-table.th>MONTH</x-table.th>
+                        <x-table.th>DELETE</x-table.th>
+                    </x-slot:head>
+                    <x-slot:body>
+                        @forelse ($awards as $award)
+                            <tr>
+                                <x-table.td>{{ $award->base_seniority }}</x-table.td>
+                                <x-table.td>{{ $award->employee_number }}</x-table.td>
+                                <x-table.td>{{ $award->domicile }}</x-table.td>
+                                <x-table.td>{{ $award->fleet }}</x-table.td>
+                                <x-table.td>{{ $award->seat }}</x-table.td>
+                                <x-table.td>{{ $award->award_domicile }}</x-table.td>
+                                <x-table.td>{{ $award->award_fleet }}</x-table.td>
+                                <x-table.td>{{ $award->award_seat }}</x-table.td>
+                                <x-table.td>{{ $award->is_new_hire ? 'YES' : 'NO' }}</x-table.td>
+                                <x-table.td>{{ $award->is_upgrade ? 'YES' : 'NO' }}</x-table.td>
+                                <x-table.td>{{ Carbon\Carbon::parse($award->month)->format('M Y') }}</x-table.td>
+                                <x-table.td wire.click.confirm="deleteAward, {{ $award->id }}">
+                                    <button type="button" wire:click="deleteAward({{ $award->employee_number }})" wire:confirm.prompt="Are you sure?\n\nType DELETE to confirm|DELETE">
+                                        Delete Award 
+                                    </button>
+                                </x-table.td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <x-table.td>EMPTY</x-table.td>
+                            </tr>
+                        @endforelse
+                    </x-slot:body>
+                </x-table>
 
-                                                        <div class="mt-4">{{ $awards->links() }}</div>
+                <div class="mt-4">{{ $awards->links() }}</div>
 
             </div>
         </div>
