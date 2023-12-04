@@ -26,6 +26,10 @@ final readonly class GenerateNewhiresReport
             ]);
         });
 
-        return $report;
+        $filtered = $report->map(function($item) {
+            return array_filter($item);
+        });
+
+        return $filtered;
     }
 }

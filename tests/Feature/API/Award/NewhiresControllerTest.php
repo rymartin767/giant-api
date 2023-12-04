@@ -42,10 +42,7 @@ it('returns a collection response', function() {
             'data' => [
                 'ANC' => [
                     'total' => 10,
-                    '737' => 0,
                     '747' => 10,
-                    '767' => 0,
-                    '777' => 0,
                 ],
                 'CVG' => [
                     'total' => 20,
@@ -56,10 +53,7 @@ it('returns a collection response', function() {
                 ],
                 'ONT' => [
                     'total' => 8,
-                    '737' => 0,
-                    '747' => 0,
                     '767' => 8,
-                    '777' => 0,
                 ]
             ]
         ])
