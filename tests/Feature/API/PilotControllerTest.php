@@ -62,16 +62,16 @@ it('will return an model not found response', function() {
 
 // Model Handling: Model Response
 it('will return an model response with latest award, scales (per seniority not award), and seniority', function() {
-    seedPilots(25, '08/15/2023');
     Airline::factory()->has(Scale::factory(['year' => 10, 'fleet' => 'B767', 'ca_rate' => 283.31]))->create(['icao' => 'GTI']);
-    $pilot = Pilot::factory()->has(Award::factory(['award_fleet' => '747', 'award_seat' => 'CA', 'award_domicile' => 'MIA']))->create(['seniority_number' => 26, 'employee_number' => 450765, 'fleet' => '767', 'doh' => '2014-06-30', 'retire' => '2044-05-01']);
+    $pilot = Pilot::factory()->has(Award::factory(['award_fleet' => '747', 'award_seat' => 'CA', 'award_domicile' => 'MIA']))->create(['seniority_number' => 27, 'employee_number' => 450765, 'fleet' => '767', 'doh' => '2014-06-30', 'retire' => '2044-05-01']);
+    Pilot::factory()->has(Award::factory(['award_fleet' => '747', 'award_seat' => 'CA', 'award_domicile' => 'MIA']))->create(['seniority_number' => 26, 'employee_number' => 450764, 'fleet' => '767', 'doh' => '2014-06-30', 'retire' => '2048-05-01']);
     Staffing::factory()->create();
     $service = today()->diff($pilot['doh']);
 
     $this->actingAs(sanctumToken())->get('v1/pilots?employee_number=450765')
         ->assertExactJson([
             'data' => [
-                'seniority_number' => 26, 
+                'seniority_number' => 27, 
                 'employee_number' => 450765, 
                 'doh' => Carbon::parse($pilot->doh)->format('m/d/Y'), 
                 'seat' => 'CA', 
@@ -99,8 +99,8 @@ it('will return an model response with latest award, scales (per seniority not a
                     ],
                 ],
                 'seniority' => [
-                    'seniority_number' => 26,
-                    'seniority_at_retirement' => 4,
+                    'seniority_number' => 27,
+                    'seniority_at_retirement' => 2,
                     'total_pilots' => 2800,
                     'seniority_percent' => 1
                 ]
