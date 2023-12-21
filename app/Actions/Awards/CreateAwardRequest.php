@@ -20,7 +20,7 @@ final class CreateAwardRequest
             'award_domicile' => $this->award[6],
             'award_fleet' => $this->award[7],
             'award_seat' => $this->award[8],
-            'is_upgrade' => $this->award[5] == 'FO' && $this->award[8] == 'CA' && end($this->award) != 'Phantom',
+            'is_upgrade' => $this->award[9] == 'TRUE' ? true : false,
             'month' => $this->month
         ]);
 
