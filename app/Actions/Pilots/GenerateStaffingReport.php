@@ -22,7 +22,11 @@ final readonly class GenerateStaffingReport
             $jan_end = $this->month->startOfYear()->endOfMonth();
 
             $january = Staffing::whereBetween('list_date', [$jan_begin, $jan_end])->get();
-            $january->isEmpty() ? $ytd_starting_count = 0 : $ytd_starting_count = $january->first()->total_pilot_count;
+            if ($january->isEmpty()) {
+                $ytd_starting_count = $current_list->count();
+            } else {
+                $ytd_starting_count = $january->first()->total_pilot_count;
+            }
 
             $ages = collect();
             $current_list->each(fn($pilot) => $ages->push(64 - (now()->diffInYears($pilot->retire))));
