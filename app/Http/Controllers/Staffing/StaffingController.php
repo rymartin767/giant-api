@@ -33,7 +33,9 @@ final readonly class StaffingController
 
             $reports = $this->query->handle(
                 query: Staffing::query(),
-            )->latest()->limit(12)->get();
+                year: request('year'),
+                date: null
+            )->get();
 
             if ($reports->isEmpty()) {
                 return new EmptyResponse();
@@ -52,9 +54,9 @@ final readonly class StaffingController
 
             $reports = $this->query->handle(
                 query: Staffing::query(),
-                year: request('year'),
+                year: null,
                 date: null
-            )->get();
+            )->latest()->limit(2)->get();
 
             if ($reports->isEmpty()) {
                 return new EmptyResponse();
