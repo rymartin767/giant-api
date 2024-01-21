@@ -126,3 +126,61 @@ it('will return a collection response of staffing reports by year', function () 
         ]);
 });
 
+it('will return a collection response of the latest staffing reports', function () {
+    Staffing::factory()->create([
+        "list_date" => '2022-11-15',
+        "total_pilot_count" => 2700,
+        "active_pilot_count" => 2593,
+        "inactive_pilot_count" => 107,
+        "net_gain_loss" => -10,
+        "ytd_gain_loss" => -26,
+        "average_age" => 44,
+        "created_at" => now()->subSeconds(5)
+    ]);
+
+    Staffing::factory()->create([
+        "list_date" => '2022-12-15',
+        "total_pilot_count" => 2800,
+        "active_pilot_count" => 2693,
+        "inactive_pilot_count" => 107,
+        "net_gain_loss" => -14,
+        "ytd_gain_loss" => -31,
+        "average_age" => 45,
+        "created_at" => now()->subSeconds(3)
+    ]);
+
+    Staffing::factory()->create([
+        "list_date" => '2023-01-15',
+        "total_pilot_count" => 2810,
+        "active_pilot_count" => 2703,
+        "inactive_pilot_count" => 107,
+        "net_gain_loss" => -14,
+        "ytd_gain_loss" => -31,
+        "average_age" => 46,
+        "created_at" => now()
+    ]);
+    
+    $this->actingAs(sanctumToken())->get('v1/staffing?latest=true')
+        ->assertExactJson([
+            'data' => [
+                [
+                    "list_date" => '01/15/2023',
+                    "total_pilot_count" => 2810,
+                    "active_pilot_count" => 2703,
+                    "inactive_pilot_count" => 107,
+                    "net_gain_loss" => -14,
+                    "ytd_gain_loss" => -31,
+                    "average_age" => 46
+                ],
+                [
+                    "list_date" => '12/15/2022',
+                    "total_pilot_count" => 2800,
+                    "active_pilot_count" => 2693,
+                    "inactive_pilot_count" => 107,
+                    "net_gain_loss" => -14,
+                    "ytd_gain_loss" => -31,
+                    "average_age" => 45
+                ],
+            ]
+        ]);
+});
