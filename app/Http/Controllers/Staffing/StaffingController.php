@@ -25,8 +25,28 @@ final readonly class StaffingController
             return new EmptyResponse();
         }
 
+        //  * Return a collection for a specific year
         if ($request->has('year')) {
             if (! $request->filled('year')) {
+                return new ErrorResponse(401, new BadRequestException('Please check your request parameters.'));
+            }
+
+            $reports = $this->query->handle(
+                query: Staffing::query(),
+            )->latest()->limit(12)->get();
+
+            if ($reports->isEmpty()) {
+                return new EmptyResponse();
+            }
+
+            return new CollectionResponse(
+                data: new StaffingCollection($reports)
+            );
+        }
+
+        //  * Return a collection of the last 12 months
+        if ($request->has('latest')) {
+            if (! $request->filled('latest')) {
                 return new ErrorResponse(401, new BadRequestException('Please check your request parameters.'));
             }
 
