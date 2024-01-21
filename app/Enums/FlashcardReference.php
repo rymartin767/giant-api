@@ -25,7 +25,7 @@ enum FlashcardReference : int
     case FCOM_VOL2__CHAPTER_15_WARNING_SYSTEMS = 19;
     case FOM_FLIGHT_OPERATIONS_MANUAL = 20;
 
-    public function getFullName() : string
+    public function getLabel() : string
     {
         return match($this) {
             self::FCOM_VOL1_LIMITATIONS => 'FCOM VOL1: Limitations',

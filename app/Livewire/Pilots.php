@@ -22,7 +22,7 @@ class Pilots extends Component
 {
     use WithPagination;
     
-    public $selectedYear = '2023';
+    public $selectedYear = '2024';
     public $selectedAwsFilePath;
 
     public $status = null;

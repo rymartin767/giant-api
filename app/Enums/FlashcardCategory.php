@@ -19,7 +19,7 @@ enum FlashcardCategory : int
     case WARNING_SYSTEMS = 13;
     case FOM = 14;
 
-    public function getFullName() : string
+    public function getLabel() : string
     {
         return match($this) {
             self::LIMITATIONS => 'Limitations',
