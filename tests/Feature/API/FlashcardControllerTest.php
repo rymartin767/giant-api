@@ -109,6 +109,29 @@ it('returns a collection response of all flashcards in a given category', functi
         ->assertOk();
 });
 
+// Collection Response: Collection Response (filtered by reference)
+it('returns a collection response of all flashcards in a given reference', function() {
+    $flash = Flashcard::factory()->create(['reference' => 1]);
+    Flashcard::factory()->create(['reference' => 2]);
+    
+    $this->actingAs(sanctumToken())->get('v1/flashcards?reference=1')
+        ->assertExactJson([
+            'data' => [
+                [
+                    'id' => $flash->id,
+                    'category' => $flash->category,
+                    'question' => $flash->question,
+                    'answer' => $flash->answer,
+                    'question_image_url' => $flash->question_image_url,
+                    'answer_image_url' => $flash->answer_image_url,
+                    'reference' => 1,
+                    'eicas_type' => 2,
+                    'eicas_message' => 'LOW AIRSPEEED'
+                ]
+        ]])
+        ->assertOk();
+});
+
 // Collection Response: Collection Response (filtered by count)
 it('returns a collection response of all flashcards limited to count', function() {
     Flashcard::factory(10)->create();

@@ -46,6 +46,28 @@ final class FlashcardController
             );
         }
 
+         // ! Reference Parameter Present
+         if ($request->has('reference')) {
+
+            if (! $request->filled('reference')) {
+                $exception = new BadRequestException('Please check your request parameters.');
+                return new ErrorResponse(401, $exception);
+            }
+
+            $flashcards = $this->query->handle(
+                query: Flashcard::query(),
+                reference: request('reference')
+            )->get()->take(request('count'));
+    
+            if ($flashcards->isEmpty()) {
+                return new EmptyResponse();
+            }
+    
+            return new CollectionResponse(
+                data: new FlashcardCollection($flashcards)
+            );
+        }
+
         // ! Category Parameter Missing
 
         // Bad Parameter
