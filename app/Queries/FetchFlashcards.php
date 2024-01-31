@@ -6,12 +6,16 @@ use Illuminate\Database\Eloquent\Builder;
 
 class FetchFlashcards
 {
-    public function handle(Builder $query, int $category = null) : Builder
+    public function handle(Builder $query, int $category = null, int $reference = null) : Builder
     {
-        if ($category === null) {
+        if ($category === null && $reference === null) {
             return $query;
         }
         
-        return $query->where('category', $category);
+        if ($category !== null) {
+            return $query->where('category', $category);
+        }
+
+        return $query->where('reference', $reference);
     }
 }
