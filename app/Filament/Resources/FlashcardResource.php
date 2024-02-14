@@ -68,6 +68,7 @@ class FlashcardResource extends Resource
                         12 => 'FUEL',
                         13 => 'WARNING_SYSTEMS',
                         14 => 'FOM',
+                        21 => 'SMAC_93_NON_ILS_APPROACH'
                     ])->columnSpan(1),
                 RichEditor::make('question')
                     ->required()
