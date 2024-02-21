@@ -26,6 +26,7 @@ enum FlashcardCategory : int
 
     // SMAC
     case SMAC_93_NON_ILS_APPROACH = 21;
+    case SMAC_100_GO_AROUND = 25;
 
     public function getLabel() : string
     {
@@ -44,7 +45,8 @@ enum FlashcardCategory : int
             self::FUEL => 'Fuel',
             self::WARNING_SYSTEMS => 'Warning Systems',
             self::FOM => 'Flight Operations Manual',
-            self::SMAC_93_NON_ILS_APPROACH => 'SMAC 93: Non-ILS Approach'
+            self::SMAC_93_NON_ILS_APPROACH => 'SMAC 93: Non-ILS Approach',
+            self::SMAC_100_GO_AROUND => 'SMAC 100: Go-Around'
         };
     }
 }
