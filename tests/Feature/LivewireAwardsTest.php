@@ -23,11 +23,11 @@ it('displays a select list of aws s3 files as options', function () {
 
 test('storeAward method', function () {
     Livewire::test(Awards::class)
-        ->set('selectedYear', '2023')
-        ->set('selectedAwsFilePath', 'vacancy-awards/2023/TEST_MAR_2023.tsv')
+        ->set('selectedYear', '2024')
+        ->set('selectedAwsFilePath', 'vacancy-awards/2024/TEST_FEB_2024.tsv')
         ->call('storeAwards');
         
-    $this->assertDatabaseHas('awards', ['id' => 1, 'employee_number' => '224']);
+    $this->assertDatabaseHas('awards', ['id' => 1, 'employee_number' => '110']);
 });
 
 test('truncateAward method', function() {

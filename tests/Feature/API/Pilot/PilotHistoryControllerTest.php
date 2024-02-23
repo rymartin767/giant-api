@@ -70,18 +70,18 @@ it('will return an error response for a bad parameter', function() {
 
 // * COLLECTION RESPONSE WITH NO YEAR PARAMETER PRESENT
 it('will return a collection response for current year', function() {
-    Pilot::factory()->create(['seniority_number' => 1, 'month' => '2023-01-15']);
-    Pilot::factory()->create(['seniority_number' => 2, 'month' => '2023-01-15']);
-    Pilot::factory()->create(['seniority_number' => 3, 'month' => '2023-01-15']);
-    Pilot::factory()->create(['seniority_number' => 4, 'month' => '2023-01-15']);
-    Pilot::factory()->create(['seniority_number' => 5, 'employee_number' => 450765, 'month' => '2023-01-15']);
-    Pilot::factory()->create(['seniority_number' => 6, 'month' => '2023-01-15']);
-    Pilot::factory()->create(['seniority_number' => 7, 'month' => '2023-01-15']);
-    Pilot::factory()->create(['seniority_number' => 8, 'month' => '2023-01-15']);
-    Pilot::factory()->create(['seniority_number' => 9, 'month' => '2023-01-15']);
-    Pilot::factory()->create(['seniority_number' => 10, 'month' => '2023-01-15']);
+    Pilot::factory()->create(['seniority_number' => 1, 'month' => '2024-01-15']);
+    Pilot::factory()->create(['seniority_number' => 2, 'month' => '2024-01-15']);
+    Pilot::factory()->create(['seniority_number' => 3, 'month' => '2024-01-15']);
+    Pilot::factory()->create(['seniority_number' => 4, 'month' => '2024-01-15']);
+    Pilot::factory()->create(['seniority_number' => 5, 'employee_number' => 450765, 'month' => '2024-01-15']);
+    Pilot::factory()->create(['seniority_number' => 6, 'month' => '2024-01-15']);
+    Pilot::factory()->create(['seniority_number' => 7, 'month' => '2024-01-15']);
+    Pilot::factory()->create(['seniority_number' => 8, 'month' => '2024-01-15']);
+    Pilot::factory()->create(['seniority_number' => 9, 'month' => '2024-01-15']);
+    Pilot::factory()->create(['seniority_number' => 10, 'month' => '2024-01-15']);
 
-    Staffing::factory()->create(['list_date' => '2023-01-15', 'total_pilot_count' => 10]);
+    Staffing::factory()->create(['list_date' => '2024-01-15', 'total_pilot_count' => 10]);
 
     $this->actingAs(sanctumToken())->get('v1/pilots/history?employee_number=450765')
         ->assertExactJson([
@@ -92,7 +92,7 @@ it('will return a collection response for current year', function() {
                     'seat' => "CA",
                     'fleet' => "747",
                     'domicile' => "ORD",
-                    'month' => "Jan 2023",
+                    'month' => "Jan 2024",
                     'aaww_total_pilots' => 10,
                     'employee_aaww_seniority_percentage' => 50
                 ]

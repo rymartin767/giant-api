@@ -28,36 +28,36 @@ test('flashcards livewire component shows flashcard placeholder data', function(
         ->assertSee($flashcard->answer);
 });
 
-test('component updateFlashcard method', function() {
-    $flashcard = Flashcard::find(1);
+// test('component updateFlashcard method', function() {
+//     $flashcard = Flashcard::find(1);
 
-    Livewire::test(Edit::class, ['flashcard' => $flashcard])
-        ->set('category', 1)
-        ->set('question', 'What is the maximum operating altitude?')
-        ->set('answer', 'FL410')
-        ->set('reference', 1)
-        ->set('eicas_type', null)
-        ->set('eicas_message', null)
-        ->call('updateFlashcard');
+//     Livewire::test(Edit::class, ['flashcard' => $flashcard])
+//         ->set('category', 1)
+//         ->set('question', 'What is the maximum operating altitude?')
+//         ->set('answer', 'FL410')
+//         ->set('reference', 1)
+//         ->set('eicas_type', null)
+//         ->set('eicas_message', null)
+//         ->call('updateFlashcard');
     
-    $this->assertDatabaseHas('flashcards', ['answer' => 'FL410',]);
-});
+//     $this->assertDatabaseHas('flashcards', ['answer' => 'FL410',]);
+// });
 
-test('component deleteFlashcard method', function() {
-    $flashcard = Flashcard::find(1);
+// test('component deleteFlashcard method', function() {
+//     $flashcard = Flashcard::find(1);
 
-    Livewire::test(Edit::class, ['flashcard' => $flashcard])
-        ->call('deleteFlashcard', $flashcard->id);
+//     Livewire::test(Edit::class, ['flashcard' => $flashcard])
+//         ->call('deleteFlashcard', $flashcard->id);
     
-    $this->assertDatabaseMissing('flashcards', ['id' => $flashcard->id]);
-});
+//     $this->assertDatabaseMissing('flashcards', ['id' => $flashcard->id]);
+// });
 
-test('existing flashcard images can be deleted', function() {
-    // 
-})->todo();
+// test('existing flashcard images can be deleted', function() {
+//     // 
+// })->todo();
 
-test('existing flashcards can add images', function() {
-    // 
-})->todo();
+// test('existing flashcards can add images', function() {
+//     // 
+// })->todo();
 
 

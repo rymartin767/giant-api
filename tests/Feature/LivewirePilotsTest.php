@@ -19,7 +19,7 @@ test('pilots livewire component is present on pilots page', function() {
 
 it('displays a select list of aws s3 files as options', function () {
     Livewire::test(Pilots::class)
-        ->assertSeeHtml('<option value="seniority-lists/v1/2023/V1-03-10-2023.tsv">seniority-lists/v1/2023/V1-03-10-2023.tsv</option>');
+        ->assertSeeHtml('<option value="seniority-lists/v1/2024/v1-01-10-2024.tsv">seniority-lists/v1/2024/v1-01-10-2024.tsv</option>');
                          
 });
 

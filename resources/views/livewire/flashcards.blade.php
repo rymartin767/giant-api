@@ -8,7 +8,7 @@
             <select wire:model.live="showByCategory">
                 <option value="Choose Category" selected></option>
                 @foreach (\App\Enums\FlashcardCategory::cases() as $category)
-                    <option value="{{ $category->value }}">{{ $category->getFullName() }}</option>
+                    <option value="{{ $category->value }}">{{ $category->getLabel() }}</option>
                 @endforeach
             </select>
         </div>
@@ -23,7 +23,7 @@
             <x-slot:body>
                 @foreach ($flashcards as $flashcard)
                     <tr>
-                        <x-table.td>{{ $flashcard->category->getFullName() }}</x-table.td>
+                        <x-table.td>{{ $flashcard->category->getLabel() }}</x-table.td>
                         <x-table.td>{!! str($flashcard->question)->limit(75) !!}</x-table.td>
                         <x-table.td>
                             @if (! $flashcard->question_image_url == null)

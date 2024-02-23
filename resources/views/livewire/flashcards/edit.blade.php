@@ -5,7 +5,7 @@
                 <select wire:model.live="category">
                     <option value="{{ $flashcard->category }}">{{ $flashcard->category }}</option>
                     @foreach (\App\Enums\FlashcardCategory::cases() as $category)
-                    <option value="{{ $category->value }}">{{ $category->getFullName() }}</option>
+                    <option value="{{ $category->value }}">{{ $category->getLabel() }}</option>
                     @endforeach
                 </select>
                 @error('category')
@@ -16,7 +16,7 @@
                 <select wire:model.live="reference">
                     <option value="{{ $flashcard->reference }}">{{ $flashcard->reference }}</option>
                     @foreach (\App\Enums\FlashcardReference::cases() as $reference)
-                        <option value="{{ $reference->value }}">{{ $reference->getFullName() }}</option>
+                        <option value="{{ $reference->value }}">{{ $reference->getLabel() }}</option>
                     @endforeach
                 </select>
                 @error('reference')

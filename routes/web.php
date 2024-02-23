@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Charts\PathwayChartController;
 use App\Livewire\Awards;
 use App\Livewire\Charts;
 use App\Livewire\Events;
