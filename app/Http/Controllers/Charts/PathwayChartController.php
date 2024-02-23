@@ -36,7 +36,7 @@ final readonly class PathwayChartController
 
             try {
                 $junior_737 = Pilot::juniorCaptainByFleet('737', $h['month']);
-                $relative_three = ceil(round(($junior_737->sen / Pilot::listTotalPilotCount($h['month'])) * 100, 1, PHP_ROUND_HALF_DOWN));
+                $relative_three = ceil(round(($junior_737->sen / $count) * 100, 1, PHP_ROUND_HALF_DOWN));
                 $h['737-captain-sen'] = $relative_three;
 
             } catch(Exception $e) {
@@ -45,7 +45,7 @@ final readonly class PathwayChartController
 
             try {
                 $junior_747 = Pilot::juniorCaptainByFleet('747', $h['month']);
-                $relative_four = ceil(round(($junior_747->sen / Pilot::listTotalPilotCount($h['month'])) * 100, 1, PHP_ROUND_HALF_DOWN));
+                $relative_four = ceil(round(($junior_747->sen / $count) * 100, 1, PHP_ROUND_HALF_DOWN));
                 $h['747-captain-sen'] = $relative_four;
             } catch(Exception $e) {
                 $h['747-captain-sen'] = 99;
@@ -53,7 +53,7 @@ final readonly class PathwayChartController
 
             try {
                 $junior_767 = Pilot::juniorCaptainByFleet('767', $h['month']);
-                $relative_six = ceil(round(($junior_767->sen / Pilot::listTotalPilotCount($h['month'])) * 100, 1, PHP_ROUND_HALF_DOWN));
+                $relative_six = ceil(round(($junior_767->sen / $count) * 100, 1, PHP_ROUND_HALF_DOWN));
                 $h['767-captain-sen'] = $relative_six;
             } catch(Exception $e) {
                 $h['767-captain-sen'] = 99;
@@ -61,7 +61,7 @@ final readonly class PathwayChartController
 
             try {
                 $junior_777 = Pilot::juniorCaptainByFleet('777', $h['month']);
-                $relative_seven = ceil(round(($junior_777->sen / Pilot::listTotalPilotCount($h['month'])) * 100, 1, PHP_ROUND_HALF_DOWN));
+                $relative_seven = ceil(round(($junior_777->sen / $count) * 100, 1, PHP_ROUND_HALF_DOWN));
                 $h['777-captain-sen'] = $relative_seven;
             } catch(Exception $e) {
                 $h['777-captain-sen'] = 99;
