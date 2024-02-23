@@ -12,6 +12,7 @@ use App\Http\Controllers\Award\JuniorsController;
 use App\Http\Controllers\Award\NewhiresController;
 use App\Http\Controllers\Award\UpgradesController;
 use App\Http\Controllers\Award\DomicilesController;
+use App\Http\Controllers\Charts\PathwayChartController;
 use App\Http\Controllers\Staffing\StaffingController;
 use App\Http\Controllers\Pilot\PilotHistoryController;
 use App\Http\Controllers\Charts\StaffingChartController;
@@ -39,5 +40,6 @@ Route::middleware('auth:sanctum')->group(function() {
     
     // * APEX CHARTS
     Route::get('charts/pilots/retirements', RetirementChartController::class)->name('api.charts.retirement');
+    Route::get('charts/pilots/pathway', PathwayChartController::class)->name('api.charts.pathway');
     Route::get('charts/staffing', StaffingChartController::class)->name('api.charts.staffing'); 
 });
