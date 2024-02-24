@@ -33,6 +33,11 @@ class Pilot extends Model
         $query->where('month', Carbon::parse($month)->format('Y-m-d'));
     }
 
+    public function scopeJuniorCaptainByFleet($query, $fleet, $month)
+    {
+        return $query->where('seat', 'CA')->where('fleet', $fleet)->where('month', $month)->orderBy('seniority_number')->get()->last();
+    }
+
     public function award()
     {
         return $this->hasOne(Award::class, 'employee_number', 'employee_number');
