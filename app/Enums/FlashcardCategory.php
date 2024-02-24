@@ -25,6 +25,7 @@ enum FlashcardCategory : int
     case FOM = 14;
 
     // SMAC
+    case SMAC_80_HOLDING = 22;
     case SMAC_93_NON_ILS_APPROACH = 21;
     case SMAC_100_GO_AROUND = 25;
 
@@ -45,6 +46,7 @@ enum FlashcardCategory : int
             self::FUEL => 'Fuel',
             self::WARNING_SYSTEMS => 'Warning Systems',
             self::FOM => 'Flight Operations Manual',
+            self::SMAC_80_HOLDING => 'SMAC 80: Holding',
             self::SMAC_93_NON_ILS_APPROACH => 'SMAC 93: Non-ILS Approach',
             self::SMAC_100_GO_AROUND => 'SMAC 100: Go-Around'
         };
