@@ -68,6 +68,7 @@ class FlashcardResource extends Resource
                         12 => 'FUEL',
                         13 => 'WARNING_SYSTEMS',
                         14 => 'FOM',
+                        22 => 'SMAC_80_HOLDING',
                         21 => 'SMAC_93_NON_ILS_APPROACH',
                         25 => 'SMAC_100_GO_AROUND'
                     ])->columnSpan(1),
