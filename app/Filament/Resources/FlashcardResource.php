@@ -84,7 +84,8 @@ class FlashcardResource extends Resource
                     ->columnSpanFull(),
                 FileUpload::make('question_image_url')
                     ->disk('s3-public')
-                    ->directory('images/flashcards')
+                    ->directory('images/flashcards/v3')
+                    ->visibility('public')
                     ->label('Answer')
                     ->image(),
                 Forms\Components\FileUpload::make('answer_image_url')
