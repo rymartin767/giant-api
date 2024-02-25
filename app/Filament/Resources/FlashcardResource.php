@@ -11,6 +11,8 @@ use Illuminate\Support\Str;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Select;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ImageColumn;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\FlashcardResource\Pages;
@@ -80,9 +82,13 @@ class FlashcardResource extends Resource
                     ->required()
                     ->maxLength(65535)
                     ->columnSpanFull(),
-                Forms\Components\FileUpload::make('question_image_url')
+                FileUpload::make('question_image_url')
+                    ->disk('s3-public')
+                    ->directory('images/flashcards')
+                    ->label('Answer')
                     ->image(),
                 Forms\Components\FileUpload::make('answer_image_url')
+                    ->disk('s3-public')
                     ->image(),
                 Select::make('eicas_type')
                     ->options([
@@ -101,21 +107,28 @@ class FlashcardResource extends Resource
     {
         return $table
             ->columns([
+                TextColumn::make('question_image_url'),
+
                 TextColumn::make('category')
                     ->formatStateUsing(fn (Flashcard $record): string => $record->category->getLabel())
                     ->sortable(),
-                TextColumn::make('question')
-                    ->html(),
+                
                 TextColumn::make('reference')
                     ->formatStateUsing(fn (Flashcard $record): string => $record->reference->getLabel()),
+
+                TextColumn::make('question')
+                    ->html(),
+
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
+
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
+
                 TextColumn::make('eicas_type')
                     ->formatStateUsing(fn (Flashcard $record): string => $record->eicas_type->name)
                     ->badge()
