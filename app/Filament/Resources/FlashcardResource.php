@@ -83,13 +83,9 @@ class FlashcardResource extends Resource
                     ->maxLength(65535)
                     ->columnSpanFull(),
                 FileUpload::make('question_image_url')
-                    ->disk('s3-public')
-                    ->directory('images/flashcards/v3')
+                    ->disk('s3')
+                    ->directory('images/flashcards/development')
                     ->visibility('public')
-                    ->label('Answer')
-                    ->image(),
-                Forms\Components\FileUpload::make('answer_image_url')
-                    ->disk('s3-public')
                     ->image(),
                 Select::make('eicas_type')
                     ->options([
