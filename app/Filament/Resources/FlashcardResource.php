@@ -83,9 +83,8 @@ class FlashcardResource extends Resource
                     ->maxLength(65535)
                     ->columnSpanFull(),
                 FileUpload::make('question_image_url')
-                    ->disk('s3')
-                    ->directory('images/flashcards/development')
-                    ->visibility('public')
+                    ->disk('s3-public')
+                    ->directory('images/flashcards')
                     ->image(),
                 Select::make('eicas_type')
                     ->options([
@@ -104,7 +103,8 @@ class FlashcardResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('question_image_url'),
+                ImageColumn::make('question_image_url')
+                    ->disk('s3-public'),
 
                 TextColumn::make('category')
                     ->formatStateUsing(fn (Flashcard $record): string => $record->category->getLabel())
