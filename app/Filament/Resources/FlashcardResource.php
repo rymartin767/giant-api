@@ -104,17 +104,18 @@ class FlashcardResource extends Resource
         return $table
             ->columns([
                 ImageColumn::make('question_image_url')
-                    ->disk('s3-public'),
+                    ->disk('s3-public')
+                    ->label(''),
 
                 TextColumn::make('category')
                     ->formatStateUsing(fn (Flashcard $record): string => $record->category->getLabel())
+                    ->description(fn (Flashcard $record): string => $record->reference->getLabel())
                     ->sortable(),
                 
-                TextColumn::make('reference')
-                    ->formatStateUsing(fn (Flashcard $record): string => $record->reference->getLabel()),
-
                 TextColumn::make('question')
-                    ->html(),
+                    ->html()
+                    ->searchable()
+                    ->limit(30),
 
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
