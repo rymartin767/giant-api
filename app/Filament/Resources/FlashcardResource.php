@@ -70,6 +70,23 @@ class FlashcardResource extends Resource
                         12 => 'FUEL',
                         13 => 'WARNING_SYSTEMS',
                         14 => 'FOM',
+
+                        30 => 'NP_15_PREFLIGHT',
+                        31 => 'NP_20_BEFORE_START',
+                        32 => 'NP_21_BEFORE_TAXI',
+                        33 => 'NP_25_TAXI_OUT',
+                        34 => 'NP_30_BEFORE_TAKEOFF_PROCEDURE',
+                        35 => 'NP_35_TAKEOFF_PROCEDURE',
+                        36 => 'NP_40_CLIMB_AND_CRUISE',
+                        37 => 'NP_45_DESCENT',
+                        38 => 'NP_50_APPROACH',
+                        39 => 'NP_55_GO_AROUND',
+                        40 => 'NP_60_LANDING',
+                        41 => 'NP_65_AFTER_LANDING_PROCEDURE',
+                        42 => 'NP_70_SHUTDOWN_PROCEDURE',
+                        43 => 'NP_75_POSTFLIGHT_PROCEDURE',
+                        44 => 'NP_80_SECURING',
+
                         22 => 'SMAC_80_HOLDING',
                         21 => 'SMAC_93_NON_ILS_APPROACH',
                         25 => 'SMAC_100_GO_AROUND'

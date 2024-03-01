@@ -8,6 +8,28 @@ enum FlashcardCategory : int
     case LIMITATIONS = 1;
     case AIRCRAFT_GENERAL = 2;
 
+    // VOL 1 NORMAL PROCEDURES
+    case NP_15_PREFLIGHT = 30;
+    case NP_20_BEFORE_START = 31;
+    case NP_21_BEFORE_TAXI = 32;
+    case NP_25_TAXI_OUT = 33;
+    case NP_30_BEFORE_TAKEOFF_PROCEDURE = 34;
+    case NP_35_TAKEOFF_PROCEDURE = 35;
+    case NP_40_CLIMB_AND_CRUISE = 36;
+    case NP_45_DESCENT = 37;
+    case NP_50_APPROACH = 38;
+    case NP_55_GO_AROUND = 39;
+    case NP_60_LANDING = 40;
+    case NP_65_AFTER_LANDING_PROCEDURE = 41;
+    case NP_70_SHUTDOWN_PROCEDURE = 42;
+    case NP_75_POSTFLIGHT_PROCEDURE = 43;
+    case NP_80_SECURING = 44;
+
+    // VOL 1 SMAC
+    case SMAC_80_HOLDING = 22;
+    case SMAC_93_NON_ILS_APPROACH = 21;
+    case SMAC_100_GO_AROUND = 25;
+
     // VOL 2
     case AIR_SYSTEMS = 3;
     case ANTI_ICE = 4;
@@ -23,11 +45,6 @@ enum FlashcardCategory : int
 
     // FOM
     case FOM = 14;
-
-    // SMAC
-    case SMAC_80_HOLDING = 22;
-    case SMAC_93_NON_ILS_APPROACH = 21;
-    case SMAC_100_GO_AROUND = 25;
 
     public function getLabel() : string
     {
@@ -46,6 +63,23 @@ enum FlashcardCategory : int
             self::FUEL => 'Fuel',
             self::WARNING_SYSTEMS => 'Warning Systems',
             self::FOM => 'Flight Operations Manual',
+
+            self::NP_15_PREFLIGHT => 'NP 15: Preflight',
+            self::NP_20_BEFORE_START => 'NP 20: Before Start',
+            self::NP_21_BEFORE_TAXI => 'NP 21: Before Taxi',
+            self::NP_25_TAXI_OUT => 'NP 25: Taxi-Out',
+            self::NP_30_BEFORE_TAKEOFF_PROCEDURE => 'NP 30: Before Takeoff Procedure',
+            self::NP_35_TAKEOFF_PROCEDURE => 'NP 35: Takeoff Procedure',
+            self::NP_40_CLIMB_AND_CRUISE => 'NP 40: Climb & Cruise',
+            self::NP_45_DESCENT => 'NP 45: Descent',
+            self::NP_50_APPROACH => 'NP 50: Approach',
+            self::NP_55_GO_AROUND => 'NP 55: Go-Around',
+            self::NP_60_LANDING => 'NP 60: Landing',
+            self::NP_65_AFTER_LANDING_PROCEDURE => 'NP 65: After Landing Procedure',
+            self::NP_70_SHUTDOWN_PROCEDURE => 'NP 70: Shutdown Procedure',
+            self::NP_75_POSTFLIGHT_PROCEDURE => 'NP 75: Postflight Procedure',
+            self::NP_80_SECURING => 'NP 80: Securing',
+
             self::SMAC_80_HOLDING => 'SMAC 80: Holding',
             self::SMAC_93_NON_ILS_APPROACH => 'SMAC 93: Non-ILS Approach',
             self::SMAC_100_GO_AROUND => 'SMAC 100: Go-Around'
