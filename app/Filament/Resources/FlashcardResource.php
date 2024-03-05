@@ -71,6 +71,7 @@ class FlashcardResource extends Resource
                         13 => 'WARNING_SYSTEMS',
                         14 => 'FOM',
 
+                        45 => 'NP_11_INTRODUCTION',
                         30 => 'NP_15_PREFLIGHT',
                         31 => 'NP_20_BEFORE_START',
                         32 => 'NP_21_BEFORE_TAXI',

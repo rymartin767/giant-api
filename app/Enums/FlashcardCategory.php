@@ -9,6 +9,7 @@ enum FlashcardCategory : int
     case AIRCRAFT_GENERAL = 2;
 
     // VOL 1 NORMAL PROCEDURES
+    case NP_11_INTRODUCTION = 45;
     case NP_15_PREFLIGHT = 30;
     case NP_20_BEFORE_START = 31;
     case NP_21_BEFORE_TAXI = 32;
@@ -64,6 +65,7 @@ enum FlashcardCategory : int
             self::WARNING_SYSTEMS => 'Warning Systems',
             self::FOM => 'Flight Operations Manual',
 
+            self::NP_11_INTRODUCTION => 'NP 11: Introduction',
             self::NP_15_PREFLIGHT => 'NP 15: Preflight',
             self::NP_20_BEFORE_START => 'NP 20: Before Start',
             self::NP_21_BEFORE_TAXI => 'NP 21: Before Taxi',
