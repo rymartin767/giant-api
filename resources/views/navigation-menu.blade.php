@@ -39,6 +39,9 @@
                     <x-nav-link href="{{ route('charts') }}" :active="request()->routeIs('charts')">
                         {{ __('[Charts]') }}
                     </x-nav-link>
+                    <x-nav-link href="/admin">
+                        {{ __('Admin') }}
+                    </x-nav-link>
                 </div>
             </div>
 
