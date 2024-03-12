@@ -67,7 +67,7 @@
         <x-api-list>
             <x-slot:items>
                 <x-api-li type="Model Response: Employee Number Parameter" params="employee_number" endpoint="v1/pilots?employee_number=450765">
-                    <pre><x-torchlight-code language='php' contents='views/torchlight/api/pilots/model-response.blade.php'/></pre>
+                    {{-- <pre><x-torchlight-code language='php' contents='views/torchlight/api/pilots/model-response.blade.php'/></pre> --}}
                 </x-api-li>
             </x-slot:items>
         </x-api-list>
@@ -75,7 +75,7 @@
         <x-api-list>
             <x-slot:items>
                 <x-api-li type="Collection Response" params="employee_number" endpoint="v1/pilots">
-                    <pre><x-torchlight-code language='php' contents='views/torchlight/api/pilots/collection-response.blade.php'/></pre>
+                    {{-- <pre><x-torchlight-code language='php' contents='views/torchlight/api/pilots/collection-response.blade.php'/></pre> --}}
                 </x-api-li>
             </x-slot:items>
         </x-api-list>
@@ -83,7 +83,7 @@
         <x-api-list>
             <x-slot:items>
                 <x-api-li type="Collection Response" params="" endpoint="v1/pilots/retirements-list">
-                    <pre><x-torchlight-code language='php' contents='views/torchlight/api/pilots/retirements/collection-response.blade.php'/></pre>
+                    {{-- <pre><x-torchlight-code language='php' contents='views/torchlight/api/pilots/retirements/collection-response.blade.php'/></pre> --}}
                 </x-api-li>
             </x-slot:items>
         </x-api-list>
@@ -91,7 +91,7 @@
         <x-api-list>
             <x-slot:items>
                 <x-api-li type="Collection Response" params="employee_number/year" endpoint="v1/pilots/history?employee_number=450765&year=2023">
-                    <pre><x-torchlight-code language='php' contents='views/torchlight/api/pilots/history/collection-response.blade.php'/></pre>
+                    {{-- <pre><x-torchlight-code language='php' contents='views/torchlight/api/pilots/history/collection-response.blade.php'/></pre> --}}
                 </x-api-li>
             </x-slot:items>
         </x-api-list>
