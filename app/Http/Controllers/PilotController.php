@@ -51,7 +51,10 @@ final readonly class PilotController
                     fleet: $pilot->fleet,
                 )->get(['year', 'fleet', $pilot->seat == 'CA' ? 'ca_rate' : 'fo_rate'])->toArray();
 
-                $pay_year = today()->diffInYears($pilot['doh']) + 1;
+                $abs_years = abs(today()->diffInYears($pilot['doh']));
+                $pay_year = abs($abs_years);
+                $pay_year = (int) $pay_year + 1; // converts 1.0 to 1
+
                 if ($pay_year > 12) {
                     $pay_year = 12;
                 }
