@@ -10,7 +10,7 @@ enum AirlineSector : int
     case REGIONAL = 4;
     case CORPORATE = 5;
 
-    public function getFullName() : string
+    public function getLabel() : string
     {
         return match($this) {
             self::CARGO => 'Cargo',

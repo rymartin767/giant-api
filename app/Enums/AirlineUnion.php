@@ -10,13 +10,13 @@ enum AirlineUnion : int
     case SAPA = 3;
     case NONE = 4;
 
-    public function getFullName() : string
+    public function getLabel() : string
     {
         return match($this) {
-            self::IBT => 'International Brotherhood of Teamsters',
-            self::ALPA => 'Airline Pilots Association',
-            self::SAPA => 'Southwest Airlines Pilot Association',
-            self::NONE => 'No Union Representation'
+            self::IBT => 'IBT',
+            self::ALPA => 'APA',
+            self::SAPA => 'SAPA',
+            self::NONE => 'None'
          };
     }
 }

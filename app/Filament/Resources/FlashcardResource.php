@@ -103,10 +103,12 @@ class FlashcardResource extends Resource
                 FileUpload::make('question_image_url')
                     ->disk('s3-public')
                     ->directory('images/flashcards')
+                    ->visibility('public')
                     ->image(),
                 FileUpload::make('answer_image_url')
                     ->disk('s3-public')
                     ->directory('images/flashcards')
+                    ->visibility('public')
                     ->image(),
                 Select::make('eicas_type')
                     ->options([
