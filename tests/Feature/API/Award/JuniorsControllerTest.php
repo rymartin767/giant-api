@@ -90,7 +90,6 @@ it('will return a collection response with correct format for captains', functio
     Pilot::factory()->has(Award::factory(['base_seniority' => 3, 'award_domicile' => 'ANC', 'award_fleet' => '747', 'award_seat' => 'CA']))->create(['doh' => '2015-08-07']);
     Pilot::factory()->has(Award::factory(['base_seniority' => 2, 'award_domicile' => 'ANC', 'award_fleet' => '747', 'award_seat' => 'CA']))->create(['doh' => '2014-08-07']);
     Pilot::factory()->has(Award::factory(['base_seniority' => 1, 'award_domicile' => 'ANC', 'award_fleet' => '747', 'award_seat' => 'CA']))->create(['doh' => '2012-08-07']);
-    Pilot::factory()->has(Award::factory(['base_seniority' => 7, 'award_domicile' => 'ANC', 'award_fleet' => '747', 'award_seat' => 'CA', 'omit_from_juniors' => true]))->create(['doh' => '2011-08-07']);
     Pilot::factory()->has(Award::factory(['base_seniority' => 6, 'award_domicile' => 'ANC', 'award_fleet' => '747', 'award_seat' => 'CA']))->create(['doh' => '2020-08-07']);
     Pilot::factory()->has(Award::factory(['base_seniority' => 3, 'award_domicile' => 'MIA', 'award_fleet' => '777', 'award_seat' => 'CA']))->create(['doh' => '2018-05-31']);
     Pilot::factory()->has(Award::factory(['base_seniority' => 2, 'award_domicile' => 'MIA', 'award_fleet' => '777', 'award_seat' => 'CA']))->create(['doh' => '2016-05-31']);
@@ -113,7 +112,7 @@ it('will return a collection response with correct format for first officers', f
     Pilot::factory()->has(Award::factory(['base_seniority' => 3, 'award_domicile' => 'MIA', 'award_fleet' => '747', 'award_seat' => 'FO', 'is_new_hire' => false]))->create(['doh' => '2017-08-07']);
     Pilot::factory()->has(Award::factory(['base_seniority' => 4, 'award_domicile' => 'MIA', 'award_fleet' => '747', 'award_seat' => 'FO', 'is_new_hire' => false]))->create(['doh' => '2018-08-07']);
     Pilot::factory()->has(Award::factory(['base_seniority' => 5, 'award_domicile' => 'MIA', 'award_fleet' => '747', 'award_seat' => 'FO', 'is_new_hire' => false]))->create(['doh' => '2019-08-07']);
-    Pilot::factory()->has(Award::factory(['base_seniority' => 6, 'award_domicile' => 'MIA', 'award_fleet' => '747', 'award_seat' => 'FO', 'is_new_hire' => false, 'omit_from_juniors' => true]))->create(['doh' => '2015-08-07']);
+    Pilot::factory()->has(Award::factory(['base_seniority' => 6, 'award_domicile' => 'MIA', 'award_fleet' => '747', 'award_seat' => 'FO', 'is_new_hire' => false]))->create(['doh' => '2015-08-07']);
     Pilot::factory()->has(Award::factory(['base_seniority' => 1, 'award_domicile' => 'ANC', 'award_fleet' => '747', 'award_seat' => 'FO', 'is_new_hire' => false]))->create(['doh' => '2015-08-07']);
     Pilot::factory()->has(Award::factory(['base_seniority' => 2, 'award_domicile' => 'ANC', 'award_fleet' => '747', 'award_seat' => 'FO', 'is_new_hire' => false]))->create(['doh' => '2016-08-07']);
     Pilot::factory()->has(Award::factory(['base_seniority' => 3, 'award_domicile' => 'ANC', 'award_fleet' => '747', 'award_seat' => 'FO', 'is_new_hire' => false]))->create(['doh' => '2017-08-07']);
@@ -123,8 +122,11 @@ it('will return a collection response with correct format for first officers', f
     $this->actingAs(sanctumToken())->get('v1/awards/juniors?seat=FO')
         ->assertExactJson([
             'data' => [
-                'MIA 747' => '08/07/2019',
-                'ANC 747' => 'New Hire'
+                'award_date' => 'February 2024',
+                'dohs' => [
+                    'MIA 747' => '08/07/2015',
+                    'ANC 747' => 'New Hire'
+                ]
             ]
         ])
         ->assertOk();
