@@ -24,7 +24,11 @@ class Edit extends Component
     public $eicas_message;
 
     public $questionImageUpload = null;
+    public $question_image_caption;
+
     public $answerImageUpload = null;
+    public $answer_image_caption;
+
 
     protected function rules() : array
     {
