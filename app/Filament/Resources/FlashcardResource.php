@@ -19,6 +19,7 @@ use App\Filament\Resources\FlashcardResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Tables\Columns\TextColumn\TextColumnSize;
 use App\Filament\Resources\FlashcardResource\RelationManagers;
+use Filament\Forms\Components\TextInput;
 
 class FlashcardResource extends Resource
 {
@@ -105,11 +106,13 @@ class FlashcardResource extends Resource
                     ->directory('images/flashcards')
                     ->visibility('public')
                     ->image(),
+                TextInput::make('question_image_caption'),
                 FileUpload::make('answer_image_url')
                     ->disk('s3-public')
                     ->directory('images/flashcards')
                     ->visibility('public')
                     ->image(),
+                TextInput::make('answer_image_caption'),
                 Select::make('eicas_type')
                     ->options([
                         1 => 'WARNING',
