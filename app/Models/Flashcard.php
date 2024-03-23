@@ -21,7 +21,9 @@ class Flashcard extends Model
         'answer_image_url',
         'reference',
         'eicas_type',
-        'eicas_message'
+        'eicas_message',
+        'question_image_caption',
+        'answer_image_caption'
     ];
 
     protected $casts = [

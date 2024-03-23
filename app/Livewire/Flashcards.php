@@ -22,7 +22,9 @@ class Flashcards extends Component
     public $eicas_message = null;
 
     public $questionImageUpload;
+    public $question_image_caption;
     public $answerImageUpload;
+    public $answer_image_caption;
 
     public $showByCategory;
 
