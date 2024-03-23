@@ -27,6 +27,8 @@ class FlashcardRequest extends FormRequest
             'reference' => [new Enum(FlashcardReference::class)],
             'eicas_type' => [new Enum(FlashcardEicasType::class), 'nullable'],
             'eicas_message' => ['present', 'string', 'nullable'],
+            'question_image_caption' => ['present', 'string', 'nullable'],
+            'answer_image_caption' => ['present', 'string', 'nullable'],
         ];
     }
 }

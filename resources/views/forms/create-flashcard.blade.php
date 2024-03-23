@@ -63,13 +63,27 @@
                         <div class="form-error">{{ $message }}</div>
                     @enderror
                 </div>
+                <div class="col-span-3 sm:col-span-2">
+                    <input type="text" wire:model.live="question_image_caption" placeholder="optional caption" class="placeholder:italic placeholder:text-slate-400 placeholder:text-sm">
+                    @error('question_image_caption')
+                        <div class="form-error">{{ $message }}</div>
+                    @enderror
+                </div>
+            </div>
+            <div class="grid grid-cols-3 mt-3">
                 <div class="col-span-3 sm:col-span-1">
                     <input type="file" wire:model.live="answerImageUpload">
                     @error('answerImageUpload')
                         <div class="form-error">{{ $message }}</div>
                     @enderror
                 </div>
-                <div class="col-span-3 sm:col-span-1 pb-1">
+                <div class="col-span-3 sm:col-span-2">
+                    <input type="text" wire:model.live="answer_image_caption" placeholder="optional caption" class="placeholder:italic placeholder:text-slate-400 placeholder:text-sm">
+                    @error('answer_image_caption')
+                        <div class="form-error">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="col-span-3 sm:col-span-1 pb-1 mt-3">
                     <button type="submit" class="w-full text-xs bg-blue-500 text-white font-semibold p-2 rounded-md shadow">Submit</button>
                 </div>
             </div>
