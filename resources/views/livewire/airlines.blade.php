@@ -40,7 +40,7 @@
                             </svg>
                         @endif
                     </x-table.td>
-                    <x-table.td>{{ $airline->sector->getFullName() }}</x-table.td>
+                    <x-table.td>{{ $airline->sector->getLabel() }}</x-table.td>
                     <x-table.td>
                         @if ($airline->scales_count > 0)
                             <x-button wire:click="showScales({{ $airline->id }})" type="button">View</x-button>
@@ -135,14 +135,14 @@
         <x-api-list>
             <x-slot:items>
                 <x-api-li type="Collection Response" params="scales=boolean" endpoint="v1/airlines?scales=true">
-                    <pre><x-torchlight-code language='php' contents='views/torchlight/api/airlines/collection-response.blade.php'/></pre>
+                    {{-- <pre><x-torchlight-code language='php' contents='views/torchlight/api/airlines/collection-response.blade.php'/></pre> --}}
                 </x-api-li>
             </x-slot:items>
         </x-api-list>
         <x-api-list>
             <x-slot:items>
                 <x-api-li type="Model Response" params="icao=airline->icao" endpoint="v1/airlines?icao=gti">
-                    <pre><x-torchlight-code language='php' contents='views/torchlight/api/airlines/model-response.blade.php'/></pre>
+                    {{-- <pre><x-torchlight-code language='php' contents='views/torchlight/api/airlines/model-response.blade.php'/></pre> --}}
                 </x-api-li>
             </x-slot:items>
         </x-api-list>
