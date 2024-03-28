@@ -66,6 +66,10 @@ class AirlineResource extends Resource
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\IconColumn::make('is_hiring')
+                    ->boolean()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\IconColumn::make('scales_exists')
+                    ->exists('scales')
                     ->boolean(),
                 Tables\Columns\TextColumn::make('web_url')
                     ->searchable(),
