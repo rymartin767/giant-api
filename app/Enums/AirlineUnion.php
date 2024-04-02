@@ -9,6 +9,8 @@ enum AirlineUnion : int
     case ALPA = 2;
     case SAPA = 3;
     case NONE = 4;
+    case APA = 5;
+    case IPA = 6;
 
     public function getLabel() : string
     {
@@ -16,7 +18,9 @@ enum AirlineUnion : int
             self::IBT => 'IBT',
             self::ALPA => 'APA',
             self::SAPA => 'SAPA',
-            self::NONE => 'None'
-         };
+            self::NONE => 'None',
+            self::APA => 'APA',
+            self::IPA => 'IPA',
+          };
     }
 }
