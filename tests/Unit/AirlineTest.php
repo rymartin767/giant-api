@@ -31,13 +31,13 @@ test('airline slug attribute setter to name and icao', function () {
 test('airline sector attribute enum', function () {
     $airline = Airline::factory()->create(['sector' => 1]);
     $this->assertTrue($airline->sector->name == 'CARGO');
-    $this->assertTrue($airline->sector->getFullName() == 'Cargo');
+    $this->assertTrue($airline->sector->getLabel() == 'Cargo');
 });
 
 test('airline union attribute enum', function () {
     $airline = Airline::factory()->create(['union' => 1]);
     $this->assertTrue($airline->union->name == 'IBT');
-    $this->assertTrue($airline->union->getFullName() == 'International Brotherhood of Teamsters');
+    $this->assertTrue($airline->union->getLabel() == 'IBT');
 });
 
 it('has a scope for Atlas', function () {
