@@ -98,7 +98,7 @@ it('will return a collection response with correct format for captains', functio
     $this->actingAs(sanctumToken())->get('v1/awards/juniors?seat=CA')
         ->assertExactJson([
             'data' => [
-                'award_date' => 'February 2024',
+                'award_date' => 'March 2024',
                 'dohs' => [
                     'MIA 777' => '05/31/2018',
                     'ANC 747' => '08/07/2020',
@@ -125,7 +125,7 @@ it('will return a collection response with correct format for first officers', f
     $this->actingAs(sanctumToken())->get('v1/awards/juniors?seat=FO')
         ->assertExactJson([
             'data' => [
-                'award_date' => 'February 2024',
+                'award_date' => 'March 2024',
                 'dohs' => [
                     'MIA 747' => '08/07/2015',
                     'ANC 747' => 'New Hire'
