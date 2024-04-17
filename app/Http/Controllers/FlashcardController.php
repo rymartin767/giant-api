@@ -36,7 +36,8 @@ final class FlashcardController
                 query: Flashcard::query(),
                 category: request('category')
             )->get()->each(function ($card) {
-                return $card->category_string = $card->category->name;
+                $card->category_name = $card->category->name;
+                $card->reference_name = $card->reference->name;
             })->take(request('count'));
     
             if ($flashcards->isEmpty()) {
@@ -59,7 +60,10 @@ final class FlashcardController
             $flashcards = $this->query->handle(
                 query: Flashcard::query(),
                 reference: request('reference')
-            )->get()->take(request('count'));
+            )->get()->each(function ($card) {
+                $card->category_name = $card->category->name;
+                $card->reference_name = $card->reference->name;
+            })->take(request('count'));
     
             if ($flashcards->isEmpty()) {
                 return new EmptyResponse();
@@ -81,7 +85,10 @@ final class FlashcardController
         // Collection Handling
         $flashcards = $this->query->handle(
             query: Flashcard::query(),
-        )->get()->shuffle()->take(request('count'));
+        )->get()->each(function ($card) {
+            $card->category_name = $card->category->name;
+            $card->reference_name = $card->reference->name;
+        })->shuffle()->take(request('count'));
 
         // Collection Handling: Empty Response
         if ($flashcards->isEmpty())
