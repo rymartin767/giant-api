@@ -35,7 +35,9 @@ final class FlashcardController
             $flashcards = $this->query->handle(
                 query: Flashcard::query(),
                 category: request('category')
-            )->get()->take(request('count'));
+            )->get()->each(function ($card) {
+                return $card->category_string = $card->category->name;
+            })->take(request('count'));
     
             if ($flashcards->isEmpty()) {
                 return new EmptyResponse();
