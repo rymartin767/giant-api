@@ -51,4 +51,10 @@ Route::middleware('auth:sanctum')->group(function() {
         
         return new JsonResponse($event, 200);
     });
+
+    Route::get('swift-events', function() {
+        $events = Event::all();
+        
+        return new JsonResponse($events, 200);
+    });
 });
