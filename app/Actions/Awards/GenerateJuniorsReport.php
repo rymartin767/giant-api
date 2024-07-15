@@ -31,12 +31,8 @@ final readonly class GenerateJuniorsReport
     {
         return collect([
             'ANC 747',
-            'CVG 737',
             'CVG 747',
-            'CVG 767',
             'CVG 777',
-            'IAH 747',
-            'IAH 767',
             'JFK 747',
             'JFK 767',
             'LAX 747',
@@ -44,10 +40,6 @@ final readonly class GenerateJuniorsReport
             'MIA 747',
             'MIA 777',
             'ORD 747',
-            'ONT 767',
-            'PDX 737',
-            'PDX 767',
-            'TPA 767',
         ]);
     }
 
