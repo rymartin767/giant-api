@@ -14,8 +14,8 @@ final class ValidateStaffingRequest
     {
         $validator = Validator::make($this->request->all(), [
             'list_date' => 'required|date',
-            'total_pilot_count' => 'required|integer|max:3000',
-            'active_pilot_count' => 'required|integer|max:3000',
+            'total_pilot_count' => 'required|integer',
+            'active_pilot_count' => 'required|integer',
             'inactive_pilot_count' => 'required|integer',
             'net_gain_loss' => 'required|integer',
             'ytd_gain_loss' => 'required|integer',
