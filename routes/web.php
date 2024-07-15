@@ -11,6 +11,7 @@ use App\Livewire\Staffings;
 use App\Livewire\Flashcards;
 use App\Livewire\Flashcards\Edit;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Award\JuniorsController;
 
 
 /*
@@ -59,3 +60,5 @@ Route::middleware('admin')->group(function() {
 
     Route::get('charts', Charts::class)->name('charts');
 });
+
+Route::get('awards/juniors', JuniorsController::class)->name('api.awards.juniors');
